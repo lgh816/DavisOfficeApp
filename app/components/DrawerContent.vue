@@ -1,33 +1,21 @@
 <template lang="html">
     <GridLayout rows="auto, *" class="sidedrawer sidedrawer-left">
         <StackLayout row="0" class="sidedrawer-header">
-            <Label class="sidedrawer-header-image fa" text.decode="&#xf2bd;"></Label>
             <Label class="sidedrawer-header-brand" text="User Name"></Label>
-            <Label class="footnote" text="username@mail.com"></Label>
         </StackLayout>
     
         <ScrollView row="1" class="sidedrawer-content">
             <StackLayout>
-                <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Home' ? ' selected': '')" @tap="onNavigationItemTap(Home)">
+                <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Dashboard' ? ' selected': '')" @tap="onNavigationItemTap(Dashboard)">
                     <Label col="0" text.decode="&#xf015;" class="fa"></Label>
-                    <Label col="1" text="Home" class="p-r-10"></Label>
+                    <Label col="1" text="Dashboard" class="p-r-10"></Label>
                 </GridLayout>
 
-                <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Browse' ? ' selected': '')" @tap="onNavigationItemTap(Browse)">
+                <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Utm' ? ' selected': '')" @tap="onNavigationItemTap(Utm)">
                     <Label col="0" text.decode="&#xf1ea;" class="fa"></Label>
-                    <Label col="1" text="Browse" class="p-r-10"></Label>
+                    <Label col="1" text="UTM" class="p-r-10"></Label>
                 </GridLayout>
 
-                <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Search' ? ' selected': '')" @tap="onNavigationItemTap(Search)">
-                    <Label col="0" text.decode="&#xf002;" class="fa"></Label>
-                    <Label col="1" text="Search" class="p-r-10"></Label>
-                </GridLayout>
-
-                <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Featured' ? ' selected': '')" @tap="onNavigationItemTap(Featured)">
-                    <Label col="0" text.decode="&#xf005;" class="fa"></Label>
-                    <Label col="1" text="Featured" class="p-r-10"></Label>
-                </GridLayout>
-    
                 <StackLayout class="hr-light"></StackLayout>
 
                 <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Settings' ? ' selected': '')" @tap="onNavigationItemTap(Settings)">
@@ -40,8 +28,8 @@
 </template>
 
 <script>
-    import Home from "./Home";
-    import Browse from "./Browse";
+    import Dashboard from "./Dashboard";
+    import Utm from "./Utm";
     import Featured from "./Featured";
     import Search from "./Search";
     import Settings from "./Settings";
@@ -55,8 +43,8 @@
         },
         data () {
             return {
-                Home: Home,
-                Browse: Browse,
+                Dashboard: Dashboard,
+                Utm: Utm,
                 Featured: Featured,
                 Search: Search,
                 Settings: Settings,
@@ -64,8 +52,8 @@
             };
         },
         components: {
-            Home,
-            Browse,
+            Dashboard,
+            Utm,
             Featured,
             Search,
             Settings
@@ -86,7 +74,7 @@
     @import '../app-variables';
 
     // Drawer navigation custom styles
-    $sidedrawer-header-image-size: 60;
+    $sidedrawer-header-image-size: 30;
     $sidedrawer-header-image-offset-top: 20;
     $sidedrawer-header-image-offset-bottom: 5;
     $sidedrawer-list-item-offset-left: 15;
@@ -113,7 +101,7 @@
 
         .sidedrawer-header {
             background-color: $ab-background;
-
+                
             .sidedrawer-header-brand {
                 color: $ab-color;
             }

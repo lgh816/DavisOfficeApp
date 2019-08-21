@@ -22,18 +22,15 @@
                     <StackLayout class="hr-light"></StackLayout>
                 </StackLayout>
 
-                <StackLayout row="2" orientation="horizontal" class="input-field">
-                    <StackLayout orientation="horizontal" class="licenseBtn" @tap="addLicense">
-                        <Image class="licenseIcon" src="~/images/login/ico_login_license.png"></Image>
-                        <Label :text="license.text" verticalAlignment="center"></Label>
-                    </StackLayout>
-                    <StackLayout orientation="horizontal" class="languageBtn" @tap="selectLanguage">
-                        <Label :text="language.text" verticalAlignment="center"></Label>
+                <StackLayout row="2" class="input-field">
+                    <StackLayout orientation="horizontal">
+                        <Button :text="loginTxt.text" @tap="submit()" class="btn btn-primary loginBtn"></Button>
+                        <Button :text="language.text" @tap="selectLanguage()" class="btn btn-primary languageBtn"></Button>
                     </StackLayout>
                 </StackLayout>
 
-                <Button :text="loginTxt.text" @tap="submit()" class="btn btn-primary"></Button>
                 <Label :v-show="errorMsgFlag" :text="errorMsg" class="errorMsgTxt"></Label>
+
             </StackLayout>
 
         </FlexboxLayout>
@@ -62,7 +59,7 @@
                     userPassword: ''
                 },
                 listOfItems : {
-                    text : ['English', 'Korean', 'Japan']
+                    text : ['English', 'Korean']
                 }
             };
         },
@@ -70,27 +67,12 @@
             submit() {
                 if (this.user.userId == "q" && this.user.userPassword == "q") {
                     this.$navigateTo(
-                        this.$routes.Home, {clearHistory: true}
+                        this.$routes.Dashboard, {clearHistory: true}
                     );
                 } else {
                     this.errorMsgFlag = true;
                     this.errorMsg = "Information does not match.";
                 }
-                // if (!this.user.email || !this.user.password) {
-                //     this.alert(
-                //         "Please provide both an email address and password."
-                //     );
-                //     return;
-                // }
-
-                // this.processing = true;
-                // if (this.isLoggingIn) {
-                //     this.login();
-                // } else {
-                //     this.register();
-                // }
-                
-                // this.$navigateTo(Home, { clearHistory: true });
             },
 
             login() {
@@ -120,7 +102,7 @@
                     title : 'Select language',
                     cancelButtonText : 'Cancel',
                     cancelable: true,
-                    actions : ['English', '한국어', '日本語']
+                    actions : ['English', '한국어']
                 }
 
                 action(options).then((result) => {
@@ -132,9 +114,6 @@
                         } else if (result == 'English') {
                             this.license.text = 'License';
                             this.loginTxt.text = "Login";
-                        } else if (result == '日本語') {
-                            this.license.text = 'ライセンス';
-                            this.loginTxt.text = "ログイン";
                         }
                     }
                 });
@@ -219,7 +198,7 @@
     }
 
     .logo {
-        margin-bottom: 12;
+        margin-bottom: 50;
         width: 80%;
         font-weight: bold;
     }
@@ -234,30 +213,6 @@
         margin-right: 10;
     }
 
-    .licenseIcon {
-        width: 15;
-        height: 15;
-        margin-left: -5;
-    }
-
-    .licenseBtn {
-        width: 49%;
-        height: 40;
-        border-width: 1px;
-        border-color: #0854dc;
-        background-color: white;
-        margin-right: 1%;
-        horizontal-align: center;
-    }
-    .languageBtn {
-        width: 49%;
-        height: 40;
-        border-width: 1px;
-        border-color: #0854dc;
-        background-color: white;
-        margin-left: 1%;
-        horizontal-align: center;
-    }
     .errorMsgTxt {
         color: red;
         horizontal-align: center;
@@ -271,7 +226,7 @@
     }
 
     .input-field {
-        margin-bottom: 18;
+        margin-bottom: 20;
     }
 
     .input {
@@ -299,8 +254,19 @@
         color: #000000;
     }
 
-    .btn-primary {
-        width: 100%;
+    .loginBtn {
         background-color: #0080dc;
+        width: 70%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .languageBtn {
+        background-color: white;
+        width: 30%;
+        color: #0080dc;
+        border-color: #0080dc;
+        margin-left: 0;
+        margin-right: 0;
     }
 </style>

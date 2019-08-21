@@ -16,11 +16,11 @@
                 @tap="onDrawerButtonTap"
                 ios.position="left">
             </ActionItem>
-            <Label class="action-bar-title" text="Browse"></Label>
+            <Label class="action-bar-title" text="Dashboard"></Label>
         </ActionBar>
 
         <GridLayout class="page-content">
-            <Label class="page-icon fa" text.decode="&#xf1ea;"></Label>
+            <Label class="page-icon fa" text.decode="&#xf015;"></Label>
             <Label class="page-placeholder" :text="message"></Label>
         </GridLayout>
 
@@ -33,7 +33,7 @@
 
     export default {
         mounted() {
-            SelectedPageService.getInstance().updateSelectedPage("Browse");
+            SelectedPageService.getInstance().updateSelectedPage("Dashboard");
         },
         computed: {
             message() {

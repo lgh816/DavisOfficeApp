@@ -1,13 +1,13 @@
 import Login from '~/components/Login'
 import App from '~/components/App'
 import DrawerContent from '~/components/DrawerContent'
-import Home from '~/components/Home'
+import Dashboard from '~/components/Dashboard'
 
 const routes = {
   Login,
   App,
   DrawerContent,
-  Home
+  Dashboard
 }
 
 export default routes
