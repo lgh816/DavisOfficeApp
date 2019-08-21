@@ -101,7 +101,7 @@
 
         .sidedrawer-header {
             background-color: $ab-background;
-                
+            
             .sidedrawer-header-brand {
                 color: $ab-color;
             }

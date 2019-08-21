@@ -16,7 +16,7 @@
                 @tap="onDrawerButtonTap"
                 ios.position="left">
             </ActionItem>
-            <Label class="action-bar-title" text="Browse"></Label>
+            <Label class="action-bar-title" text="UTM"></Label>
         </ActionBar>
 
         <GridLayout class="page-content">
