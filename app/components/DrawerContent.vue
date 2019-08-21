@@ -7,12 +7,12 @@
         <ScrollView row="1" class="sidedrawer-content">
             <StackLayout>
                 <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Dashboard' ? ' selected': '')" @tap="onNavigationItemTap(Dashboard)">
-                    <Label col="0" text.decode="&#xf015;" class="fa"></Label>
+                    <Label col="0" text.decode="&#xf200;" class="fa"></Label>
                     <Label col="1" text="Dashboard" class="p-r-10"></Label>
                 </GridLayout>
 
                 <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Utm' ? ' selected': '')" @tap="onNavigationItemTap(Utm)">
-                    <Label col="0" text.decode="&#xf1ea;" class="fa"></Label>
+                    <Label col="0" text.decode="&#xf022;" class="fa"></Label>
                     <Label col="1" text="UTM" class="p-r-10"></Label>
                 </GridLayout>
 
@@ -74,7 +74,6 @@
     @import '../app-variables';
 
     // Drawer navigation custom styles
-    $sidedrawer-header-image-size: 30;
     $sidedrawer-header-image-offset-top: 20;
     $sidedrawer-header-image-offset-bottom: 5;
     $sidedrawer-list-item-offset-left: 15;
@@ -86,9 +85,6 @@
 
             .sidedrawer-header-image {
                 color: $background-dark;
-                height: $sidedrawer-header-image-size;
-                width: $sidedrawer-header-image-size;
-                font-size: $sidedrawer-header-image-size;
                 padding: 0;
                 margin-bottom: $sidedrawer-header-image-offset-bottom;
                 margin-top: $sidedrawer-header-image-offset-top;

@@ -1,16 +1,7 @@
 <template>
     <Page class="page">
         <ActionBar class="action-bar">
-            <!-- 
-            Use the NavigationButton as a side-drawer button in Android
-            because ActionItems are shown on the right side of the ActionBar
-            -->
             <NavigationButton ios:visibility="collapsed" icon="res://menu" @tap="onDrawerButtonTap"></NavigationButton>
-            <!-- 
-            Use the ActionItem for IOS with position set to left. Using the
-            NavigationButton as a side-drawer button in iOS is not possible,
-            because its function is to always navigate back in the application.
-            -->
             <ActionItem icon="res://navigation/menu" 
                 android:visibility="collapsed" 
                 @tap="onDrawerButtonTap"
@@ -18,22 +9,80 @@
             </ActionItem>
             <Label class="action-bar-title" text="Dashboard"></Label>
         </ActionBar>
+        <ScrollView>
+            <FlexboxLayout flexDirection="column">
 
-        <GridLayout class="page-content">
-            <Label class="page-icon fa" text.decode="&#xf015;"></Label>
-            <Label class="page-placeholder" :text="message"></Label>
-        </GridLayout>
+                <StackLayout row="0" height="200" class="pieChartArea">
+                    <Label class="chartTitle" text="Web Filter Category TOP5"></Label>
+                    <RadPieChart allowAnimation="true" row="0">
+                        <PieSeries v-tkPieSeries
+                                    selectionMode="DataPoint"
+                                    expandRadius="0.4"
+                                    outerRadiusFactor="0.7"
+                                    valueProperty="Amount"
+                                    legendLabel="Category"
+                                    :items="pieItems" />
 
+                        <RadLegendView v-tkPieLegend position="Left" offsetOrigin="TopRight" width="150" enableSelection="true"></RadLegendView>
+                    </RadPieChart>
+                </StackLayout>
+
+                <StackLayout row="1" height="200">
+                    <Label class="chartTitle" text="Anti Spam Block State"></Label>
+                    <RadCartesianChart>
+                        <CategoricalAxis v-tkCartesianHorizontalAxis></CategoricalAxis>
+                        <LinearAxis v-tkCartesianVerticalAxis></LinearAxis>
+                        <BarSeries v-tkCartesianSeries :items="barItems" categoryProperty="Category" valueProperty="Amount"></BarSeries>
+                    </RadCartesianChart>
+                </StackLayout>
+
+                <StackLayout row="0" height="200" class="pieChartArea">
+                    <Label class="chartTitle" text="Web Filter Category TOP5"></Label>
+                    <RadPieChart allowAnimation="true" row="0">
+                        <PieSeries v-tkPieSeries
+                                    selectionMode="DataPoint"
+                                    expandRadius="0.4"
+                                    outerRadiusFactor="0.7"
+                                    valueProperty="Amount"
+                                    legendLabel="Category"
+                                    :items="pieItems" />
+
+                        <RadLegendView v-tkPieLegend position="Left" offsetOrigin="TopRight" width="150" enableSelection="true"></RadLegendView>
+                    </RadPieChart>
+                </StackLayout>
+
+            </FlexboxLayout>
+        </ScrollView>
     </Page>
 </template>
 
 <script>
     import * as utils from "~/shared/utils";
     import SelectedPageService from "../shared/selected-page-service";
+    // import GetDashboardData from "../service/dashboard";
+    // import { getPieData } from "../service/dashboard";
 
     export default {
         mounted() {
             SelectedPageService.getInstance().updateSelectedPage("Dashboard");
+        },
+        data () {
+            return {
+                // items : getPieData()
+                pieItems : [
+                    { Category: 'Test Company1', Amount: 10 },
+                    { Category: 'Test Company2', Amount: 76 },
+                    { Category: 'Test Company3', Amount: 60 },
+                    { Category: 'Test Company4', Amount: 24 },
+                    { Category: 'Test Company5', Amount: 40 }
+                ],
+                barItems : [
+                    { Category: 'Block', Amount: 479},
+                    { Category: 'Log', Amount: 499},
+                    { Category: 'Notfication', Amount: 502},
+                    { Category: 'Pass', Amount: 450}
+                ]
+            }
         },
         computed: {
             message() {
@@ -48,10 +97,18 @@
     };
 </script>
 
-<style scoped lang="scss">
-    // Start custom common variables
-    @import '../app-variables';
-    // End custom common variables
+<style scoped>
+    .pieChartArea {
+        border: 1;
+        border-color: black;
+    }
 
-    // Custom styles
+    .chartTitle {
+        background-color: #5699e8;
+        color: white;
+        font-size: 18;
+        width: 100%;
+        text-align: left;
+        padding-left: 10;
+    }
 </style>
