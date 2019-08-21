@@ -106,9 +106,11 @@
     .chartTitle {
         background-color: #5699e8;
         color: white;
-        font-size: 18;
+        height: 25;
+        font-size: 16;
         width: 100%;
         text-align: left;
         padding-left: 10;
+        margin-top: 5;
     }
 </style>
