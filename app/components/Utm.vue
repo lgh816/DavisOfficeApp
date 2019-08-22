@@ -19,10 +19,39 @@
             <Label class="action-bar-title" text="UTM"></Label>
         </ActionBar>
 
-        <GridLayout class="page-content">
-            <Label class="page-icon fa" text.decode="&#xf1ea;"></Label>
-            <Label class="page-placeholder" :text="message"></Label>
-        </GridLayout>
+        <ScrollView>
+            <FlexboxLayout flexDirection="column">
+
+                <StackLayout row="0" height="250" class="utmArea">
+                    <Label class="utmTitle" text="PartnerInfo"></Label>
+                </StackLayout>
+
+                <StackLayout row="1" height="300" class="utmArea">
+                    <Label class="utmTitle" text="UTM List"></Label>
+                        <GridLayout columns="auto, *, auto, auto, auto, auto, auto, auto" rows="50" class="table table-standings">
+                                <Label text="No." textWrap="true" row="0" col="0" class="th no"></Label>
+                                <Label text="ID" textWrap="true" row="0" col="1" class="th id"></Label>
+                                <Label text="Name" textWrap="true" row="0" col="2" class="th name"></Label>
+                                <Label text="S/N" textWrap="true" row="0" col="3" class="th sn"></Label>
+                                <Label text="Status" textWrap="true" row="0" col="4" class="th status"></Label>
+                                <Label text="Period" textWrap="true" row="0" col="5" class="th Period"></Label>
+                        </GridLayout>
+                        <ListView for="item in listOfItems" >
+                            <v-template>
+                                <GridLayout columns="auto, *, auto, auto, auto, auto, auto, auto" rows="40" class="table table-list">
+                                    <Label :text="item.no" textWrap="true" row="0" col="0" class="th no"></Label>
+                                    <Label :text="item.name" textWrap="true" row="0" col="1" class="th id"></Label>
+                                    <Label :text="item.id" textWrap="true" row="0" col="2" class="th name"></Label>
+                                    <Label :text="item.sn" textWrap="true" row="0" col="3" class="th sn"></Label>
+                                    <Label :text="item.status" textWrap="true" row="0" col="4" class="th status"></Label>
+                                    <Label :text="item.peroid" textWrap="true" row="0" col="5" class="th Period"></Label>
+                                </GridLayout>
+                            </v-template>
+                        </ListView>
+                </StackLayout>
+
+            </FlexboxLayout>
+        </ScrollView>
 
     </Page>
 </template>
@@ -35,9 +64,16 @@
         mounted() {
             SelectedPageService.getInstance().updateSelectedPage("Utm");
         },
-        computed: {
-            message() {
-                return "<!-- Page content goes here -->";
+        data() {
+            return {
+                listOfItems: [
+                    {no:1, id: "choi", name: "seongjin", sn: "A123", status: "active", peroid: 10 },
+                    {no:2, id: "choi", name: "seongjin", sn: "A123", status: "active", peroid: 10 },
+                    {no:3, id: "choi", name: "seongjin", sn: "A123", status: "active", peroid: 10 },
+                    {no:4, id: "choi", name: "seongjin", sn: "A123", status: "active", peroid: 10 },
+                    {no:5, id: "choi", name: "seongjin", sn: "A123", status: "active", peroid: 10 },
+                    {no:6, id: "choi", name: "seongjin", sn: "A123", status: "active", peroid: 10 }
+                ]
             }
         },
         methods: {
@@ -48,10 +84,55 @@
     };
 </script>
 
-<style scoped lang="scss">
-    // Start custom common variables
-    @import '../app-variables';
-    // End custom common variables
+<style scoped>
+    .utmArea {
+        border: 1;
+        border-color: black;
+    }
 
-    // Custom styles
+    .utmTitle {
+        background-color: #5699e8;
+        color: white;
+        height: 25;
+        font-size: 16;
+        width: 100%;
+        text-align: left;
+        padding-left: 10;
+        margin-top: 5;
+    }
+
+    .table {
+        width: 100%;
+        background-color: #fff;
+    }
+
+    .table-standings {
+        border-width: 1 1 0 1;
+        border-color: #e6eef4
+    }
+
+    .table-standings Label {
+        white-space: nowrap;
+        font-size: 12;
+        color: #5c6265;
+        vertical-align: middle
+    }
+
+
+    .table-list .th {
+        background-color: #e6eef4
+    }
+
+    .table-list .th Label {
+        color: #00476d
+    }
+
+    .table-list .th,
+    .table-list .td {
+        padding: 10;
+        border-color: #e6eef4
+    }
+    
+
+    
 </style>
