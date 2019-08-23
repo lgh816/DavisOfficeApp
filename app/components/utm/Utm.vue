@@ -24,11 +24,30 @@
 
                 <StackLayout row="0" height="250" class="utmArea">
                     <Label class="utmTitle" text="PartnerInfo"></Label>
+
+                    <GridLayout  columns="auto, auto" rows="50, 50" >
+                        <Label text="Partner :" textWrap="true" row="0" col="0" class="th partner"></Label>
+                        <Label text="Test1" textWrap="true" row="0" col="1" class="th partner"></Label>
+
+                        <Label text="Customer :" textWrap="true" row="1" col="0" class="th customer"></Label>
+                        <Label text="Test2" textWrap="true" row="1" col="1" class="th customer"></Label>
+                    </GridLayout>
+
+                    <!-- <StackLayout row="0" height="100">
+                        <Label class="partnerTitle" text="Partner : "></Label>
+                        <ListPicker class="partnerList" :items="comboOfItems" selectedIndex="0" />
+                    </StackLayout>
+                    <StackLayout row="1" height="100">
+                        <Label class="partnerTitle" text="Customer : "></Label>
+                        <ListPicker class="partnerList" :items="comboOfItems" selectedIndex="0" />
+                    </StackLayout> -->
+
+                    <Button text="Button" />
                 </StackLayout>
 
                 <StackLayout row="1" height="300" class="utmArea">
                     <Label class="utmTitle" text="UTM List"></Label>
-                        <GridLayout columns="auto, *, auto, auto, auto, auto, auto, auto" rows="50" class="table table-standings">
+                        <GridLayout columns="auto, *, auto, auto, auto, auto" rows="50" class="table table-standings">
                                 <Label text="No." textWrap="true" row="0" col="0" class="th no"></Label>
                                 <Label text="ID" textWrap="true" row="0" col="1" class="th id"></Label>
                                 <Label text="Name" textWrap="true" row="0" col="2" class="th name"></Label>
@@ -38,7 +57,7 @@
                         </GridLayout>
                         <ListView for="item in listOfItems" >
                             <v-template>
-                                <GridLayout columns="auto, *, auto, auto, auto, auto, auto, auto" rows="40" class="table table-list">
+                                <GridLayout columns="auto, *, auto, auto, auto, auto" rows="40" class="table table-list">
                                     <Label :text="item.no" textWrap="true" row="0" col="0" class="th no"></Label>
                                     <Label :text="item.name" textWrap="true" row="0" col="1" class="th id"></Label>
                                     <Label :text="item.id" textWrap="true" row="0" col="2" class="th name"></Label>
@@ -59,6 +78,7 @@
 <script>
     import * as utils from "~/service/utils/utils";
     import SelectedPageService from "~/service/utils/selected-page-service";
+    import { DropDown } from 'nativescript-drop-down';
 
     export default {
         mounted() {
@@ -73,6 +93,9 @@
                     {no:4, id: "choi", name: "seongjin", sn: "A123", status: "active", peroid: 10 },
                     {no:5, id: "choi", name: "seongjin", sn: "A123", status: "active", peroid: 10 },
                     {no:6, id: "choi", name: "seongjin", sn: "A123", status: "active", peroid: 10 }
+                ],
+                comboOfItems : [
+                    "Test01", "Test02", "Test03"
                 ]
             }
         },
@@ -101,6 +124,14 @@
         margin-top: 5;
     }
 
+    .partnerList {
+        width : 50%;
+    }
+
+    .partnerTitle {
+        margin-top: 5;
+        margin-left: 5;
+    }
     .table {
         width: 100%;
         background-color: #fff;
