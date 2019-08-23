@@ -28,13 +28,11 @@
 </template>
 
 <script>
-    import Dashboard from "./Dashboard";
-    import Utm from "./Utm";
-    import Featured from "./Featured";
-    import Search from "./Search";
-    import Settings from "./Settings";
-    import * as utils from "~/shared/utils";
-    import SelectedPageService from "~/shared/selected-page-service";    
+    import Dashboard from "../dashboard/Dashboard";
+    import Utm from "../utm/Utm";
+    import Settings from "../settings/Settings";
+    import * as utils from "~/service/utils/utils";
+    import SelectedPageService from "~/service/utils/selected-page-service";    
     
     export default {
         mounted() {
@@ -45,8 +43,6 @@
             return {
                 Dashboard: Dashboard,
                 Utm: Utm,
-                Featured: Featured,
-                Search: Search,
                 Settings: Settings,
                 selectedPage: ""
             };
@@ -54,8 +50,6 @@
         components: {
             Dashboard,
             Utm,
-            Featured,
-            Search,
             Settings
         },
         methods: {
@@ -71,7 +65,7 @@
 
 <style scoped lang="scss">
     // Custom common variables
-    @import '../app-variables';
+    @import '../../app-variables';
 
     // Drawer navigation custom styles
     $sidedrawer-header-image-offset-top: 20;

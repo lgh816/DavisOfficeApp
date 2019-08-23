@@ -57,8 +57,8 @@
 </template>
 
 <script>
-    import * as utils from "~/shared/utils";
-    import SelectedPageService from "../shared/selected-page-service";
+    import * as utils from "~/service/utils/utils";
+    import SelectedPageService from "~/service/utils/selected-page-service";
 
     export default {
         mounted() {
