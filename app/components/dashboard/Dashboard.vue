@@ -139,7 +139,7 @@
     }
 
     .gridTitle {
-        background-color: rgb(140, 176, 230);
+        background-color: rgb(178, 202, 236);
         text-align: center;
         border-width: 1;
         border-color: rgb(173, 170, 170);

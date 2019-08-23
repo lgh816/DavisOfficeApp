@@ -2,6 +2,7 @@
     <GridLayout rows="auto, *" class="sidedrawer sidedrawer-left">
         <StackLayout row="0" class="sidedrawer-header">
             <Label class="sidedrawer-header-brand" text="User Name"></Label>
+            <Label class="sidedrawer-header-brand" text="userMail@yescnc.co.kr"></Label>
         </StackLayout>
     
         <ScrollView row="1" class="sidedrawer-content">
@@ -91,7 +92,7 @@
 
         .sidedrawer-header {
             background-color: $ab-background;
-            
+            height: 70;
             .sidedrawer-header-brand {
                 color: $ab-color;
             }
