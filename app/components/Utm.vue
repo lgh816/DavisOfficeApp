@@ -118,21 +118,18 @@
         vertical-align: middle
     }
 
-
-    .table-list .th {
+    .table .th {
         background-color: #e6eef4
     }
 
-    .table-list .th Label {
+    .table .th Label {
         color: #00476d
     }
 
-    .table-list .th,
-    .table-list .td {
+    .table .th,
+    .table .td {
         padding: 10;
         border-color: #e6eef4
     }
-    
-
     
 </style>
