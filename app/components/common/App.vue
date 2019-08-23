@@ -11,7 +11,7 @@
 
 <script>
     import { SlideInOnTopTransition } from 'nativescript-ui-sidedrawer';
-    import SelectedPageService from "../shared/selected-page-service";
+    import SelectedPageService from "../service/utils/selected-page-service";
 
     export default {
       data () {
