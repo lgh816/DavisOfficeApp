@@ -28,9 +28,9 @@
 </template>
 
 <script>
-    import Dashboard from "./Dashboard";
-    import Utm from "./Utm";
-    import Settings from "./Settings";
+    import Dashboard from "../dashboard/Dashboard";
+    import Utm from "../utm/Utm";
+    import Settings from "../settings/Settings";
     import * as utils from "~/service/utils/utils";
     import SelectedPageService from "~/service/utils/selected-page-service";    
     
@@ -65,7 +65,7 @@
 
 <style scoped lang="scss">
     // Custom common variables
-    @import '../app-variables';
+    @import '../../app-variables';
 
     // Drawer navigation custom styles
     $sidedrawer-header-image-offset-top: 20;

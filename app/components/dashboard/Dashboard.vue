@@ -58,7 +58,7 @@
 
 <script>
     import * as utils from "~/service/utils/utils";
-    import SelectedPageService from "../service/utils/selected-page-service";
+    import SelectedPageService from "~/service/utils/selected-page-service";
     // import GetDashboardData from "../service/dashboard";
     // import { getPieData } from "../service/dashboard";
 

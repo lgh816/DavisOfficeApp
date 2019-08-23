@@ -28,7 +28,7 @@
 
 <script>
     import * as utils from "~/service/utils/utils";
-    import SelectedPageService from "../service/utils/selected-page-service";
+    import SelectedPageService from "~/service/utils/selected-page-service";
 
     export default {
         mounted() {
@@ -47,10 +47,6 @@
     };
 </script>
 
-<style scoped lang="scss">
-    // Start custom common variables
-    @import '../app-variables';
-    // End custom common variables
-
-    // Custom styles
+<style scoped>
+    
 </style>
