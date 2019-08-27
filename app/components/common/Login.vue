@@ -25,7 +25,6 @@
                 <StackLayout row="2" class="input-field">
                     <StackLayout orientation="horizontal">
                         <Button :text="loginTxt.text" @tap="submit()" class="btn btn-primary loginBtn"></Button>
-                        <Button :text="language.text" @tap="selectLanguage()" class="btn btn-primary languageBtn"></Button>
                     </StackLayout>
                 </StackLayout>
 
@@ -97,27 +96,6 @@
                 this.alert("Add License");
             },
 
-            selectLanguage() {
-                var options = {
-                    title : 'Select language',
-                    cancelButtonText : 'Cancel',
-                    cancelable: true,
-                    actions : ['English', '한국어']
-                }
-
-                action(options).then((result) => {
-                    if (result != 'Cancel') {
-                        this.language.text = result;
-                        if (result == '한국어') {
-                            this.license.text = "라이선스";
-                            this.loginTxt.text = "로그인";
-                        } else if (result == 'English') {
-                            this.license.text = 'License';
-                            this.loginTxt.text = "Login";
-                        }
-                    }
-                });
-            },
 
             register() {
                 if (this.user.password != this.user.confirmPassword) {
@@ -256,7 +234,6 @@
 
     .loginBtn {
         background-color: #0080dc;
-        width: 70%;
         margin-left: 0;
         margin-right: 0;
     }
