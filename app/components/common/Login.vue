@@ -234,6 +234,7 @@
 
     .loginBtn {
         background-color: #0080dc;
+        width: 100%;
         margin-left: 0;
         margin-right: 0;
     }
