@@ -1,9 +1,10 @@
-import Login from '~/components/common/Login';
-import App from '~/components/common/App';
-import DrawerContent from '~/components/common/DrawerContent';
-import Dashboard from '~/components/dashboard/Dashboard';
-import Utm from '~/components/utm/Utm';
-import Settings from '~/components/settings/Settings';
+import Login from '~/views/Login';
+import App from '~/components/App';
+import DrawerContent from '~/components/DrawerContent';
+import Dashboard from '~/views/Dashboard';
+import Utm from '~/views/Utm';
+import Settings from '~/views/Settings';
+import Sign_Status from '~/views/Sign_Status';
 
 const routes = {
   Login,
@@ -11,6 +12,7 @@ const routes = {
   DrawerContent,
   Dashboard,
   Utm,
+  Sign_Status,
   Settings
 }
 

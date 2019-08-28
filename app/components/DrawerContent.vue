@@ -17,6 +17,11 @@
                     <Label col="1" text="UTM" class="p-r-10"></Label>
                 </GridLayout>
 
+                <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Sign' ? ' selected': '')" @tap="onNavigationItemTap(Sign)">
+                    <Label col="0" text.decode="&#xf022;" class="fa"></Label>
+                    <Label col="1" text="결제 현황" class="p-r-10"></Label>
+                </GridLayout>
+
                 <StackLayout class="hr-light"></StackLayout>
 
                 <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Settings' ? ' selected': '')" @tap="onNavigationItemTap(Settings)">
@@ -29,9 +34,10 @@
 </template>
 
 <script>
-    import Dashboard from "../dashboard/Dashboard";
-    import Utm from "../utm/Utm";
-    import Settings from "../settings/Settings";
+    import Dashboard from "~/views/Dashboard";
+    import Utm from "~/views/Utm";
+    import Settings from "~/views/Settings";
+    import Sign_Status from "~/views/Sign_Status";
     import * as utils from "~/service/utils/utils";
     import SelectedPageService from "~/service/utils/selected-page-service";    
     
@@ -44,6 +50,7 @@
             return {
                 Dashboard: Dashboard,
                 Utm: Utm,
+                Sign : Sign_Status,
                 Settings: Settings,
                 selectedPage: ""
             };
@@ -51,6 +58,7 @@
         components: {
             Dashboard,
             Utm,
+            Sign_Status,
             Settings
         },
         methods: {
@@ -66,7 +74,7 @@
 
 <style scoped lang="scss">
     // Custom common variables
-    @import '../../app-variables';
+    @import '../app-variables';
 
     // Drawer navigation custom styles
     $sidedrawer-header-image-offset-top: 20;
