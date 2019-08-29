@@ -19,6 +19,7 @@ new Vue({
       routes.App,
       [
         h(routes.DrawerContent, { slot: 'drawerContent' }),
+        h(routes.Login, { slot: 'mainContent' })
       ]
     )
   }
