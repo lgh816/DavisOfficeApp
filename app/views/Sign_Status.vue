@@ -2,8 +2,8 @@
     <Page class="page" actionBarHidden="true">
         <!-- <ActionBar class="action-bar">
             <NavigationButton ios:visibility="collapsed" icon="res://menu" @tap="onDrawerButtonTap"></NavigationButton>
-            <ActionItem icon="res://navigation/menu"
-                android:visibility="collapsed"
+            <ActionItem icon="res://navigation/menu" 
+                android:visibility="collapsed" 
                 @tap="onDrawerButtonTap"
                 ios.position="left">
             </ActionItem>
@@ -20,7 +20,7 @@
                     <Label text="결제관리"  ></Label>
                 </StackLayout>
 
-                 <ListView for="item in dataProvider" @itemTap="onItemTap"  separatorColor="transparent"
+                 <ListView for="item in dataProvider" @itemTap="onItemTap"  separatorColor="transparent" 
                             class="itemList">
                     <v-template>
                         <ListComp :item="item" />
@@ -37,10 +37,15 @@
 
     import * as utils from "~/service/utils/utils"
     import SelectedPageService from "~/service/utils/selected-page-service";
+    import ListComp from "../components/sign_status/Sign-List-Comp";
 
     export default {
         mounted(){
 
+        },
+
+        components : {
+            ListComp    
         },
 
         data (){
@@ -60,13 +65,15 @@
             }
         },
 
-        components : {
-            ListComp
-        },
+        
 
         methods : {
              onDrawerButtonTap() {
                 utils.showDrawer();
+            },
+
+            onItemTap(e){
+                console.log(e.item);
             }
         }
     }
@@ -77,5 +84,5 @@
         margin: 5;
     }
 
-
+    
 </style>
