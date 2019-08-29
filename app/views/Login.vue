@@ -37,6 +37,9 @@
 </template>
 
 <script>
+    import axios from 'axios';
+    import CryptoJS from 'crypto-js/sha256';
+
     export default {
         data() {
             return {
@@ -65,6 +68,18 @@
         methods: {
             submit() {
                 if (this.user.userId == "q" && this.user.userPassword == "q") {
+                    var userPwd = this.user.userPassword;
+                    var userId = this.user.userId;
+                    var cnvt = CryptoJS(userPwd).toString();
+                    axios.post('http://200.100.1.140:8081/mobile', {
+                        "id" : userId,
+                        "password" : cnvt,
+                        "isAttend" : false
+                    }).then(function (response) {
+                        console.log("success");
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
                     this.$navigateTo(
                         this.$routes.Dashboard, {clearHistory: true}
                     );
