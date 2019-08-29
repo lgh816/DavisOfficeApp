@@ -13,7 +13,6 @@
             </StackLayout>
         </ActionBar> -->
 
-<<<<<<< HEAD
         <ScrollView class="mainContents">
             <StackLayout height="100%" width="100%">
                 <StackLayout orientation="horizontal"  marginBottom="5">
@@ -21,25 +20,13 @@
                     <Label text="결제관리"  ></Label>
                 </StackLayout>
 
-                <!-- <FlexboxLayout class="page" flexDirection="column" >
-                    <ListComp v-for="item in dataProvider" :item="item"></ListComp>
-                </FlexboxLayout> -->
-             
                  <ListView for="item in dataProvider" @itemTap="onItemTap"  separatorColor="transparent" 
                             class="itemList">
                     <v-template>
                         <ListComp :item="item" />
                     </v-template>
                 </ListView>
-                
             </StackLayout>
-
-            
-=======
-        <ScrollView>
-            <FlexboxLayout class="page">
-            </FlexboxLayout>
->>>>>>> b0b238016b3f8d780a71a22438baecc8ad9cf2e1
 
         </ScrollView>
 
@@ -63,7 +50,6 @@
 
         data (){
             return {
-
                 dataProvider : [
                     {part:'연구1팀', name : '김현진', type : '외근', sign_date : '2019-08-27 09:20:12', period : '2019-08-27', time:'09:00 ~ 18:00', days:'5일'},
                     {part:'연구1팀', name : '김현진', type : '장기외근', sign_date : '2019-08-27 09:20:12', period : '2019-08-27 ~ 2019-08-31', time:'', days:''},
@@ -89,7 +75,6 @@
             }
         }
     }
-<<<<<<< HEAD
 </script>
 
 <style scoped lang="css">
@@ -99,6 +84,3 @@
 
     
 </style>
-=======
-</script>
->>>>>>> b0b238016b3f8d780a71a22438baecc8ad9cf2e1
