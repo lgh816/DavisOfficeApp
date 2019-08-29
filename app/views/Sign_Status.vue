@@ -44,10 +44,6 @@
 
         },
 
-        components () {
-            ListComp    
-        },
-
         data (){
             return {
                 dataProvider : [
@@ -63,6 +59,10 @@
                     {part:'연구1팀', name : '김현진', type : '초과근무', sign_date : '2019-08-27 09:20:12', period : '2019-08-27', time:'', days:''}
                 ]
             }
+        },
+
+        components : {
+            ListComp    
         },
 
         methods : {
