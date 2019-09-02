@@ -22,24 +22,19 @@
         <ScrollView>
             <FlexboxLayout flexDirection="column">
                 <StackLayout row="0" height="500" class="utmArea">
-                    <Label class="utmTitle" text="UTM List"></Label>
                         <GridLayout columns="auto, *, auto, auto, auto, auto" rows="50" class="table table-standings">
-                                <Label text="No." textWrap="true" row="0" col="0" class="th no"></Label>
-                                <Label text="ID" textWrap="true" row="0" col="1" class="th id"></Label>
-                                <Label text="Name" textWrap="true" row="0" col="2" class="th name"></Label>
-                                <Label text="S/N" textWrap="true" row="0" col="3" class="th sn"></Label>
-                                <Label text="Status" textWrap="true" row="0" col="4" class="th status"></Label>
-                                <Label text="Period" textWrap="true" row="0" col="5" class="th Period"></Label>
+                            <Label text="날짜" textWrap="true" row="0" col="0" class="th no"></Label>
+                            <Label text="부서" textWrap="true" row="0" col="1" class="th id"></Label>
+                            <Label text="이름" textWrap="true" row="0" col="2" class="th name"></Label>
+                            <Label text="타입" textWrap="true" row="0" col="3" class="th sn"></Label>
                         </GridLayout>
                         <ListView for="item in listOfItems" >
                             <v-template>
                                 <GridLayout columns="auto, *, auto, auto, auto, auto" rows="40" class="table table-list">
-                                    <Label :text="item.no" textWrap="true" row="0" col="0" class="th no"></Label>
-                                    <Label :text="item.name" textWrap="true" row="0" col="1" class="th id"></Label>
-                                    <Label :text="item.id" textWrap="true" row="0" col="2" class="th name"></Label>
-                                    <Label :text="item.sn" textWrap="true" row="0" col="3" class="th sn"></Label>
-                                    <Label :text="item.status" textWrap="true" row="0" col="4" class="th status"></Label>
-                                    <Label :text="item.peroid" textWrap="true" row="0" col="5" class="th Period"></Label>
+                                    <Label :text="item.date" textWrap="true" row="0" col="0" class="th no"></Label>
+                                    <Label :text="item.dept_name" textWrap="true" row="0" col="1" class="th id"></Label>
+                                    <Label :text="item.name" textWrap="true" row="0" col="2" class="th name"></Label>
+                                    <Label :text="item.out_office_name" textWrap="true" row="0" col="3" class="th sn"></Label>
                                 </GridLayout>
                             </v-template>
                         </ListView>
@@ -54,24 +49,19 @@
 <script>
     import * as utils from "~/service/utils/utils";
     import SelectedPageService from "~/service/utils/selected-page-service";
+    import * as CommuteService from  '../service/commute/CommuteService';
 
     export default {
         mounted() {
             SelectedPageService.getInstance().updateSelectedPage("Utm");
+            CommuteService.commuteToday().then((response) => {
+                var result = response.data;
+                this.listOfItems = result;
+            });
         },
         data() {
             return {
-                listOfItems: [
-                    {no:1, id: "choi", name: "seongjin", sn: "A123", status: "active", peroid: 10 },
-                    {no:2, id: "choi", name: "seongjin", sn: "A123", status: "active", peroid: 10 },
-                    {no:3, id: "choi", name: "seongjin", sn: "A123", status: "active", peroid: 10 },
-                    {no:4, id: "choi", name: "seongjin", sn: "A123", status: "active", peroid: 10 },
-                    {no:5, id: "choi", name: "seongjin", sn: "A123", status: "active", peroid: 10 },
-                    {no:6, id: "choi", name: "seongjin", sn: "A123", status: "active", peroid: 10 }
-                ],
-                comboOfItems : [
-                    "Test01", "Test02", "Test03"
-                ]
+                listOfItems: []
             }
         },
         methods: {

@@ -8,7 +8,6 @@ export const loginAction = (userId, password, isAttend) => {
             "password" : password,
             "isAttend" : isAttend
         }).then(function (response) {
-            console.log("success");
             resolve(response);
         }).catch(function (error) {
             console.log(error);

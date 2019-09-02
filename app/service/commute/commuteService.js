@@ -1,14 +1,11 @@
 import axios from 'axios';
 
-export const commuteToday = (userId, password, isAttend) => {
+export const commuteToday = () => {
     return new Promise(function(resolve, reject) {
-        var url = 'http://200.100.1.140:8081/mobile';
+        var url = 'http://200.100.1.140:8081/mobile/commute/today';
         axios.post(url, {
-            "id" : userId,
-            "password" : password,
-            "isAttend" : isAttend
+            "startDate" : '2019-09-02'
         }).then(function (response) {
-            console.log("success");
             resolve(response);
         }).catch(function (error) {
             console.log(error);
