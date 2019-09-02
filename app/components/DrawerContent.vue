@@ -17,9 +17,14 @@
                     <Label col="1" text="UTM" class="p-r-10"></Label>
                 </GridLayout>
 
+                <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Commute' ? ' selected': '')" @tap="onNavigationItemTap(Commute)">
+                    <Label col="0" text.decode="&#xf022;" class="fa"></Label>
+                    <Label col="1" text="근태 현황" class="p-r-10"></Label>
+                </GridLayout>
+
                 <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Sign' ? ' selected': '')" @tap="onNavigationItemTap(Sign)">
                     <Label col="0" text.decode="&#xf022;" class="fa"></Label>
-                    <Label col="1" text="결제 현황" class="p-r-10"></Label>
+                    <Label col="1" text="결재 현황" class="p-r-10"></Label>
                 </GridLayout>
 
                 <StackLayout class="hr-light"></StackLayout>
@@ -36,6 +41,7 @@
 <script>
     import Dashboard from "~/views/Dashboard";
     import Utm from "~/views/Utm";
+    import Commute from "~/views/Commute";
     import Settings from "~/views/Settings";
     import Sign_Status from "~/views/Sign_Status";
     import * as utils from "~/service/utils/utils";
@@ -50,6 +56,7 @@
             return {
                 Dashboard: Dashboard,
                 Utm: Utm,
+                Commute : Commute,
                 Sign : Sign_Status,
                 Settings: Settings,
                 selectedPage: ""
@@ -58,6 +65,7 @@
         components: {
             Dashboard,
             Utm,
+            Commute,
             Sign_Status,
             Settings
         },
