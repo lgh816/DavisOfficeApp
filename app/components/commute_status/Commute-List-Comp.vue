@@ -21,9 +21,24 @@
 
         computed : {
             convertTitle(){
-                return this.item.name + " / "  + this.item.out_office_name;
+                // return val==""?"-":val;
+                var period = this.item.start_time == "" ? "" : " / " + this.item.start_time + " ~ " + this.item.end_time;
+
+                return this.item.name + " / "  + this.item.out_office_name + period;
+                        
             }
-            
+        /*  
+
+            approval_ok : "결재완료"
+            date : "2019-09-03"
+            dept_name : "연구3팀"
+            start_time : "09:00"
+            end_time : "18:00"
+            memo : "외근 상신 부탁"
+            name : "이기환"
+            out_office_name : "외근"
+            submit_id : "140601"
+        */
         },
 
         data (){
