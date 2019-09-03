@@ -67,6 +67,13 @@
         },
         methods: {
             submit() {
+                //=========== 로그인 귀찮으면 아래꺼 쓰세요 ===========
+                /* this.$navigateTo(
+                    this.$routes.Dashboard, {clearHistory: true}
+                ); */
+                //===================================================
+
+                //================== Login Process ==================
                 var userPwd = this.user.userPassword;
                 var userId = this.user.userId;
                 var hashPassword = CryptoJS(userPwd).toString();
@@ -83,6 +90,7 @@
                         this.errorMsg = resultMsg;
                     }
                 });
+                //===================================================
             },
 
             initErrorMsg() {
