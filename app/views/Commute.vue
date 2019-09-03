@@ -22,7 +22,7 @@
 <script>
     import * as utils from "~/service/utils/utils";
     import SelectedPageService from "~/service/utils/selected-page-service";
-    import * as CommuteService from  '../service/commute/CommuteService';
+    import * as CommuteService from  "../service/commute/commuteService";
     import CommuteListComp from "../components/commute_status/Commute-List-Comp";
 
     export default {
