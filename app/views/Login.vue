@@ -37,8 +37,8 @@
 </template>
 
 <script>
-    import axios from 'axios';
     import CryptoJS from 'crypto-js/sha256';
+    import * as LoginService from  '../service/login/loginService';
 
     export default {
         data() {
@@ -67,115 +67,27 @@
         },
         methods: {
             submit() {
-                if (this.user.userId == "q" && this.user.userPassword == "q") {
-                    var userPwd = this.user.userPassword;
-                    var userId = this.user.userId;
-                    var cnvt = CryptoJS(userPwd).toString();
-                    axios.post('http://200.100.1.140:8081/mobile', {
-                        "id" : userId,
-                        "password" : cnvt,
-                        "isAttend" : false
-                    }).then(function (response) {
-                        console.log("success");
-                    }).catch(function (error) {
-                        console.log(error);
-                    });
-                    this.$navigateTo(
-                        this.$routes.Dashboard, {clearHistory: true}
-                    );
-                } else {
-                    this.errorMsgFlag = true;
-                    this.errorMsg = "Information does not match.";
-                }
-            },
-
-            login() {
-                this.$backendService
-                    .login(this.user)
-                    .then(() => {
-                        this.processing = false;
-                        this.$navigateTo(Home, { clearHistory: true });
-                    })
-                    .catch(() => {
-                        this.processing = false;
-                        this.alert(
-                            "Unfortunately we could not find your account."
+                var userPwd = this.user.userPassword;
+                var userId = this.user.userId;
+                var hashPassword = CryptoJS(userPwd).toString();
+                LoginService.loginAction(userId, hashPassword, false).then((response) => {
+                    var responseData = response.data;
+                    var loginResult = responseData.isLogin;
+                    var resultMsg = responseData.msg;
+                    if(loginResult) { // Login Success
+                        this.$navigateTo(
+                            this.$routes.Dashboard, {clearHistory: true}
                         );
-                    });
-            },
-            initErrorMsg() {
-                this.errorMsgFlag = false;
-                this.errorMsg = "";
-            },
-            addLicense() {
-                this.alert("Add License");
-            },
-
-
-            register() {
-                if (this.user.password != this.user.confirmPassword) {
-                    this.alert("Your passwords do not match.");
-                    this.processing = false;
-                    return;
-                }
-
-                this.$backendService
-                    .register(this.user)
-                    .then(() => {
-                        this.processing = false;
-                        this.alert(
-                            "Your account was successfully created.");
-                        this.isLoggingIn = true;
-                    })
-                    .catch(() => {
-                        this.processing = false;
-                        this.alert(
-                            "Unfortunately we were unable to create your account."
-                        );
-                    });
-            },
-
-            forgotPassword() {
-                prompt({
-                    title: "Forgot Password",
-                    message: "Enter the email address you used to register for APP NAME to reset your password.",
-                    inputType: "email",
-                    defaultText: "",
-                    okButtonText: "Ok",
-                    cancelButtonText: "Cancel"
-                }).then(data => {
-                    if (data.result) {
-                        this.$backendService
-                            .resetPassword(data.text.trim())
-                            .then(() => {
-                                this.alert(
-                                    "Your password was successfully reset. Please check your email for instructions on choosing a new password."
-                                );
-                            })
-                            .catch(() => {
-                                this.alert(
-                                    "Unfortunately, an error occurred resetting your password."
-                                );
-                            });
+                    } else { // Login Fail
+                        this.errorMsgFlag = true;
+                        this.errorMsg = resultMsg;
                     }
                 });
             },
 
-            focusPassword() {
-                this.$refs.password.nativeView.focus();
-            },
-            focusConfirmPassword() {
-                if (!this.isLoggingIn) {
-                    this.$refs.confirmPassword.nativeView.focus();
-                }
-            },
-
-            alert(message) {
-                return alert({
-                    title: "Information",
-                    okButtonText: "OK",
-                    message: message
-                });
+            initErrorMsg() {
+                this.errorMsgFlag = false;
+                this.errorMsg = "";
             }
         }
     };

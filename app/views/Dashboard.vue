@@ -70,12 +70,14 @@
 <script>
     import * as utils from "~/service/utils/utils";
     import SelectedPageService from "~/service/utils/selected-page-service";
-    // import GetDashboardData from "../service/dashboard";
-    // import { getPieData } from "../service/dashboard";
+    import * as DashboardService from  "../service/dashboard/dashboardService";
 
     export default {
         mounted() {
             SelectedPageService.getInstance().updateSelectedPage("Dashboard");
+            DashboardService.dashboardSummary().then((response) => {
+                var result = response.data;
+            });
         },
         data () {
             return {
