@@ -23,15 +23,8 @@
     import SelectedPageService from "~/service/utils/selected-page-service";
     import * as DashboardService from  "../service/dashboard/dashboardService";
     import DashboardSummaryComp from "../components/dashboard_summary/Dashboard-Summary-Comp";
-    import { createNamespacedHelpers } from 'vuex';
-    const { mapGetters } = createNamespacedHelpers('../store/login/loginStore');
 
     export default {
-        computed : {
-            ...mapGetters([
-                'countOfUser'
-            ])
-        },
         mounted() {
             SelectedPageService.getInstance().updateSelectedPage("Dashboard");
             DashboardService.dashboardSummary().then((response) => {
