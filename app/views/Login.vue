@@ -23,7 +23,7 @@
                 </StackLayout>
 
                 <StackLayout row="2" class="input-field">
-                    <StackLayout orientation="horizontal">
+                    <StackLayout orientation="horizontal" class="loginBtnCenter">
                         <Button :text="loginTxt.text" @tap="submit()" class="btn btn-primary loginBtn"></Button>
                     </StackLayout>
                 </StackLayout>
@@ -116,6 +116,7 @@
 <style scoped>
     .page {
         align-items: center;
+        background: linear-gradient(to bottom, #2d91cd, #4751bb);
     }
 
     .form {
@@ -180,18 +181,16 @@
     }
 
     .loginBtn {
-        background-color: #0080dc;
-        width: 100%;
+        background-color: white;
+        color: #0080dc;
+        border-radius: 25;
+        width: 60%;
         margin-left: 0;
         margin-right: 0;
     }
 
-    .languageBtn {
-        background-color: white;
-        width: 30%;
-        color: #0080dc;
-        border-color: #0080dc;
-        margin-left: 0;
-        margin-right: 0;
+    .loginBtnCenter {
+        horizontal-align: center;
     }
+
 </style>
