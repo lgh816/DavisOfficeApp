@@ -39,8 +39,17 @@
 <script>
     import CryptoJS from 'crypto-js/sha256';
     import * as LoginService from  '../service/login/loginService';
+    // createNamespacedHelpers : Sotre가 여러개로 나눠져있을때 특정 Sotre에 접근하기위에 Vuex에서 제공하는 놈.
+    import { createNamespacedHelpers } from 'vuex';
+    const { mapState, mapMutations, mapActions, mapGetters } = createNamespacedHelpers('../store/login/loginStore');
 
     export default {
+        computed : {
+            // ...mapState([]),
+            ...mapGetters([
+                'countOfUser'
+            ])
+        },
         data() {
             return {
                 errorMsgFlag: false,
@@ -66,21 +75,24 @@
             };
         },
         methods: {
+            // ...mapMutations([]),
+            // ...mapActions([]),
             submit() {
                 //=========== 로그인 귀찮으면 아래꺼 쓰세요 ===========
-                /* this.$navigateTo(
+                this.$navigateTo(
                     this.$routes.Dashboard, {clearHistory: true}
-                ); */
+                );
                 //===================================================
 
                 //================== Login Process ==================
-                var userPwd = this.user.userPassword;
+                /* var userPwd = this.user.userPassword;
                 var userId = this.user.userId;
                 var hashPassword = CryptoJS(userPwd).toString();
                 LoginService.loginAction(userId, hashPassword, false).then((response) => {
                     var responseData = response.data;
                     var loginResult = responseData.isLogin;
                     var resultMsg = responseData.msg;
+
                     if(loginResult) { // Login Success
                         this.$navigateTo(
                             this.$routes.Dashboard, {clearHistory: true}
@@ -89,7 +101,7 @@
                         this.errorMsgFlag = true;
                         this.errorMsg = resultMsg;
                     }
-                });
+                }); */
                 //===================================================
             },
 

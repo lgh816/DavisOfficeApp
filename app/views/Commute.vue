@@ -15,7 +15,6 @@
                 </ListView>
             </StackLayout>
         </ScrollView>
-
     </Page>
 </template>
 
