@@ -4,7 +4,9 @@
             <StackLayout class="form">
                 
                 <!-- <Image class="logoLine" src="~/images/login/logoLine.png"></Image> -->
-                <Image class="logo" src="~/images/login/portal.png"></Image>
+                <!-- <Image class="logo" src="~/images/login/portal.png"></Image> -->
+                <Label class="logoTitle" text="YES Office Plus"/>
+                <Image class="logo" src="~/images/login/login_img.png"></Image>
                 
                 <StackLayout row="0" class="input-field">
                     <StackLayout orientation="horizontal">
@@ -22,7 +24,7 @@
                     <StackLayout class="hr-light"></StackLayout>
                 </StackLayout>
 
-                <StackLayout row="2" class="input-field">
+                <StackLayout row="2" class="input-field loginBtnMargintTop">
                     <StackLayout orientation="horizontal" class="loginBtnCenter">
                         <Button :text="loginTxt.text" @tap="submit()" class="btn btn-primary loginBtn"></Button>
                     </StackLayout>
@@ -123,9 +125,18 @@
         vertical-align: middle;
     }
 
+    .logoTitle {
+        horizontal-align: center;
+        color: white;
+        font-weight: bold;
+        font-size: 35;
+        margin-top: 50;
+    }
+
     .logo {
-        margin-bottom: 50;
-        width: 80%;
+        margin-bottom: 30;
+        height: 40%;
+        width: 40%;
         font-weight: bold;
     }
 
@@ -191,6 +202,10 @@
 
     .loginBtnCenter {
         horizontal-align: center;
+    }
+
+    .loginBtnMargintTop {
+        margin-top: 50;
     }
 
 </style>
