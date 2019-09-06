@@ -8,7 +8,7 @@
                 <Label class="logoTitle" text="YES Office Plus"/>
                 <Image class="logo" src="~/images/login/login_img.png"></Image>
                 
-                <StackLayout row="0" class="input-field">
+                <StackLayout row="0" class="input-field inputArea">
                     <StackLayout orientation="horizontal">
                         <Image class="loginIcon" src="~/images/login/img_id.png"></Image>
                         <TextField class="input" keyboardType="url" hint="ID" v-model="user.userId" @tap="initErrorMsg"></TextField>
@@ -16,7 +16,7 @@
                     <StackLayout class="hr-light"></StackLayout>
                 </StackLayout>
 
-                <StackLayout row="1" class="input-field">
+                <StackLayout row="1" class="input-field inputArea">
                     <StackLayout orientation="horizontal">
                         <Image class="loginIcon" src="~/images/login/img_pw.png"></Image>
                         <TextField class="input" secure="true" hint="PASSWORD" v-model="user.userPassword" @tap="initErrorMsg"></TextField>
@@ -206,6 +206,11 @@
 
     .loginBtnMargintTop {
         margin-top: 50;
+    }
+
+    .inputArea {
+        padding-left: 40;
+        padding-right: 40;
     }
 
 </style>
