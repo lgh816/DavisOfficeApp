@@ -147,6 +147,7 @@
     .loginIcon {
         width: 20;
         height: 20;
+        margin-left: 10;
         margin-right: 10;
     }
 
