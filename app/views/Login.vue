@@ -4,9 +4,11 @@
             <StackLayout class="form">
                 
                 <!-- <Image class="logoLine" src="~/images/login/logoLine.png"></Image> -->
-                <Image class="logo" src="~/images/login/portal.png"></Image>
+                <!-- <Image class="logo" src="~/images/login/portal.png"></Image> -->
+                <Label class="logoTitle" text="YES Office Plus"/>
+                <Image class="logo" src="~/images/login/login_img.png"></Image>
                 
-                <StackLayout row="0" class="input-field">
+                <StackLayout row="0" class="input-field inputArea">
                     <StackLayout orientation="horizontal">
                         <Image class="loginIcon" src="~/images/login/img_id.png"></Image>
                         <TextField class="input" keyboardType="url" hint="ID" v-model="user.userId" @tap="initErrorMsg"></TextField>
@@ -14,7 +16,7 @@
                     <StackLayout class="hr-light"></StackLayout>
                 </StackLayout>
 
-                <StackLayout row="1" class="input-field">
+                <StackLayout row="1" class="input-field inputArea">
                     <StackLayout orientation="horizontal">
                         <Image class="loginIcon" src="~/images/login/img_pw.png"></Image>
                         <TextField class="input" secure="true" hint="PASSWORD" v-model="user.userPassword" @tap="initErrorMsg"></TextField>
@@ -22,8 +24,8 @@
                     <StackLayout class="hr-light"></StackLayout>
                 </StackLayout>
 
-                <StackLayout row="2" class="input-field">
-                    <StackLayout orientation="horizontal">
+                <StackLayout row="2" class="input-field loginBtnMargintTop">
+                    <StackLayout orientation="horizontal" class="loginBtnCenter">
                         <Button :text="loginTxt.text" @tap="submit()" class="btn btn-primary loginBtn"></Button>
                     </StackLayout>
                 </StackLayout>
@@ -135,15 +137,25 @@
 <style scoped>
     .page {
         align-items: center;
+        background: linear-gradient(to bottom, #2d91cd, #4751bb);
     }
 
     .form {
         vertical-align: middle;
     }
 
+    .logoTitle {
+        horizontal-align: center;
+        color: white;
+        font-weight: bold;
+        font-size: 35;
+        margin-top: 50;
+    }
+
     .logo {
-        margin-bottom: 50;
-        width: 80%;
+        margin-bottom: 30;
+        height: 40%;
+        width: 40%;
         font-weight: bold;
     }
 
@@ -154,6 +166,7 @@
     .loginIcon {
         width: 20;
         height: 20;
+        margin-left: 10;
         margin-right: 10;
     }
 
@@ -199,18 +212,25 @@
     }
 
     .loginBtn {
-        background-color: #0080dc;
-        width: 100%;
+        background-color: white;
+        color: #0080dc;
+        border-radius: 25;
+        width: 60%;
         margin-left: 0;
         margin-right: 0;
     }
 
-    .languageBtn {
-        background-color: white;
-        width: 30%;
-        color: #0080dc;
-        border-color: #0080dc;
-        margin-left: 0;
-        margin-right: 0;
+    .loginBtnCenter {
+        horizontal-align: center;
     }
+
+    .loginBtnMargintTop {
+        margin-top: 50;
+    }
+
+    .inputArea {
+        padding-left: 40;
+        padding-right: 40;
+    }
+
 </style>
