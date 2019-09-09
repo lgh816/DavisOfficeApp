@@ -41,14 +41,16 @@
     import * as LoginService from  '../service/login/loginService';
     // createNamespacedHelpers : Sotre가 여러개로 나눠져있을때 특정 Sotre에 접근하기위에 Vuex에서 제공하는 놈.
     import { createNamespacedHelpers } from 'vuex';
-    const { mapState, mapMutations, mapActions, mapGetters } = createNamespacedHelpers('../store/login/loginStore');
+    const { mapState, mapActions } = createNamespacedHelpers('../store/login/loginStore');
 
     export default {
         computed : {
-            // ...mapState([]),
-            ...mapGetters([
-                'countOfUser'
+            ...mapState([
+                'loginUrl'
             ])
+            /* ...mapGetters([
+
+            ]) */
         },
         data() {
             return {
@@ -75,14 +77,31 @@
             };
         },
         methods: {
-            // ...mapMutations([]),
-            // ...mapActions([]),
+            // ...mapMutations({}),
+            ...mapActions([
+                'loginAction'
+            ]),
+            
             submit() {
                 //=========== 로그인 귀찮으면 아래꺼 쓰세요 ===========
-                this.$navigateTo(
+                /* this.$navigateTo(
                     this.$routes.Dashboard, {clearHistory: true}
-                );
+                ); */
                 //===================================================
+                var param = {};
+                var userPwd = this.user.userPassword;
+                var userId = this.user.userId;
+                var hashPassword = CryptoJS(userPwd).toString();
+                param.id = userId,
+                param.password = hashPassword,
+                param.isAttend = true
+
+                this.loginAction(param);
+
+                /* .then(function(result) {
+                    console.log("LoginVue Result = "+result);
+                    console.log(userInfo);
+                }); */
 
                 //================== Login Process ==================
                 /* var userPwd = this.user.userPassword;
