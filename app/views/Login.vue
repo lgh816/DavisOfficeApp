@@ -3,8 +3,6 @@
         <FlexboxLayout class="page">
             <StackLayout class="form">
                 
-                <!-- <Image class="logoLine" src="~/images/login/logoLine.png"></Image> -->
-                <!-- <Image class="logo" src="~/images/login/portal.png"></Image> -->
                 <Label class="logoTitle" text="YES Office Plus"/>
                 <Image class="logo" src="~/images/login/login_img.png"></Image>
                 
@@ -23,14 +21,15 @@
                     </StackLayout>
                     <StackLayout class="hr-light"></StackLayout>
                 </StackLayout>
+                
+                <Label :v-show="this.$store.state.failMsgFlag" :text="this.$store.state.failMsg" class="errorMsgTxt"></Label>
 
                 <StackLayout row="2" class="input-field loginBtnMargintTop">
                     <StackLayout orientation="horizontal" class="loginBtnCenter">
-                        <Button :text="loginTxt.text" @tap="submit()" class="btn btn-primary loginBtn"></Button>
+                        <Button text="Login" @tap="submit()" class="btn btn-primary loginBtn"></Button>
                     </StackLayout>
                 </StackLayout>
 
-                <Label :v-show="errorMsgFlag" :text="errorMsg" class="errorMsgTxt"></Label>
 
             </StackLayout>
 
@@ -40,95 +39,43 @@
 
 <script>
     import CryptoJS from 'crypto-js/sha256';
-    import * as LoginService from  '../service/login/loginService';
-    // createNamespacedHelpers : Sotre가 여러개로 나눠져있을때 특정 Sotre에 접근하기위에 Vuex에서 제공하는 놈.
-    import { createNamespacedHelpers } from 'vuex';
-    const { mapState, mapActions } = createNamespacedHelpers('../store/login/loginStore');
 
     export default {
-        computed : {
-            ...mapState([
-                'loginUrl'
-            ])
-            /* ...mapGetters([
-
-            ]) */
-        },
         data() {
             return {
-                errorMsgFlag: false,
-                errorMsg: '',
-                isLoggingIn: true,
-                processing: false,
-                loginTxt: {
-                    text : 'Login'
-                },
-                language: {
-                    text :'English'
-                },
-                license: {
-                    text :'License'
-                },
                 user: {
                     userId: '',
                     userPassword: ''
-                },
-                listOfItems : {
-                    text : ['English', 'Korean']
                 }
             };
         },
         methods: {
-            // ...mapMutations({}),
-            ...mapActions([
-                'loginAction'
-            ]),
-            
+            // this.$store.state.xxx = Store - state의 xxx 호출.
+            // this.$store.commit("xxx") = Store - mutations의 xxx 호출.
+            // this.$store.getters.xxx = Store - getters의 xxx 호출.
+            // this.$store.dispatch("xxx", payload) = Store - actions의 xxx 호출. payload는 파라미터값.
+
             submit() {
-                //=========== 로그인 귀찮으면 아래꺼 쓰세요 ===========
-                /* this.$navigateTo(
-                    this.$routes.Dashboard, {clearHistory: true}
-                ); */
-                //===================================================
                 var param = {};
                 var userPwd = this.user.userPassword;
                 var userId = this.user.userId;
                 var hashPassword = CryptoJS(userPwd).toString();
+
                 param.id = userId,
                 param.password = hashPassword,
-                param.isAttend = true
+                param.isAttend = false
 
-                this.loginAction(param);
-
-                /* .then(function(result) {
-                    console.log("LoginVue Result = "+result);
-                    console.log(userInfo);
-                }); */
-
-                //================== Login Process ==================
-                /* var userPwd = this.user.userPassword;
-                var userId = this.user.userId;
-                var hashPassword = CryptoJS(userPwd).toString();
-                LoginService.loginAction(userId, hashPassword, false).then((response) => {
-                    var responseData = response.data;
-                    var loginResult = responseData.isLogin;
-                    var resultMsg = responseData.msg;
-
-                    if(loginResult) { // Login Success
+                this.$store.dispatch("loginAction", {user: param, initPassword : false}).then((res) => {
+                    if (res) {
                         this.$navigateTo(
                             this.$routes.Dashboard, {clearHistory: true}
                         );
-                    } else { // Login Fail
-                        this.errorMsgFlag = true;
-                        this.errorMsg = resultMsg;
                     }
-                }); */
-                //===================================================
+                });
             },
 
             initErrorMsg() {
-                this.errorMsgFlag = false;
-                this.errorMsg = "";
+                this.$store.commit("initFailMsg");
             }
         }
     };
@@ -149,18 +96,15 @@
         color: white;
         font-weight: bold;
         font-size: 35;
-        margin-top: 50;
+        margin-top: 20;
     }
 
     .logo {
-        margin-bottom: 30;
-        height: 40%;
+        margin-top: 10;
+        margin-bottom: 0;
+        height: 35%;
         width: 40%;
         font-weight: bold;
-    }
-
-    .logoLine {
-        vertical-align: top;
     }
 
     .loginIcon {
@@ -168,6 +112,7 @@
         height: 20;
         margin-left: 10;
         margin-right: 10;
+        margin-bottom: 10;
     }
 
     .errorMsgTxt {
@@ -183,39 +128,23 @@
     }
 
     .input-field {
-        margin-bottom: 20;
+        margin-bottom: 10;
     }
 
     .input {
         font-size: 18;
+        color: white;
         width: 100%;
         placeholder-color: #A8A8A8;
     }
 
-    .input:disabled {
-        background-color: white;
-        opacity: 0.5;
-    }
-
-    .login-label {
-        horizontal-align: center;
-        color: #A8A8A8;
-        font-size: 16;
-    }
-
-    .sign-up-label {
-        margin-bottom: 20;
-    }
-
-    .bold {
-        color: #000000;
-    }
 
     .loginBtn {
         background-color: white;
         color: #0080dc;
         border-radius: 25;
-        width: 60%;
+        width: 80%;
+        height: 40;
         margin-left: 0;
         margin-right: 0;
     }
@@ -225,12 +154,12 @@
     }
 
     .loginBtnMargintTop {
-        margin-top: 50;
+        margin-top: 10;
     }
 
     .inputArea {
-        padding-left: 40;
-        padding-right: 40;
+        padding-left: 30;
+        padding-right: 30;
     }
 
 </style>
