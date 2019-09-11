@@ -2,13 +2,17 @@
     <Page class="page" actionBarHidden="true">
         <ScrollView class="mainContents">
             <StackLayout height="100%" width="100%">
-                <StackLayout orientation="horizontal"  marginBottom="5">
-                    <Label text="iCon"  @tap="onDrawerButtonTap" marginRight="5"></Label>
-                    <Label text="Dashboard"></Label>
+                <StackLayout orientation="horizontal" class="titleArea">
+                    <Label text.decode="&#xf039;" class="fa icon sideButton" @tap="onDrawerButtonTap()"></Label>
+                    <Label text="Dashboard" class="menuName"></Label>
                 </StackLayout>
 
-                 <ListView for="item in summaryResult" separatorColor="transparent" 
-                            class="itemList">
+                <StackLayout orientation="horizontal" class="optionsArea">
+                    <Label :text="this.todayDay" width="80%"></Label>
+                    <Label :text="this.$store.state.userInfo.dept_name" width="20%" class="deptName"></Label>
+                </StackLayout>
+
+                <ListView for="item in summaryResult" separatorColor="transparent" class="itemList">
                     <v-template>
                         <DashboardSummaryComp :item="item" />
                     </v-template>
@@ -21,18 +25,18 @@
 <script>
     import * as utils from "~/service/utils/utils";
     import SelectedPageService from "~/service/utils/selected-page-service";
-    import * as DashboardService from  "../service/dashboard/dashboardService";
     import DashboardSummaryComp from "../components/dashboard_summary/Dashboard-Summary-Comp";
 
     export default {
         mounted() {
             SelectedPageService.getInstance().updateSelectedPage("Dashboard");
-            DashboardService.dashboardSummary().then((response) => {
-                var data = response.data[0];
-                // this.setSummaryData(data);
-                this.summaryResult.push({text : data.vacation_year + " 잔여 연차 " + data.vacation_year_remain});
-                this.summaryResult.push({text : "평균 출근 시간 " + data.in_time_avg.substr(0,5)});
-                this.summaryResult.push({text : "평균 퇴근 시간 " + data.out_time_avg.substr(0,5)});
+            var param = {}
+            param.start = this.startDate;
+            param.end = this.endDate;
+            param.year = this.startDate.substr(0,4);
+
+            this.$store.dispatch('getDashboardSummary', param).then((res) => {
+                this.summaryResult = this.$store.state.summaryResult;
             });
         },
         components : {
@@ -40,63 +44,39 @@
         },
         data () {
             return {
-                summaryData : {},
-                summaryResult : []
-            }
-        },
-        computed: {
-            message() {
-                return "<!-- Page content goes here -->";
+                summaryResult : [],
+                todayDay : this.$moment(new Date()).format('YYYY-MM-DD'),
+                startDate : this.$moment().add(-1, 'month').startOf('month').format("YYYY-MM-DD"),
+                endDate : this.$moment().add(-1, 'month').endOf('month').format("YYYY-MM-DD HH:mm:ss")
             }
         },
         methods: {
             onDrawerButtonTap() {
+                console.log("OpenTabbbbbbb");
                 utils.showDrawer();
-            },
-            setSummaryData(data) {
-                this.summaryResult.push({text : "잔여 연차 " + data.vacation + data.vacation_year_remain});
-                this.summaryResult.push({text : "평균 출근 시간 " + data.in_time_avg.substr(0,5)});
-                this.summaryResult.push({text : "평균 퇴근 시간 " + data.out_time_avg.substr(0,5)});
             }
         }
     };
 </script>
 
 <style scoped>
-    .pieChartArea {
-        border: 1;
-        border-color: black;
+    /*========== Need to change common CSS ==========*/
+    .titleArea,
+    .optionsArea {
+        margin: 5;
     }
-
-    .chartTitle {
-        background-color: #5699e8;
-        color: white;
-        height: 25;
-        font-size: 16;
-        width: 100%;
-        text-align: left;
-        padding-left: 10;
+    .menuName {
+        font-size: 20;
+        font-weight: bold;
+        color: rgb(80, 144, 218);
+    }
+    .sideButton {
         margin-top: 5;
+        margin-right: 10;
     }
-
-    .gridStyle {
-        border-width: 1;
-        border-color: rgb(173, 170, 170);
-        margin: 3;
-    }
-
-    .gridTitle {
-        background-color: rgb(178, 202, 236);
-        text-align: center;
-        border-width: 1;
-        border-color: rgb(173, 170, 170);
-        padding-top: 10;
-    }
-
-    .gridContents {
-        text-align: center;
-        border-width: 1;
-        border-color: rgb(173, 170, 170);
-        padding-top: 10;
+    /*===============================================*/
+    .deptName {
+        text-align: right;
+        color: rgb(80, 144, 218);
     }
 </style>

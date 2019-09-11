@@ -1,8 +1,10 @@
 <template lang="html">
     <GridLayout rows="auto, *" class="sidedrawer sidedrawer-left">
-        <StackLayout row="0" class="sidedrawer-header">
-            <Label class="sidedrawer-header-brand" text="User Name"></Label>
-            <Label class="sidedrawer-header-brand" text="userMail@yescnc.co.kr"></Label>
+        <StackLayout orientation="horizontal" row="0" class="sidedrawer-header">
+            <Label class="userIcon sidedrawer-header-brand fa icon" text.decode="&#xf2bd;" width="10%"></Label>
+            <Label class="sidedrawer-header-brand" width="70%" :text="this.$store.state.userInfo.name +' 님'"></Label>
+            <Label class="sidedrawer-header-brand fa icon" text.decode="&#xf011;" width="20%" @tap="logoutAction"></Label>
+            <!-- <Label class="sidedrawer-header-brand" :text="this.$store.state.userInfo.email"></Label> -->
         </StackLayout>
     
         <ScrollView row="1" class="sidedrawer-content">
@@ -75,6 +77,9 @@
                     clearHistory: true
                 });
                 utils.closeDrawer();
+            },
+            logoutAction() {
+                console.log("Logout");
             }
         }
     };
@@ -83,9 +88,12 @@
 <style scoped lang="scss">
     // Custom common variables
     @import '../app-variables';
-
+    /* .userIcon {
+        width: 20;
+        height: 20;
+    } */
     // Drawer navigation custom styles
-    $sidedrawer-header-image-offset-top: 20;
+    $sidedrawer-header-image-offset-top: 0;
     $sidedrawer-header-image-offset-bottom: 5;
     $sidedrawer-list-item-offset-left: 15;
     $sidedrawer-list-icon-offset: 10;
@@ -108,7 +116,7 @@
 
         .sidedrawer-header {
             background-color: $ab-background;
-            height: 70;
+            height: 60;
             .sidedrawer-header-brand {
                 color: $ab-color;
             }

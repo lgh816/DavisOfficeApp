@@ -7,6 +7,7 @@
 
             <GridLayout columns="auto, *" rows="auto, auto, auto" marginLeft="10" >
                 <Label row="0" col="0" :text="item.text" class="title"></Label>
+                <Label row="0" col="1" :text="item.data" horizontalAlignment="right"></Label>
             </GridLayout>
         </StackLayout>
     </StackLayout>

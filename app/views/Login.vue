@@ -22,6 +22,7 @@
                     <StackLayout class="hr-light"></StackLayout>
                 </StackLayout>
                 
+                <!-- <Label :v-show="this.$store.state.failMsgFlag" class="fa icon" text.decode="&#xf071;"></Label> -->
                 <Label :v-show="this.$store.state.failMsgFlag" :text="this.$store.state.failMsg" class="errorMsgTxt"></Label>
 
                 <StackLayout row="2" class="input-field loginBtnMargintTop">
@@ -39,7 +40,7 @@
 
 <script>
     import CryptoJS from 'crypto-js/sha256';
-
+    
     export default {
         data() {
             return {

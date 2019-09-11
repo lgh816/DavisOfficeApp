@@ -21,16 +21,21 @@
 <script>
     import * as utils from "~/service/utils/utils";
     import SelectedPageService from "~/service/utils/selected-page-service";
-    import * as CommuteService from  "../service/commute/commuteService";
+    // import * as CommuteService from  "../service/commute/commuteService";
     import CommuteListComp from "../components/commute_status/Commute-List-Comp";
 
     export default {
         mounted() {
             SelectedPageService.getInstance().updateSelectedPage("Commute");
-            CommuteService.commuteToday().then((response) => {
+            /* CommuteService.commuteToday().then((response) => {
                 var result = response.data;
                 this.listOfItems = result;
-            });
+            }); */
+            var param = {};
+            param.startDate = this.todayDay;
+            this.$store.dispatch('getCommuteData', param).then((res) => {
+                this.listOfItems = this.$store.state.commuteList;
+            })
         },
         components : {
             CommuteListComp
@@ -38,7 +43,8 @@
 
         data() {
             return {
-                listOfItems: []
+                listOfItems: [],
+                todayDay: this.$moment(new Date()).format('YYYY-MM-DD')
             }
         },
         methods: {
