@@ -1,6 +1,7 @@
 import Vue from "nativescript-vue";
 import Vuex from "vuex";
 import axios from 'axios';
+import { ChartAxisPlotMode } from "nativescript-ui-chart";
 
 Vue.use(Vuex);
 
@@ -55,6 +56,9 @@ export default new Vuex.Store({
             state.summaryResult.push({text : payload.vacation_year + " 잔여 연차", data :  payload.vacation_year_remain});
             state.summaryResult.push({text : "평균 출근 시간", data : payload.in_time_avg.substr(0,5)});
             state.summaryResult.push({text : "평균 퇴근 시간", data : payload.out_time_avg.substr(0,5)});
+            if (payload.sick_leave > 0) {
+                state.summaryResult.push({text : "조퇴", data : payload.sick_leave + "일"});
+            }
             if (payload.vacation > 0) {
                 state.summaryResult.push({text : "휴가", data : payload.vacation + "일"});
             }
@@ -80,9 +84,32 @@ export default new Vuex.Store({
         // ======================= 근태 현황 =========================
         setCommuteData: (state, payload) => {
             state.commuteList = [];
+            for (var i = 0; i < payload.length; i++) {
+                var text = '';
+                text = payload[i].name;
+                text += ' / ' + payload[i].out_office_name;
+                if (!_.isEmpty(payload[i].start_time)) {
+                    text += ' / ' + payload[i].start_time;
+                }
+                if (!_.isEmpty(payload[i].end_time)) {
+                    text += ' ~ ' + payload[i].end_time;
+                }
+                payload[i].text = text;
+                state.commuteList.push(payload[i]);
+            }
         },
         initCommuteData: (state) => {
             state.commuteList = [];
+            state.commuteList =[{text : 'No Data'}]
+        },
+
+        // ======================= 결재 현황 =========================
+        setApprovalData: (state, payload) => {
+
+        },
+
+        initApprovalData: (state) => {
+
         }
     },
     actions : { // axios를 사용하여 서버 통신
@@ -121,8 +148,31 @@ export default new Vuex.Store({
 
         // ======================= 근태 현황 =========================
         getCommuteData: ({ state, commit }, payload) => {
-            return axios.post(state.mobileUrl + '/mobile/commute/today', payload).then((res) =>{
-                console.log("Commute");
+            return axios.post(state.mobileUrl + '/mobile/commute/today', payload).then((res) => {
+                var result = res.data.length;
+                if (result > 0) {
+                    commit('setCommuteData', res.data);
+                } else {
+                    commit('initCommuteData');
+                }
+                // return true;
+            }).catch((res) => {
+                commit('initCommuteData');
+                // return false;
+            });
+        },
+
+        // ======================= 결재 현황 =========================
+        getApprovalData: ({ state, commit }, payload) => {
+            return axios.post(state.mobileUrl + '/mobile/approval/list', payload).then((res) => {
+                var result = res.data.length;
+                if (result > 0) {
+                    commit('setApprovalData', res.data);
+                } else {
+                    commit('initApprovalData');
+                }
+            }).catch((res) => {
+                commit('initApprovalData');
             });
         }
     }

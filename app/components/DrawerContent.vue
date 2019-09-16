@@ -14,9 +14,9 @@
                     <Label col="1" text="Dashboard" class="p-r-10"></Label>
                 </GridLayout>
 
-                <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Utm' ? ' selected': '')" @tap="onNavigationItemTap(Utm)">
-                    <Label col="0" text.decode="&#xf022;" class="fa"></Label>
-                    <Label col="1" text="UTM" class="p-r-10"></Label>
+                <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'InOut' ? ' selected': '')" @tap="onNavigationItemTap(InOut)">
+                    <Label col="0" text.decode="&#xf103;" class="fa"></Label>
+                    <Label col="1" text="출입 기록" class="p-r-10"></Label>
                 </GridLayout>
 
                 <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Commute' ? ' selected': '')" @tap="onNavigationItemTap(Commute)">
@@ -24,7 +24,7 @@
                     <Label col="1" text="근태 현황" class="p-r-10"></Label>
                 </GridLayout>
 
-                <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Sign' ? ' selected': '')" @tap="onNavigationItemTap(Sign)">
+                <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Approval' ? ' selected': '')" @tap="onNavigationItemTap(Approval)">
                     <Label col="0" text.decode="&#xf022;" class="fa"></Label>
                     <Label col="1" text="결재 현황" class="p-r-10"></Label>
                 </GridLayout>
@@ -42,10 +42,10 @@
 
 <script>
     import Dashboard from "~/views/Dashboard";
-    import Utm from "~/views/Utm";
     import Commute from "~/views/Commute";
     import Settings from "~/views/Settings";
-    import Sign_Status from "~/views/Sign_Status";
+    import Approval from "~/views/Approval";
+    import InOut from "~/views/InOut";
     import * as utils from "~/service/utils/utils";
     import SelectedPageService from "~/service/utils/selected-page-service";    
     
@@ -57,18 +57,18 @@
         data () {
             return {
                 Dashboard: Dashboard,
-                Utm: Utm,
                 Commute : Commute,
-                Sign : Sign_Status,
+                Approval : Approval,
+                InOut : InOut,
                 Settings: Settings,
                 selectedPage: ""
             };
         },
         components: {
             Dashboard,
-            Utm,
             Commute,
-            Sign_Status,
+            Approval,
+            InOut,
             Settings
         },
         methods: {

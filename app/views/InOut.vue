@@ -3,7 +3,7 @@
         <ScrollView class="mainContents">
             <StackLayout height="100%" width="100%">
                 <StackLayout orientation="horizontal" class="titleArea">
-                    <Label text="근태 현황" class="menuName" @tap="onDrawerButtonTap"></Label>
+                    <Label text="출입 기록" class="menuName" @tap="onDrawerButtonTap"></Label>
                 </StackLayout>
 
                 <StackLayout orientation="horizontal" class="optionsArea">
@@ -11,9 +11,9 @@
                     <Label :text="this.$store.state.userInfo.dept_name" width="20%" class="deptName"></Label>
                 </StackLayout>
 
-                 <ListView for="item in listOfItems" @itemTap="onItemTap"  separatorColor="transparent" class="itemList">
+                <ListView for="item in listOfItems" @itemTap="onItemTap"  separatorColor="transparent" class="itemList">
                     <v-template>
-                        <CommuteListComp :item="item" />
+                        <InOutListComp :item="item" />
                     </v-template>
                 </ListView>
             </StackLayout>
@@ -22,32 +22,38 @@
 </template>
 
 <script>
-    import * as utils from "~/service/utils/utils";
+
+    import * as utils from "~/service/utils/utils"
     import SelectedPageService from "~/service/utils/selected-page-service";
-    import CommuteListComp from "../components/commute/Commute-List-Comp";
+    import InOutListComp from "../components/inout/InOut-List-Comp";
 
     export default {
-        mounted() {
-            SelectedPageService.getInstance().updateSelectedPage("Commute");
-            var param = {};
-            // param.startDate = this.todayDay;
-            param.startDate = "2019-08-16";
-            this.$store.dispatch('getCommuteData', param).then((res) => {
-                this.listOfItems = this.$store.state.commuteList;
-            })
-        },
-        components : {
-            CommuteListComp
+        mounted(){
+            SelectedPageService.getInstance().updateSelectedPage("InOut");
+            /* var param = {};
+            param.startDate = "2019-08-01";
+            param.endDate = "2020-07-30";
+            this.$store.dispatch('getApprovalData', param).then((res) => {
+                console.log("test");
+                // this.listOfItems = this.$store.state.commuteList;
+            }) */
         },
 
-        data() {
+        components : {
+            InOutListComp    
+        },
+
+        data (){
             return {
                 listOfItems: [],
                 todayDay: this.$moment(new Date()).format('YYYY-MM-DD')
             }
         },
-        methods: {
-            onDrawerButtonTap() {
+
+        
+
+        methods : {
+             onDrawerButtonTap() {
                 utils.showDrawer();
             },
 
@@ -55,7 +61,7 @@
                 console.log(e.item);
             }
         }
-    };
+    }
 </script>
 
 <style scoped>
@@ -74,5 +80,4 @@
         color: rgb(80, 144, 218);
     }
     /*===============================================*/
-    
 </style>

@@ -4,6 +4,7 @@ import RadSideDrawer from "nativescript-ui-sidedrawer/vue";
 import VueDevtools from 'nativescript-vue-devtools';
 import moment from "moment";
 import VueMomentJS from "vue-momentjs";
+import * as _ from 'lodash';
 
 // import Vuex from 'vuex';
 

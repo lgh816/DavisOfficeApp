@@ -3,8 +3,8 @@
         <ScrollView class="mainContents">
             <StackLayout height="100%" width="100%">
                 <StackLayout orientation="horizontal" class="titleArea">
-                    <Label text.decode="&#xf039;" class="fa icon sideButton" @tap="onDrawerButtonTap()"></Label>
-                    <Label text="Dashboard" class="menuName"></Label>
+                    <!-- <Label text.decode="&#xf039;" class="fa icon sideButton" @tap="onDrawerButtonTap"></Label> -->
+                    <Label text="Dashboard" class="menuName" @tap="onDrawerButtonTap"></Label>
                 </StackLayout>
 
                 <StackLayout orientation="horizontal" class="optionsArea">
@@ -25,7 +25,7 @@
 <script>
     import * as utils from "~/service/utils/utils";
     import SelectedPageService from "~/service/utils/selected-page-service";
-    import DashboardSummaryComp from "../components/dashboard_summary/Dashboard-Summary-Comp";
+    import DashboardSummaryComp from "../components/dashboard/Dashboard-Summary-Comp";
 
     export default {
         mounted() {
@@ -52,7 +52,6 @@
         },
         methods: {
             onDrawerButtonTap() {
-                console.log("OpenTabbbbbbb");
                 utils.showDrawer();
             }
         }
@@ -70,13 +69,9 @@
         font-weight: bold;
         color: rgb(80, 144, 218);
     }
-    .sideButton {
-        margin-top: 5;
-        margin-right: 10;
-    }
-    /*===============================================*/
     .deptName {
         text-align: right;
         color: rgb(80, 144, 218);
+    /*===============================================*/
     }
 </style>

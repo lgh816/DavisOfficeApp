@@ -7,7 +7,7 @@
 
             <GridLayout columns="auto, *" rows="auto, auto, auto" marginLeft="10" >
                 <Label row="0" col="0" :text="item.text" class="title"></Label>
-                <Label row="0" col="1" :text="item.data" horizontalAlignment="right"></Label>
+                <Label row="0" col="1" text.decode="&#xf103;" horizontalAlignment="right" class="fa icon"></Label>
             </GridLayout>
         </StackLayout>
     </StackLayout>
@@ -17,13 +17,21 @@
     export default {
         props : ["item"],
         mounted () {
-            
+
         },
 
         computed : {
-            convertTitle(){
-          
-            }
+        /*  
+            approval_ok : "결재완료"
+            date : "2019-09-03"
+            dept_name : "연구3팀"
+            start_time : "09:00"
+            end_time : "18:00"
+            memo : "외근 상신 부탁"
+            name : "이기환"
+            out_office_name : "외근"
+            submit_id : "140601"
+        */
         },
 
         data (){
@@ -44,17 +52,17 @@
         border-width: 1;
         border-color: rgb(173, 170, 170);
         padding: 5;
-        font-size: 10;
-        
+        font-size: 12;
+        margin-right: 5;
+        margin-left: 5;
     }
 
     .borderContents{
-        padding-bottom:3;
+        padding-bottom:6;
     }
 
     .title{
         font-weight: bold;
     }
-
 
 </style>
