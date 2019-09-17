@@ -11,6 +11,7 @@
             <StackLayout>
                 <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Dashboard' ? ' selected': '')" @tap="onNavigationItemTap(Dashboard)">
                     <Label col="0" text.decode="&#xf200;" class="fa"></Label>
+                    <!-- <Image class="logo" src="~/images/menu/dashboard.png"></Image> -->
                     <Label col="1" text="Dashboard" class="p-r-10"></Label>
                 </GridLayout>
 

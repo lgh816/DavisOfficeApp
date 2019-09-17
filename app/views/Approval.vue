@@ -34,8 +34,7 @@
             param.startDate = "2019-08-01";
             param.endDate = "2020-07-30";
             this.$store.dispatch('getApprovalData', param).then((res) => {
-                console.log("test");
-                // this.listOfItems = this.$store.state.commuteList;
+                this.listOfItems = this.$store.state.approvalAllList;
             })
         },
 

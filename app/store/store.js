@@ -17,7 +17,12 @@ export default new Vuex.Store({
         dashboardSummary : {},
         summaryResult : [],
         // ======================= 근태 현황 =========================
-        commuteList : []
+        commuteList : [],
+        // ======================= 결재 현황 =========================
+        approvalAllList : [],
+        //approvalUserList : [],
+        // ======================= 출입 기록 =========================
+        inOutList : []
     },
     // getters : {}, // state를 화면에 바인딩
         
@@ -105,11 +110,24 @@ export default new Vuex.Store({
 
         // ======================= 결재 현황 =========================
         setApprovalData: (state, payload) => {
-
+            state.approvalAllList = [];
+            //state.approvalUserList = [];
+            state.approvalAllList = payload;
         },
 
         initApprovalData: (state) => {
+            state.approvalAllList = [];
+            //state.approvalUserList = [];
+        },
 
+        // ======================= 출입 기록 =========================
+        setInOutData: (state, payload) => {
+            state.inOutList = [];
+            state.inOutList = payload;
+        },
+
+        initInOutData: (state) => {
+            state.inOutList = [];
         }
     },
     actions : { // axios를 사용하여 서버 통신
@@ -164,7 +182,7 @@ export default new Vuex.Store({
 
         // ======================= 결재 현황 =========================
         getApprovalData: ({ state, commit }, payload) => {
-            return axios.post(state.mobileUrl + '/mobile/approval/list', payload).then((res) => {
+            return axios.get(state.mobileUrl + '/mobile/approval/list', { params : payload }).then((res) => {
                 var result = res.data.length;
                 if (result > 0) {
                     commit('setApprovalData', res.data);
@@ -173,6 +191,20 @@ export default new Vuex.Store({
                 }
             }).catch((res) => {
                 commit('initApprovalData');
+            });
+        },
+
+        // ======================= 출입 기록 =========================
+        getInOutData: ({ state, commit }, payload) => {
+            return axios.get(state.mobileUrl + '/mobile/inout/list', { params : payload }).then((res) => {
+                var result = res.data.length;
+                if (result > 0) {
+                    commit('setInOutData', res.data);
+                } else {
+                    commit('initInOutData');
+                }
+            }).catch((res) => {
+                commit('initInOutData');
             });
         }
     }

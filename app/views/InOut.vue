@@ -30,13 +30,12 @@
     export default {
         mounted(){
             SelectedPageService.getInstance().updateSelectedPage("InOut");
-            /* var param = {};
-            param.startDate = "2019-08-01";
-            param.endDate = "2020-07-30";
-            this.$store.dispatch('getApprovalData', param).then((res) => {
-                console.log("test");
-                // this.listOfItems = this.$store.state.commuteList;
-            }) */
+            var param = {};
+            param.start = "2019-09-10";
+            param.end = "2019-09-17";
+            this.$store.dispatch('getInOutData', param).then(() => {
+                this.listOfItems = this.$store.state.inOutList;
+            });
         },
 
         components : {

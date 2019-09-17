@@ -7,12 +7,11 @@
                 </StackLayout>
 
                 <GridLayout columns="auto, *" rows="auto, auto, auto" marginLeft="10" >
-                    <Label row="0" col="0" :text="mergePartName" class="title"></Label>
-                    <Label row="0" col="1" :text="item.sign_date" horizontalAlignment="right"></Label>
-                    <Label row="1" col="0" :text="blankProcess(item.type)" class="title"></Label>
-                    <Label row="1" col="1" :text="blankProcess(item.time)" horizontalAlignment="right"></Label>
-                    <Label row="2" col="0" :text="blankProcess(item.days)" class="title"></Label>
-                    <Label row="2" col="1" :text="blankProcess(item.period)" horizontalAlignment="right"></Label>
+                    <Label row="0" col="0" :text="item.submit_name" class="title"></Label>
+                    <Label row="0" col="1" :text="item.submit_date" horizontalAlignment="right"></Label>
+                    <Label row="1" col="0" :text="item.office_code_name" class="title"></Label>
+                    <!-- <Label row="1" col="1" :text="item.submit_date" horizontalAlignment="right"></Label> -->
+                    <Label v-show="item.day_count > 0" row="2" col="0" :text="item.day_count + '일'" class="title"></Label>
                 </GridLayout>
             </StackLayout>
         </StackLayout>
@@ -26,9 +25,6 @@
         },
 
         computed : {
-            mergePartName(){
-                return this.item.part + " "  + this.item.name;
-            }
             
         },
 
@@ -39,9 +35,7 @@
         },
 
         methods : {
-            blankProcess(val){
-                return val==""?"-":val;
-            }
+        
         }
 
     }
@@ -57,12 +51,13 @@
         border-width: 1;
         border-color: rgb(173, 170, 170);
         padding: 5;
-        font-size: 10;
-        
+        font-size: 12;
+        margin-right: 5;
+        margin-left: 5;
     }
 
     .borderContents{
-        padding-bottom:3;
+        padding-bottom:6;
     }
 
     .title{
