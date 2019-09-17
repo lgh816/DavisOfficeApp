@@ -1,10 +1,17 @@
 <template lang="html">
     <GridLayout rows="auto, *" class="sidedrawer sidedrawer-left">
-        <StackLayout orientation="horizontal" row="0" class="sidedrawer-header">
-            <Label class="userIcon sidedrawer-header-brand fa icon" text.decode="&#xf2bd;" width="10%"></Label>
-            <Label class="sidedrawer-header-brand" width="70%" :text="this.$store.state.userInfo.name +' 님'"></Label>
-            <Label class="sidedrawer-header-brand fa icon" text.decode="&#xf011;" width="20%" @tap="logoutAction"></Label>
-            <!-- <Label class="sidedrawer-header-brand" :text="this.$store.state.userInfo.email"></Label> -->
+        <StackLayout  row="0" class="sidedrawer-header">
+            <StackLayout orientation="horizontal" class="userIcon">
+                <Label class="userIcon sidedrawer-header-brand fa icon" text.decode="&#xf2bd;" width="100%"></Label>
+            </StackLayout>
+            <StackLayout orientation="horizontal">
+                <Label class="sidedrawer-header-brand userId" width="80%" :text="this.$store.state.userInfo.id"></Label>
+            </StackLayout>
+            <StackLayout orientation="horizontal">
+                <Label class="sidedrawer-header-brand userName" width="80%" :text="this.$store.state.userInfo.name +' 님'"></Label>
+                <Label class="sidedrawer-header-brand fa icon" text.decode="&#xf011;" width="20%" @tap="logoutAction"></Label>
+            </StackLayout>
+            
         </StackLayout>
     
         <ScrollView row="1" class="sidedrawer-content">
@@ -15,15 +22,21 @@
                     <Label col="1" text="Dashboard" class="p-r-10"></Label>
                 </GridLayout>
 
+                <StackLayout class="hr-light"></StackLayout>
+
                 <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'InOut' ? ' selected': '')" @tap="onNavigationItemTap(InOut)">
                     <Label col="0" text.decode="&#xf103;" class="fa"></Label>
                     <Label col="1" text="출입 기록" class="p-r-10"></Label>
                 </GridLayout>
 
+                <StackLayout class="hr-light"></StackLayout>
+
                 <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Commute' ? ' selected': '')" @tap="onNavigationItemTap(Commute)">
                     <Label col="0" text.decode="&#xf022;" class="fa"></Label>
                     <Label col="1" text="근태 현황" class="p-r-10"></Label>
                 </GridLayout>
+
+                <StackLayout class="hr-light"></StackLayout>
 
                 <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Approval' ? ' selected': '')" @tap="onNavigationItemTap(Approval)">
                     <Label col="0" text.decode="&#xf022;" class="fa"></Label>
@@ -89,6 +102,18 @@
 <style scoped lang="scss">
     // Custom common variables
     @import '../app-variables';
+    .userName {
+        font-size: 18;
+    }
+    .userId {
+        font-size: 15;
+    }
+    .userIcon {
+        
+    }
+    .p-r-10 {
+        font-size: 18;
+    }
     /* .userIcon {
         width: 20;
         height: 20;
@@ -117,7 +142,7 @@
 
         .sidedrawer-header {
             background-color: $ab-background;
-            height: 60;
+            height: 133;
             .sidedrawer-header-brand {
                 color: $ab-color;
             }

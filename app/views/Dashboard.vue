@@ -60,12 +60,17 @@
 
 <style scoped>
     /*========== Need to change common CSS ==========*/
-    .titleArea,
+    .titleArea {
+        margin: 15;
+    }
     .optionsArea {
-        margin: 5;
+        margin-right: 10;
+        margin-left: 10;
+        margin-bottom: 15;
+        font-size: 15;
     }
     .menuName {
-        font-size: 20;
+        font-size: 30;
         font-weight: bold;
         color: rgb(80, 144, 218);
     }
