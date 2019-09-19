@@ -8,7 +8,7 @@
                 
                 <StackLayout row="0" class="input-field inputArea">
                     <StackLayout orientation="horizontal">
-                        <Image class="loginIcon" src="~/images/login/img_id.png"></Image>
+                        <Image class="loginIcon" src="~/images/login/loginId.png"></Image>
                         <TextField class="input" keyboardType="url" hint="ID" v-model="user.userId" @tap="initErrorMsg"></TextField>
                     </StackLayout>
                     <StackLayout class="hr-light"></StackLayout>
@@ -16,7 +16,7 @@
 
                 <StackLayout row="1" class="input-field inputArea">
                     <StackLayout orientation="horizontal">
-                        <Image class="loginIcon" src="~/images/login/img_pw.png"></Image>
+                        <Image class="loginIcon" src="~/images/login/loginPw.png"></Image>
                         <TextField class="input" secure="true" hint="PASSWORD" v-model="user.userPassword" @tap="initErrorMsg"></TextField>
                     </StackLayout>
                     <StackLayout class="hr-light"></StackLayout>

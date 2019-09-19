@@ -8,7 +8,9 @@
                 </StackLayout>
 
                 <StackLayout orientation="horizontal" class="optionsArea">
+                    <!-- <Label text.decode="&#xf191;" class="fa icon"></Label> -->
                     <Label :text="this.todayDay" width="80%"></Label>
+                    <!-- <Label text.decode="&#xf152;" class="fa icon"></Label> -->
                     <Label :text="this.$store.state.userInfo.dept_name" width="20%" class="deptName"></Label>
                 </StackLayout>
 
@@ -45,7 +47,7 @@
         data () {
             return {
                 summaryResult : [],
-                todayDay : this.$moment(new Date()).format('YYYY-MM-DD'),
+                todayDay : this.$moment(new Date()).format('YYYY-MM'),
                 startDate : this.$moment().add(-1, 'month').startOf('month').format("YYYY-MM-DD"),
                 endDate : this.$moment().add(-1, 'month').endOf('month').format("YYYY-MM-DD HH:mm:ss")
             }
@@ -59,24 +61,5 @@
 </script>
 
 <style scoped>
-    /*========== Need to change common CSS ==========*/
-    .titleArea {
-        margin: 15;
-    }
-    .optionsArea {
-        margin-right: 10;
-        margin-left: 10;
-        margin-bottom: 15;
-        font-size: 15;
-    }
-    .menuName {
-        font-size: 30;
-        font-weight: bold;
-        color: rgb(80, 144, 218);
-    }
-    .deptName {
-        text-align: right;
-        color: rgb(80, 144, 218);
-    /*===============================================*/
-    }
+   
 </style>

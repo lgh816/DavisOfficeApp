@@ -58,7 +58,7 @@ $item-color-android: $blue-dark;
 
 $side-drawer-header-background: #fafafa;
 $side-drawer-header-brand: #737373;
-$side-drawer-background: rgb(255, 255, 255);
+$side-drawer-background: white;
 
 // ActionBar
 $ab-background: $accent;
@@ -74,3 +74,22 @@ $btn-color-outline-highlighted: lighten($btn-color, 10%);
 $headings-color: $blue-dark;
 $secondary: $blue-dark;
 $text-color: $blue-dark;
+
+// Page Title Area
+$page-title-margin: 15;
+
+// Page Option Area
+$page-option-Rmargin: 10;
+$page-option-Lmargin: 10;
+$page-option-Bmargin: 15;
+$page-option-font-size: 15;
+$page-option-text-align: left;
+
+// Menu Style
+$page-menu-font-size: 30;
+$page-menu-font-weight: bold;
+$page-menu-color: rgb(80, 144, 218);
+
+// Department Style
+$page-dept-text-align: right;
+$page-dept-color: rgb(80, 144, 218);

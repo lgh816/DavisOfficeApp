@@ -4,6 +4,8 @@ import RadSideDrawer from "nativescript-ui-sidedrawer/vue";
 import VueDevtools from 'nativescript-vue-devtools';
 import moment from "moment";
 import VueMomentJS from "vue-momentjs";
+import DateTimePicker from "nativescript-datetimepicker/vue";
+
 import * as _ from 'lodash';
 
 // import Vuex from 'vuex';
@@ -12,6 +14,7 @@ import * as _ from 'lodash';
 Vue.use(VueDevtools);
 Vue.use(RadSideDrawer);
 Vue.use(VueMomentJS, moment);
+Vue.use(DateTimePicker);
 Vue.config.silent = (TNS_ENV === 'production');
 
 // Set up routes as a prototype to use throuhout the app.

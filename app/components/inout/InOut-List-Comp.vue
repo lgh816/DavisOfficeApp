@@ -39,20 +39,21 @@
 
 <style scoped lang="css">
     .borderContents{
-        padding-bottom: 6;
+        padding-bottom: 5;
     }
 
     .contents{
         border-width: 1;
         border-color: rgb(173, 170, 170);
+        border-radius: 5;
         padding: 6;
-        font-size: 12;
+        font-size: 17;
         margin-right: 5;
         margin-left: 5;
+        height: 60;
     }
-
+    
     .fa.icon{
-        height : 20px;
         color: blueviolet;
     }   
 

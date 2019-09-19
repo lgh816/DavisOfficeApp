@@ -23,6 +23,27 @@
     }
 }
 
+// Each menu page style
+.titleArea {
+    margin: 15;
+}
+.optionsArea {
+    margin-right: 10;
+    margin-left: 10;
+    margin-bottom: 15;
+    font-size: 15;
+    text-align: left;
+}
+.menuName {
+    font-size: 30;
+    font-weight: bold;
+    color: rgb(80, 144, 218);
+}
+.deptName {
+    text-align: right;
+    color: rgb(80, 144, 218);
+}
+
 /* Action bar*/
 ActionBar .action-bar-title {
     horizontal-align: center;

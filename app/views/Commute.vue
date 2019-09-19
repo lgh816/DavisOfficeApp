@@ -59,20 +59,5 @@
 </script>
 
 <style scoped>
-    /*========== Need to change common CSS ==========*/
-    .titleArea,
-    .optionsArea {
-        margin: 5;
-    }
-    .menuName {
-        font-size: 20;
-        font-weight: bold;
-        color: rgb(80, 144, 218);
-    }
-    .deptName {
-        text-align: right;
-        color: rgb(80, 144, 218);
-    }
-    /*===============================================*/
     
 </style>
