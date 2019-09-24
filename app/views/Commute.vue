@@ -11,8 +11,12 @@
                     <Label :text="this.$store.state.userInfo.dept_name" width="20%" class="deptName"></Label>
                 </StackLayout>
 
-                 <ListView for="item in listOfItems" @itemTap="onItemTap"  separatorColor="transparent" class="itemList">
-                    <v-template>
+                <!-- <StackLayout>
+                    <SearchBar class="searchBarStyle" hint="Search" :text="searchPhrase" @textChange="onTextChanged" @submit="onSubmit" /> 
+                </StackLayout> -->
+
+                <ListView for="item in listOfItems" @itemTap="onItemTap"  separatorColor="transparent" class="itemList">
+                    <v-template class="commuteTemplate">
                         <CommuteListComp :item="item" />
                     </v-template>
                 </ListView>
@@ -51,6 +55,14 @@
                 utils.showDrawer();
             },
 
+            onTextChanged() {
+                console.log("TEXT Changed");
+            },
+
+            onSubmit() {
+                console.log("Search Submit");
+            },
+
             onItemTap(e){
                 console.log(e.item);
             }
@@ -59,5 +71,12 @@
 </script>
 
 <style scoped>
-    
+    .searchBarStyle {
+        border-width: 1;
+        border-color: rgb(173, 170, 170);
+        border-radius: 5;
+        margin-right: 5;
+        margin-left: 5;
+        height: 45;
+    }
 </style>

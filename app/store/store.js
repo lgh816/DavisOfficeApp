@@ -147,6 +147,12 @@ export default new Vuex.Store({
             })
         },
 
+        logoutAction: ({ state, commit }) => {
+            return axios.delete(state.mobileUrl + '/mobile').then((res) => {
+                return true;
+            })
+        },
+        
         // ======================= Dashboard =========================
         getDashboardSummary: ({ state, commit }, payload) => {
             payload.id = state.userInfo.id;

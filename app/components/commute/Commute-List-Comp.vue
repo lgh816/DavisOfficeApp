@@ -1,16 +1,39 @@
 <template>
-    <StackLayout orientation="horizontal" class="borderContents">
-        <StackLayout orientation="horizontal" class="contents" >
-            <StackLayout>
-                <Label text.decode="&#xf022;" class="fa icon" style="height:20px;" horizontalAlignment="center" />
-            </StackLayout>
+    <ScrollView ref="scrollView">
+        <StackLayout orientation="horizontal" class="borderContents">
+            <StackLayout @tap="onHeaderTap" :id="item.submit_id" orientation="horizontal" class="contents" >
+                <GridLayout columns="auto, *" rows="auto, auto, auto, auto, auto, auto, auto" marginLeft="10" class="eachGrid">
+                    <Label row="0" col="0" :text="item.text" class="title"></Label>
+                    <Label row="0" col="1" text.decode="&#xf103;" horizontalAlignment="right" class="fa icon"></Label>
 
-            <GridLayout columns="auto, *" rows="auto, auto, auto" marginLeft="10" >
-                <Label row="0" col="0" :text="item.text" class="title"></Label>
-                <Label row="0" col="1" text.decode="&#xf103;" horizontalAlignment="right" class="fa icon"></Label>
-            </GridLayout>
+                    <Label row="1" col="0" class="detailTitle" text="부서" :visibility="detailDataVisability"></Label>
+                    <Label row="1" col="1" class="detailContent" :text="item.dept_name" horizontalAlignment="right" :visibility="detailDataVisability"></Label>
+
+                    <Label row="2" col="0" class="detailTitle" text="이름" :visibility="detailDataVisability"></Label>
+                    <Label row="2" col="1" class="detailContent" :text="item.name" horizontalAlignment="right" :visibility="detailDataVisability"></Label>
+
+                    <Label row="3" col="0" class="detailTitle" text="근무타입" :visibility="detailDataVisability"></Label>
+                    <Label row="3" col="1" class="detailContent" :text="item.out_office_name" horizontalAlignment="right" :visibility="detailDataVisability"></Label>
+
+                    <Label row="4" col="0" class="detailTitle" text="시작시간" :visibility="detailDataVisability"></Label>
+                    <Label row="4" col="1" class="detailContent" :text="item.start_time" horizontalAlignment="right" :visibility="detailDataVisability"></Label>
+
+                    <Label row="5" col="0" class="detailTitle" text="종료시간" :visibility="detailDataVisability"></Label>
+                    <Label row="5" col="1" class="detailContent" :text="item.end_time" horizontalAlignment="right" :visibility="detailDataVisability"></Label>
+
+                    <Label row="6" col="0" class="detailTitle" text="비고" :visibility="detailDataVisability"></Label>
+                    <Label row="6" col="1" class="detailContent" :text="item.memo" horizontalAlignment="right" :visibility="detailDataVisability"></Label>
+
+                    <!-- 부서 -->
+                    <!-- 이름 -->
+                    <!-- 근무타입 -->
+                    <!-- 시작시간 -->
+                    <!-- 종료시간 -->
+                    <!-- 비고 -->
+                </GridLayout>
+            </StackLayout>
         </StackLayout>
-    </StackLayout>
+    </ScrollView>
 </template>
 
 <script>
@@ -36,33 +59,24 @@
 
         data (){
             return {
+                detailDataVisability: 'collapse'
+            }
+        },
 
+        methods : {
+            onHeaderTap: function() { // param : args
+                // const buttonId = args.object.id;
+                if (this.detailDataVisability == 'visible') {
+                    this.detailDataVisability = 'collapse';
+                } else {
+                    this.detailDataVisability = 'visible'
+                }
+                this.$refs.scrollView.nativeView.scrollToVerticalOffset(0, false);
             }
         }
     }
 </script>
 
 <style scoped lang="css">
-    .borderContents{
-        padding-bottom: 5;
-    }
-
-    .contents{
-        border-width: 1;
-        border-color: rgb(173, 170, 170);
-        border-radius: 5;
-        padding: 6;
-        font-size: 17;
-        margin-right: 5;
-        margin-left: 5;
-        height: 45;
-    }
-    .fa.icon{
-        color: blueviolet;
-    }
-
-    .title{
-        font-weight: bold;
-    }
-
+    
 </style>

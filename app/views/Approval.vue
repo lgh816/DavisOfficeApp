@@ -8,23 +8,21 @@
 
                 <StackLayout orientation="horizontal" class="optionsArea">
                     <!-- <Label :text="this.todayDay" width="40%"></Label> -->
-                        <DatePickerField 
-                            class="datePickArea"
-                            :date="this.fromDate"
-                            dateFormat="YYYY-MM-dd">
-                        </DatePickerField>
-                        
-                        <DatePickerField 
+                        <!-- <DatePickerField
+                            :day="this.fromDay"
+                            :month="this.fromMonth"
+                            :year="this.year"/> -->
+                        <!-- <DatePickerField 
                             class="datePickArea"
                             :date="this.toDate"
                             dateFormat="YYYY-MM-dd">
-                        </DatePickerField>
+                        </DatePickerField> -->
                     <Label :text="this.$store.state.userInfo.dept_name" class="deptName"></Label>
                 </StackLayout>
 
                 <ListView for="item in listOfItems" @itemTap="onItemTap"  separatorColor="transparent" class="itemList">
                     <v-template>
-                        <ApprovalListComp :item="item" />
+                        <ApprovalListComp :item="item"/>
                     </v-template>
                 </ListView>
             </StackLayout>
@@ -61,8 +59,13 @@
         data (){
             return {
                 listOfItems: [],
-                fromDate: this.$moment().add(-1, 'month').startOf('month').format("YYYY-MM-01"),
-                toDate: this.$moment().add(+1, 'year').add(-2, 'month').endOf('month').format("YYYY-MM-DD")
+                fromDate: this.$moment().add(-1, 'month').startOf('month').format("YYYY,MM,01"),
+                toDate: this.$moment().add(+1, 'year').add(-2, 'month').endOf('month').format("YYYY,MM,DD"),
+                year: this.$moment().add('year').format("YYYY"),
+                fromMonth: this.$moment().add(-1, 'month').format("MM"),
+                toMonth: this.$moment().add(+1, 'month').format("MM"),
+                fromDay: this.$moment().startOf('month').format("DD"),
+                toDay: this.$moment().endOf('month').format("DD"),
             }
         },
 
@@ -71,33 +74,14 @@
         methods : {
              onDrawerButtonTap() {
                 utils.showDrawer();
+            },
+            onItemTap() {
+                console.log("TAP");
             }
         }
     }
 </script>
 
 <style scoped>
-    /*========== Need to change common CSS ==========*/
-    .titleArea,
-    .optionsArea {
-        margin: 5;
-    }
-    .menuName {
-        font-size: 20;
-        font-weight: bold;
-        color: rgb(80, 144, 218);
-    }
-    .deptName {
-        text-align: right;
-        color: rgb(80, 144, 218);
-    }
-    .datePickArea {
-        text-align: left;
-        font-size: 15;
-        height: 20;
-        padding-top: 0;
-        padding-bottom: 0;
-        font-weight: 400;
-    }
-    /*===============================================*/
+
 </style>

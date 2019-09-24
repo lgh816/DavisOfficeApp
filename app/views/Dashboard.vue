@@ -8,9 +8,7 @@
                 </StackLayout>
 
                 <StackLayout orientation="horizontal" class="optionsArea">
-                    <!-- <Label text.decode="&#xf191;" class="fa icon"></Label> -->
                     <Label :text="this.todayDay" width="80%"></Label>
-                    <!-- <Label text.decode="&#xf152;" class="fa icon"></Label> -->
                     <Label :text="this.$store.state.userInfo.dept_name" width="20%" class="deptName"></Label>
                 </StackLayout>
 

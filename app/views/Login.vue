@@ -9,7 +9,7 @@
                 <StackLayout row="0" class="input-field inputArea">
                     <StackLayout orientation="horizontal">
                         <Image class="loginIcon" src="~/images/login/loginId.png"></Image>
-                        <TextField class="input" keyboardType="url" hint="ID" v-model="user.userId" @tap="initErrorMsg"></TextField>
+                        <TextField class="input" keyboardType="number" hint="ID" v-model="user.userId" @tap="initErrorMsg"></TextField>
                     </StackLayout>
                     <StackLayout class="hr-light"></StackLayout>
                 </StackLayout>

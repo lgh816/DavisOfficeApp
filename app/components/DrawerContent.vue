@@ -44,12 +44,20 @@
 
                 <StackLayout class="hr-light"></StackLayout>
 
-                <!-- <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Settings' ? ' selected': '')" @tap="onNavigationItemTap(Settings)">
+                <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Settings' ? ' selected': '')" @tap="onNavigationItemTap(Settings)">
                     <Image class="logo" src="~/images/menu/approval.png"></Image>
                     <Label col="1" text="Settings" class="sideMenu"></Label>
                 </GridLayout>
 
-                <StackLayout class="hr-light"></StackLayout> -->
+                <StackLayout class="hr-light"></StackLayout>
+
+                <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'DateDemo' ? ' selected': '')" @tap="onNavigationItemTap(DateDemo)">
+                    <Image class="logo" src="~/images/menu/approval.png"></Image>
+                    <Label col="1" text="DateDemo" class="sideMenu"></Label>
+                </GridLayout>
+
+                <StackLayout class="hr-light"></StackLayout>
+
             </StackLayout>
         </ScrollView>
     </GridLayout>
@@ -60,9 +68,11 @@
     import Commute from "~/views/Commute";
     import Settings from "~/views/Settings";
     import Approval from "~/views/Approval";
+    import DateDemo from "~/views/DateDemo";
     import InOut from "~/views/InOut";
     import * as utils from "~/service/utils/utils";
     import SelectedPageService from "~/service/utils/selected-page-service";    
+    import { exit } from 'nativescript-exit';
     
     export default {
         mounted() {
@@ -76,6 +86,7 @@
                 Approval : Approval,
                 InOut : InOut,
                 Settings: Settings,
+                DateDemo: DateDemo,
                 selectedPage: ""
             };
         },
@@ -84,7 +95,8 @@
             Commute,
             Approval,
             InOut,
-            Settings
+            Settings,
+            DateDemo
         },
         methods: {
             onNavigationItemTap(component) {
@@ -94,7 +106,9 @@
                 utils.closeDrawer();
             },
             logoutAction() {
-                console.log("Logout");
+                this.$store.dispatch('logoutAction').then((res) => {
+                    exit();
+                });
             }
         }
     };
@@ -110,19 +124,11 @@
     $sidedrawer-list-icon-offset: 10;
     $sidedrawer-list-icon-size: 20;
     .sidedrawer {
-        &.sidedrawer-left {
-            .sidedrawer-header-image {
-                /* color: $background-dark; */
-                padding: 0;
-                margin-bottom: $sidedrawer-header-image-offset-bottom;
-                margin-top: $sidedrawer-header-image-offset-top;
-            }
-        }
-
         .sidedrawer-header {
             /* background-color: $ab-background; */
             background-image: url("~/images/menu/menuTopBg.png");
             background-repeat: no-repeat;
+            background-size: 100% 100%;
             height: 133;
             padding-left: 20;
             .sidedrawer-header-brand {
@@ -134,8 +140,9 @@
                 }
             }
             .userLogo {
-                width: 50;
-                height: 50;
+                width: 45;
+                height: 45;
+                margin-left: 5;
             }
             .icon {
                 width: 25;
@@ -146,7 +153,7 @@
         .sidedrawer-content {
             /* background-color: $side-drawer-background; */
             background-color: #405481;
-            opacity: 0.9;
+            /* opacity: 0.9; */
             .logo {
                 width: 25;
                 height: 25;
@@ -155,6 +162,9 @@
                 font-size: 18;
                 color: white;
                 padding-left: 10;
+            }
+            .hr-light {
+                opacity: 0.2;
             }
         }
 

@@ -44,6 +44,47 @@
     color: rgb(80, 144, 218);
 }
 
+.detailTitle {
+    font-size: 13;
+}
+
+.detailContent {
+    font-size: 13;
+    padding-right: 15;
+    padding-top: 3;
+}
+
+.borderContents{
+    padding-bottom: 5;
+}
+
+.contents{
+    border-width: 1;
+    border-color: rgb(173, 170, 170);
+    border-radius: 5;
+    padding: 6;
+    font-size: 17;
+    margin-right: 5;
+    margin-left: 5;
+    height: 100%;
+}
+
+.fa.icon{
+    color: rgb(80, 144, 218);
+}   
+
+.title{
+    font-weight: bold;
+}
+
+.eachGrid {
+    vertical-align: middle;
+}
+
+.itemList {
+    height: 100%;
+}
+
 /* Action bar*/
 ActionBar .action-bar-title {
     horizontal-align: center;
