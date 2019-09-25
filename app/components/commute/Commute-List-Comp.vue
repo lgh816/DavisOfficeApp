@@ -4,7 +4,7 @@
             <StackLayout @tap="onHeaderTap" :id="item.submit_id" orientation="horizontal" class="contents" >
                 <GridLayout columns="auto, *" rows="auto, auto, auto, auto, auto, auto, auto" marginLeft="10" class="eachGrid">
                     <Label row="0" col="0" :text="item.text" class="title"></Label>
-                    <Label row="0" col="1" text.decode="&#xf103;" horizontalAlignment="right" class="fa icon"></Label>
+                    <Label row="0" col="1" v-show="item.text != 'No Data'" text.decode="&#xf103;" horizontalAlignment="right" class="fa icon"></Label>
 
                     <Label row="1" col="0" class="detailTitle" text="부서" :visibility="detailDataVisability"></Label>
                     <Label row="1" col="1" class="detailContent" :text="item.dept_name" horizontalAlignment="right" :visibility="detailDataVisability"></Label>
@@ -66,6 +66,9 @@
         methods : {
             onHeaderTap: function() { // param : args
                 // const buttonId = args.object.id;
+                if (this.item.text == 'No Data') {
+                    return;
+                }
                 if (this.detailDataVisability == 'visible') {
                     this.detailDataVisability = 'collapse';
                 } else {

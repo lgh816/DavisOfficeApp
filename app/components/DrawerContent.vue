@@ -3,7 +3,7 @@
         
         <StackLayout  row="0" class="sidedrawer-header">
             <StackLayout orientation="horizontal">
-                <Image class="userLogo" src="~/images/menu/menuTopUser.png"></Image>
+                <Image class="userLogo" src="~/images/menu/menuTopUser.png" @tap="clickImage"></Image>
             </StackLayout>
             <StackLayout orientation="horizontal">
                 <Label class="sidedrawer-header-brand" width="80%" :text="this.$store.state.userInfo.id"></Label>
@@ -44,19 +44,19 @@
 
                 <StackLayout class="hr-light"></StackLayout>
 
-                <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Settings' ? ' selected': '')" @tap="onNavigationItemTap(Settings)">
+                <GridLayout v-show="this.$store.state.userInfo.admin == 9" columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Settings' ? ' selected': '')" @tap="onNavigationItemTap(Settings)">
                     <Image class="logo" src="~/images/menu/approval.png"></Image>
-                    <Label col="1" text="Settings" class="sideMenu"></Label>
+                    <Label col="1" text="자산 조회" class="sideMenu"></Label>
                 </GridLayout>
 
-                <StackLayout class="hr-light"></StackLayout>
+                <StackLayout v-show="this.$store.state.userInfo.admin == 9" class="hr-light"></StackLayout>
 
-                <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'DateDemo' ? ' selected': '')" @tap="onNavigationItemTap(DateDemo)">
+                <!-- <GridLayout v-show="this.$store.state.userInfo.admin == 9" columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'DateDemo' ? ' selected': '')" @tap="onNavigationItemTap(DateDemo)">
                     <Image class="logo" src="~/images/menu/approval.png"></Image>
                     <Label col="1" text="DateDemo" class="sideMenu"></Label>
                 </GridLayout>
 
-                <StackLayout class="hr-light"></StackLayout>
+                <StackLayout v-show="this.$store.state.userInfo.admin == 9" class="hr-light"></StackLayout> -->
 
             </StackLayout>
         </ScrollView>
@@ -87,7 +87,8 @@
                 InOut : InOut,
                 Settings: Settings,
                 DateDemo: DateDemo,
-                selectedPage: ""
+                selectedPage: "",
+                count: 0
             };
         },
         components: {
@@ -109,6 +110,13 @@
                 this.$store.dispatch('logoutAction').then((res) => {
                     exit();
                 });
+            },
+            clickImage() {
+                this.count += 1;
+                if (this.count == 10) {
+                    console.log("test");
+                    this.count = 0;
+                }
             }
         }
     };

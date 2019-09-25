@@ -128,6 +128,7 @@ export default new Vuex.Store({
 
         initInOutData: (state) => {
             state.inOutList = [];
+            state.inOutList =[{name : 'No Data'}]
         }
     },
     actions : { // axios를 사용하여 서버 통신

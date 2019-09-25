@@ -9,7 +9,7 @@
                 <Label text="DatePickerField" id="date" class="header" @tap="onHeaderTap" :opacity="dateOpacity"></Label>
                 <StackLayout :visibility="dateVisibility">
                     <Label text="basic usage" class="content"></Label>
-                    <DatePickerField hint="select date"></DatePickerField>
+                    <DatePickerField hint="select date" dateFormat="YYYY-MM"></DatePickerField>
                     <StackLayout class="hr-light m-10" android:visibility="collapse"></StackLayout>
 
                     <Label text="initial values" class="content"></Label>
@@ -28,11 +28,6 @@
                     <Label text="preferred locale: en_US" class="content"></Label>
                     <DatePickerField locale="en_US" hint="select date" pickerOkText="OK"
                         pickerCancelText="Cancel" pickerTitle="Select date"></DatePickerField>
-                    <StackLayout class="hr-light m-10" android:visibility="collapse"></StackLayout>
-
-                    <Label text="preferred locale: de_DE" class="content"></Label>
-                    <DatePickerField locale="de_DE" hint="datum auswählen" pickerOkText="Bestätigen"
-                        pickerCancelText="Stornieren" pickerTitle="Datum auswählen"></DatePickerField>
                     <StackLayout class="hr-light m-10" android:visibility="collapse"></StackLayout>
 
                     <Label text="custom format" class="content"></Label>

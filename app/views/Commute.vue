@@ -4,18 +4,21 @@
             <StackLayout height="100%" width="100%">
                 <StackLayout orientation="horizontal" class="titleArea">
                     <Label text="근태 현황" class="menuName" @tap="onDrawerButtonTap"></Label>
+                    <Label :text="this.$store.state.userInfo.dept_name" class="deptName"></Label>
                 </StackLayout>
 
                 <StackLayout orientation="horizontal" class="optionsArea">
-                    <Label :text="this.todayDay" width="80%"></Label>
-                    <Label :text="this.$store.state.userInfo.dept_name" width="20%" class="deptName"></Label>
+                    <DatePickerField
+                        class="oneDateStyle"
+                        @dateChange="onDateChange"
+                        :date="todayDay" />
                 </StackLayout>
 
                 <!-- <StackLayout>
                     <SearchBar class="searchBarStyle" hint="Search" :text="searchPhrase" @textChange="onTextChanged" @submit="onSubmit" /> 
                 </StackLayout> -->
 
-                <ListView for="item in listOfItems" @itemTap="onItemTap"  separatorColor="transparent" class="itemList">
+                <ListView for="item in listOfItems" separatorColor="transparent" class="itemList">
                     <v-template class="commuteTemplate">
                         <CommuteListComp :item="item" />
                     </v-template>
@@ -33,12 +36,13 @@
     export default {
         mounted() {
             SelectedPageService.getInstance().updateSelectedPage("Commute");
-            var param = {};
-            // param.startDate = this.todayDay;
-            param.startDate = "2019-08-16";
-            this.$store.dispatch('getCommuteData', param).then((res) => {
+            const param = {};
+            param.startDate = this.todayDay;
+            this.searchData(param);
+            // param.startDate = "2019-08-16";
+            /* this.$store.dispatch('getCommuteData', param).then((res) => {
                 this.listOfItems = this.$store.state.commuteList;
-            })
+            }) */
         },
         components : {
             CommuteListComp
@@ -51,8 +55,21 @@
             }
         },
         methods: {
+            searchData(param) {
+                this.$store.dispatch('getCommuteData', param).then((res) => {
+                    this.listOfItems = this.$store.state.commuteList;
+                })
+            },
+
             onDrawerButtonTap() {
                 utils.showDrawer();
+            },
+
+            onDateChange(args) {
+                const changedDate = this.$moment(args.value).format('YYYY-MM-DD');
+                const param = {};
+                param.startDate = changedDate;
+                this.searchData(param);
             },
 
             onTextChanged() {
@@ -61,10 +78,6 @@
 
             onSubmit() {
                 console.log("Search Submit");
-            },
-
-            onItemTap(e){
-                console.log(e.item);
             }
         }
     };

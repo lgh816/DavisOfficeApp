@@ -25,23 +25,32 @@
 
 // Each menu page style
 .titleArea {
-    margin: 15;
+    margin: 0;
+    padding: 15;
+    background-color: #e1e1e1;
 }
 .optionsArea {
-    margin-right: 10;
-    margin-left: 10;
-    margin-bottom: 15;
+    margin: 0;
+    padding-right: 5;
+    padding-left: 5;
+    padding-top: 5;
+    padding-bottom: 10;
+
     font-size: 15;
-    text-align: left;
+    background-color: #e1e1e1;
 }
 .menuName {
     font-size: 30;
     font-weight: bold;
-    color: rgb(80, 144, 218);
+    color: #425582;
+    width: 70%;
 }
 .deptName {
+    font-size: 18;
     text-align: right;
-    color: rgb(80, 144, 218);
+    color: #425582;
+    vertical-align: bottom;
+    width: 30%;
 }
 
 .detailTitle {
@@ -59,13 +68,10 @@
 }
 
 .contents{
-    border-width: 1;
-    border-color: rgb(173, 170, 170);
-    border-radius: 5;
-    padding: 6;
+    border-bottom-width: 1;
+    border-color: #d9d9de;
+    padding: 10 6;
     font-size: 17;
-    margin-right: 5;
-    margin-left: 5;
     height: 100%;
 }
 
@@ -79,10 +85,32 @@
 
 .eachGrid {
     vertical-align: middle;
+    height: 100%;
 }
 
 .itemList {
     height: 100%;
+}
+
+.oneDateStyle {
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 100%;
+    background-color: #425582;
+    color: #ffffff;
+    height: 30;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.twoDateStyle {
+    margin: 0;
+    width: 43.5%;
+    background-color: #425582;
+    color: #ffffff;
+    height: 30;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 /* Action bar*/
