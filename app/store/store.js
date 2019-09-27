@@ -59,8 +59,12 @@ export default new Vuex.Store({
 
             state.dashboardSummary = payload;
             state.summaryResult.push({text : payload.vacation_year + " 잔여 연차", data :  payload.vacation_year_remain});
-            state.summaryResult.push({text : "평균 출근 시간", data : payload.in_time_avg.substr(0,5)});
-            state.summaryResult.push({text : "평균 퇴근 시간", data : payload.out_time_avg.substr(0,5)});
+            if (!_.isUndefined(payload.in_time_avg)) {
+                state.summaryResult.push({text : "평균 출근 시간", data : payload.in_time_avg.substr(0,5)});
+            }
+            if (!_.isUndefined(payload.out_time_avg)) {
+                state.summaryResult.push({text : "평균 퇴근 시간", data : payload.out_time_avg.substr(0,5)});
+            }
             if (payload.sick_leave > 0) {
                 state.summaryResult.push({text : "조퇴", data : payload.sick_leave + "일"});
             }
@@ -91,13 +95,41 @@ export default new Vuex.Store({
             state.commuteList = [];
             for (var i = 0; i < payload.length; i++) {
                 var text = '';
-                text = payload[i].name;
-                text += ' / ' + payload[i].out_office_name;
-                if (!_.isEmpty(payload[i].start_time)) {
+                text = payload[i].dept_name;
+                text += ' ' + payload[i].name;
+                /* text = payload[i].name;
+                text += ' / ' + payload[i].out_office_name; */
+                /* if (!_.isEmpty(payload[i].start_time)) {
                     text += ' / ' + payload[i].start_time;
                 }
                 if (!_.isEmpty(payload[i].end_time)) {
                     text += ' ~ ' + payload[i].end_time;
+                } */
+                if (payload[i].out_office_name == "연차휴가") {
+                    payload[i].img = "~/images/icon/holiday.png"
+                }
+                if (payload[i].out_office_name == "오전반차") {
+                    payload[i].img = "~/images/icon/holiday_morning.png"
+                }
+                if (payload[i].out_office_name == "오후반차") {
+                    payload[i].img = "~/images/icon/holiday_afternoon.png"
+                }
+                if (payload[i].out_office_name == "파견") {
+                    payload[i].img = "~/images/icon/dispatch.png"
+                }
+                if (payload[i].out_office_name == "공적휴가(종일)") {
+                    payload[i].img = "~/images/icon/p_vacation_day.png"
+                }
+                if (payload[i].out_office_name == "외근") {
+                    payload[i].img = "~/images/icon/outdoor_service.png"
+                    var outOfficeTime = '';
+                    if (!_.isEmpty(payload[i].start_time)) {
+                        outOfficeTime = payload[i].start_time;
+                    }
+                    if (!_.isEmpty(payload[i].end_time)) {
+                        outOfficeTime += ' ~ ' + payload[i].end_time;
+                    }
+                    payload[i].outOfficeTime = outOfficeTime;
                 }
                 payload[i].text = text;
                 state.commuteList.push(payload[i]);
@@ -112,7 +144,58 @@ export default new Vuex.Store({
         setApprovalData: (state, payload) => {
             state.approvalAllList = [];
             //state.approvalUserList = [];
-            state.approvalAllList = payload;
+            for (var i = 0; i < payload.length; i++) {
+                var text = '';
+                var periodCnvt = '';
+                text = payload[i].submit_dept_name;
+                text += ' ' + payload[i].submit_name;
+                if (payload[i].office_code_name == "연차휴가") {
+                    payload[i].img = "~/images/icon/holiday.png"
+                }
+                if (payload[i].office_code_name == "오전반차") {
+                    payload[i].img = "~/images/icon/holiday_morning.png"
+                }
+                if (payload[i].office_code_name == "오후반차") {
+                    payload[i].img = "~/images/icon/holiday_afternoon.png"
+                }
+                if (payload[i].office_code_name == "파견") {
+                    payload[i].img = "~/images/icon/dispatch.png"
+                }
+                if (payload[i].office_code_name == "휴일근무") {
+                    payload[i].img = "~/images/icon/holiday_work.png"
+                }
+                if (payload[i].office_code_name == "장기외근") {
+                    payload[i].img = "~/images/icon/working_away.png"
+                }
+                if (payload[i].office_code_name == "특별휴가") {
+                    payload[i].img = "~/images/icon/special_holiday.png"
+                }
+                if (payload[i].office_code_name == "경조휴가") {
+                    payload[i].img = "~/images/icon/c_vacation.png"
+                }
+                if (payload[i].office_code_name == "외근") {
+                    payload[i].img = "~/images/icon/outdoor_service.png"
+                    var outOfficeTime = '';
+                    if (!_.isEmpty(payload[i].start_time)) {
+                        outOfficeTime = payload[i].start_time;
+                    }
+                    if (!_.isEmpty(payload[i].end_time)) {
+                        outOfficeTime += ' ~ ' + payload[i].end_time;
+                    }
+                    payload[i].outOfficeTime = outOfficeTime;
+                }
+                if (payload[i].office_code_name == "초과근무") {
+                    payload[i].img = "~/images/icon/overtime.png"
+                }
+                if (payload[i].start_date == payload[i].end_date) {
+                    periodCnvt = payload[i].start_date;
+                } else {
+                    periodCnvt = payload[i].start_date + " ~ " + payload[i].end_date;
+                }
+                payload[i].periodCnvt = periodCnvt;
+                payload[i].text = text;
+                state.approvalAllList.push(payload[i]);
+            }
         },
 
         initApprovalData: (state) => {

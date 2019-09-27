@@ -9,12 +9,12 @@
                 </StackLayout>
 
                 <StackLayout orientation="horizontal" class="optionsArea">
-                    <Label :text="this.todayDay" width="80%"></Label>
-                    <!-- <DatePickerField
-                        class="dateStyle"
+                    <!-- <Label :text="this.todayDay" width="80%"></Label> -->
+                    <DatePickerField
+                        class="oneDateStyle"
                         @dateChange="onDateChange"
                         :date="todayDay"
-                        dateFormat="YYYY MM" /> -->
+                        dateFormat="MMMM YYYY" />
                 </StackLayout>
 
                 <ListView for="item in summaryResult" separatorColor="transparent" class="itemList">
@@ -39,7 +39,7 @@
             param.start = this.startDate;
             param.end = this.endDate;
             param.year = this.startDate.substr(0,4);
-            //this.searchData(param);
+            // this.searchData(param);
 
             this.$store.dispatch('getDashboardSummary', param).then((res) => {
                 this.summaryResult = this.$store.state.summaryResult;
@@ -57,18 +57,24 @@
             }
         },
         methods: {
-            /* searchData(param) {
+            searchData(param) {
                 this.$store.dispatch('getDashboardSummary', param).then((res) => {
                     this.summaryResult = this.$store.state.summaryResult;
                 });
-            }, */
+            },
 
             onDrawerButtonTap() {
                 utils.showDrawer();
             },
 
             onDateChange(args) {
-
+                const param = {};
+                const startDate = this.$moment(args.value).startOf('month').format('YYYY-MM-DD');
+                const endDate = this.$moment(args.value).endOf('month').format("YYYY-MM-DD HH:mm:ss")
+                param.start = startDate;
+                param.end = endDate;
+                param.year = startDate.substr(0,4);
+                this.searchData(param);
             }
         }
     };

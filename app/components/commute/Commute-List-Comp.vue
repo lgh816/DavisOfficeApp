@@ -2,27 +2,14 @@
     <ScrollView ref="scrollView">
         <StackLayout orientation="horizontal" class="borderContents">
             <StackLayout @tap="onHeaderTap" :id="item.submit_id" orientation="horizontal" class="contents" >
-                <GridLayout columns="auto, *" rows="auto, auto, auto, auto, auto, auto, auto" marginLeft="10" class="eachGrid">
-                    <Label row="0" col="0" :text="item.text" class="title"></Label>
-                    <Label row="0" col="1" v-show="item.text != 'No Data'" text.decode="&#xf103;" horizontalAlignment="right" class="fa icon"></Label>
+                <GridLayout columns="auto, auto, *" rows="auto, auto, auto, auto, auto, auto, auto, auto" marginLeft="10" class="eachGrid">
+                    <Image row="0" col="0" rowSpan="3" :src="item.img" class="iconStyle"></Image>
+                    <Label row="0" col="1" :text="item.text" class="title"></Label>
 
-                    <Label row="1" col="0" class="detailTitle" text="부서" :visibility="detailDataVisability"></Label>
-                    <Label row="1" col="1" class="detailContent" :text="item.dept_name" horizontalAlignment="right" :visibility="detailDataVisability"></Label>
+                    <Label row="1" col="1" v-show="item.text != 'No Data'" class="officeType" horizontalAlignment="left" :text="item.out_office_name"></Label>
+                    <Label row="1" col="2" class="detailContent" :text="item.outOfficeTime" horizontalAlignment="right"></Label>
 
-                    <Label row="2" col="0" class="detailTitle" text="이름" :visibility="detailDataVisability"></Label>
-                    <Label row="2" col="1" class="detailContent" :text="item.name" horizontalAlignment="right" :visibility="detailDataVisability"></Label>
-
-                    <Label row="3" col="0" class="detailTitle" text="근무타입" :visibility="detailDataVisability"></Label>
-                    <Label row="3" col="1" class="detailContent" :text="item.out_office_name" horizontalAlignment="right" :visibility="detailDataVisability"></Label>
-
-                    <Label row="4" col="0" class="detailTitle" text="시작시간" :visibility="detailDataVisability"></Label>
-                    <Label row="4" col="1" class="detailContent" :text="item.start_time" horizontalAlignment="right" :visibility="detailDataVisability"></Label>
-
-                    <Label row="5" col="0" class="detailTitle" text="종료시간" :visibility="detailDataVisability"></Label>
-                    <Label row="5" col="1" class="detailContent" :text="item.end_time" horizontalAlignment="right" :visibility="detailDataVisability"></Label>
-
-                    <Label row="6" col="0" class="detailTitle" text="비고" :visibility="detailDataVisability"></Label>
-                    <Label row="6" col="1" class="detailContent" :text="item.memo" horizontalAlignment="right" :visibility="detailDataVisability"></Label>
+                    <Label row="2" col="1" colSpan="2" class="detailContent" :text="item.memo" horizontalAlignment="left"></Label>
 
                     <!-- 부서 -->
                     <!-- 이름 -->
