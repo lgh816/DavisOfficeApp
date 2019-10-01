@@ -13,6 +13,8 @@ android {
   defaultConfig {
     minSdkVersion 17
     generatedDensities = []
+    /* versionName "1.0"
+    archivesBaseName = "YesOffice" + "_" + versionName + "_" + new Date().format("yyyyMMdd_HHmmss") */
   }
   aaptOptions {
     additionalParameters "--no-version-vectors"

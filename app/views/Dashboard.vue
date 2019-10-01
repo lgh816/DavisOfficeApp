@@ -13,8 +13,7 @@
                     <DatePickerField
                         class="oneDateStyle"
                         @dateChange="onDateChange"
-                        :date="todayDay"
-                        dateFormat="MMMM YYYY" />
+                        :date="todayDay"/>
                 </StackLayout>
 
                 <ListView for="item in summaryResult" separatorColor="transparent" class="itemList">
@@ -52,8 +51,8 @@
             return {
                 summaryResult : [],
                 todayDay : this.$moment(new Date()).format('YYYY-MM'),
-                startDate : this.$moment().add(-1, 'month').startOf('month').format("YYYY-MM-DD"),
-                endDate : this.$moment().add(-1, 'month').endOf('month').format("YYYY-MM-DD HH:mm:ss")
+                startDate : this.$moment().startOf('month').format("YYYY-MM-DD"),
+                endDate : this.$moment().endOf('month').format("YYYY-MM-DD HH:mm:ss")
             }
         },
         methods: {

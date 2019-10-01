@@ -6,12 +6,11 @@
                     <Image row="0" col="0" rowSpan="2" :src="item.img" class="iconStyle"></Image>
                     <Label row="0" col="1" :text="item.text" class="title"></Label>
                     
-
                     <Label row="1" col="1" class="officeType" horizontalAlignment="left" :text="item.office_code_name"></Label>
                     <Label row="1" col="2" text="상세보기" horizontalAlignment="right" class="detailInfo"></Label>
 
-                    <Label row="2" col="0" class="detailTitle" text="신청일자" :visibility="detailDataVisability"></Label>
-                    <Label row="2" col="1" colSpan="2" class="detailContent" :text="requestDateCnvt" horizontalAlignment="right" :visibility="detailDataVisability"></Label>
+                    <Label row="2" col="0" class="detailTitle firstDetailInfo" text="신청일자" :visibility="detailDataVisability"></Label>
+                    <Label row="2" col="1" colSpan="2" class="detailContent firstDetailInfo" :text="requestDateCnvt" horizontalAlignment="right" :visibility="detailDataVisability"></Label>
 
                     <Label row="3" col="0" class="detailTitle" text="처리일자" :visibility="detailDataVisability"></Label>
                     <Label row="3" col="1" colSpan="2" class="detailContent" :text="decideDateCnvt" horizontalAlignment="right" :visibility="detailDataVisability"></Label>
@@ -86,9 +85,8 @@
             expandCollapse: function(expandId) {
                 this.detailDataVisability = expandId === this.selectedBtn ? 'visible' : 'collapse';
                 this._expandedId = expandId;
-            },
+            }
         }
-
     }
 </script>
 

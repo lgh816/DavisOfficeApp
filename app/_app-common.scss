@@ -24,35 +24,34 @@
 }
 
 // Each menu page style
+// ======== 최상단 메뉴 이름, 부서 이름 ========
 .titleArea {
     margin: 0;
     padding: 15;
+    color: #425582;
     background-color: #e1e1e1;
 }
+.menuName {
+    font-size: 30;
+    font-weight: bold;
+    width: 70%;
+}
+.deptName {
+    font-size: 18;
+    text-align: right;
+    vertical-align: bottom;
+    width: 30%;
+}
+//==============================================
 .optionsArea {
     margin: 0;
     padding-right: 5;
     padding-left: 5;
     padding-top: 5;
     padding-bottom: 10;
-
     font-size: 15;
     background-color: #e1e1e1;
 }
-.menuName {
-    font-size: 30;
-    font-weight: bold;
-    color: #425582;
-    width: 70%;
-}
-.deptName {
-    font-size: 18;
-    text-align: right;
-    color: #425582;
-    vertical-align: bottom;
-    width: 30%;
-}
-
 .detailTitle {
     font-size: 13;
 }
@@ -92,6 +91,7 @@
     height: 100%;
 }
 
+// ========== Date Box Style ==========
 .oneDateStyle {
     margin-top: 0;
     margin-bottom: 0;
@@ -102,7 +102,6 @@
     padding-top: 0;
     padding-bottom: 0;
 }
-
 .twoDateStyle {
     margin: 0;
     width: 43.5%;
@@ -112,7 +111,7 @@
     padding-top: 0;
     padding-bottom: 0;
 }
-
+// =====================================
 .iconStyle {
     margin-right: 14;
     width: 38;
@@ -144,7 +143,7 @@
 }
 
 .firstDetailInfo {
-    margin-top: 15;
+    margin-top: 10;
 }
 /* Action bar*/
 ActionBar .action-bar-title {

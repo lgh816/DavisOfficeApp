@@ -18,6 +18,7 @@ export default new Vuex.Store({
         summaryResult : [],
         // ======================= 근태 현황 =========================
         commuteList : [],
+        orgCommuteList : [],
         // ======================= 결재 현황 =========================
         approvalAllList : [],
         //approvalUserList : [],
@@ -65,8 +66,14 @@ export default new Vuex.Store({
             if (!_.isUndefined(payload.out_time_avg)) {
                 state.summaryResult.push({text : "평균 퇴근 시간", data : payload.out_time_avg.substr(0,5)});
             }
+            if (payload.perception > 0) {
+                state.summaryResult.push({text : "지각", data : payload.perception + "일"});
+            }
             if (payload.sick_leave > 0) {
                 state.summaryResult.push({text : "조퇴", data : payload.sick_leave + "일"});
+            }
+            if (payload.absenteeism > 0) {
+                state.summaryResult.push({text : "결근", data : payload.absenteeism + "일"});
             }
             if (payload.vacation > 0) {
                 state.summaryResult.push({text : "휴가", data : payload.vacation + "일"});
@@ -80,9 +87,6 @@ export default new Vuex.Store({
             if (payload.night_working_c > 0) {
                 state.summaryResult.push({text : "야근 C", data : payload.night_working_c + "일"});
             }
-            if (payload.absenteeism > 0) {
-                state.summaryResult.push({text : "결근", data : payload.absenteeism + "일"});
-            }
 
         },
         initDashboardSummary: (state) => {
@@ -93,6 +97,7 @@ export default new Vuex.Store({
         // ======================= 근태 현황 =========================
         setCommuteData: (state, payload) => {
             state.commuteList = [];
+            state.orgCommuteList = [];
             for (var i = 0; i < payload.length; i++) {
                 var text = '';
                 text = payload[i].dept_name;
@@ -120,6 +125,15 @@ export default new Vuex.Store({
                 if (payload[i].out_office_name == "공적휴가(종일)") {
                     payload[i].img = "~/images/icon/p_vacation_day.png"
                 }
+                if (payload[i].out_office_name == "휴일근무") {
+                    payload[i].img = "~/images/icon/holiday_work.png"
+                }
+                if (payload[i].out_office_name == "특별휴가") {
+                    payload[i].img = "~/images/icon/special_holiday.png"
+                }
+                if (payload[i].out_office_name == "장기외근") {
+                    payload[i].img = "~/images/icon/working_away.png"
+                }
                 if (payload[i].out_office_name == "외근") {
                     payload[i].img = "~/images/icon/outdoor_service.png"
                     var outOfficeTime = '';
@@ -133,13 +147,30 @@ export default new Vuex.Store({
                 }
                 payload[i].text = text;
                 state.commuteList.push(payload[i]);
+                state.orgCommuteList.push(payload[i]);
             }
         },
         initCommuteData: (state) => {
             state.commuteList = [];
-            state.commuteList =[{text : 'No Data'}]
+            state.orgCommuteList = [];
+            state.commuteList = [{text : 'No Data'}];
         },
-
+        searchCommuteData: (state, payload) => {
+            if (state.commuteList.text == 'No Data') {
+                return;
+            }
+            const searchResult = _.filter(state.orgCommuteList, { submit_id : payload} );
+            state.commuteList = [];
+            if (searchResult.length == 0) {
+                state.commuteList = [{text : 'No Data'}];
+            } else {
+                state.commuteList = searchResult;
+            }
+        },
+        searchInitCommuteData: (state) => {
+            state.commuteList = [];
+            state.commuteList = state.orgCommuteList
+        },
         // ======================= 결재 현황 =========================
         setApprovalData: (state, payload) => {
             state.approvalAllList = [];
@@ -206,6 +237,12 @@ export default new Vuex.Store({
         // ======================= 출입 기록 =========================
         setInOutData: (state, payload) => {
             state.inOutList = [];
+            for (var i = 0; i < payload.length; i++) {
+                var text = '';
+                text = payload[i].department;
+                text += ' ' + payload[i].name;
+                payload[i].text = text;
+            }
             state.inOutList = payload;
         },
 

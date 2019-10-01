@@ -44,7 +44,7 @@
 
                 <StackLayout class="hr-light"></StackLayout>
 
-                <GridLayout v-show="this.$store.state.userInfo.admin == 9" columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Settings' ? ' selected': '')" @tap="onNavigationItemTap(Settings)">
+                <GridLayout v-show="this.$store.state.userInfo.admin == 9" columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'ItemUsage' ? ' selected': '')" @tap="onNavigationItemTap(ItemUsage)">
                     <Image class="logo" src="~/images/menu/approval.png"></Image>
                     <Label col="1" text="자산 조회" class="sideMenu"></Label>
                 </GridLayout>
@@ -66,7 +66,7 @@
 <script>
     import Dashboard from "~/views/Dashboard";
     import Commute from "~/views/Commute";
-    import Settings from "~/views/Settings";
+    import ItemUsage from "~/views/ItemUsage";
     import Approval from "~/views/Approval";
     import DateDemo from "~/views/DateDemo";
     import InOut from "~/views/InOut";
@@ -85,7 +85,7 @@
                 Commute : Commute,
                 Approval : Approval,
                 InOut : InOut,
-                Settings: Settings,
+                ItemUsage: ItemUsage,
                 DateDemo: DateDemo,
                 selectedPage: "",
                 count: 0
@@ -96,7 +96,7 @@
             Commute,
             Approval,
             InOut,
-            Settings,
+            ItemUsage,
             DateDemo
         },
         methods: {

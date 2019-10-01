@@ -75,8 +75,6 @@
             onToDateChange(args) {
                 const changedDate = this.$moment(args.value).format('YYYY-MM-DD');
                 this.fromDay = changedDate;
-                console.log("From11 = "+this.fromDay);
-                console.log("TO11 = "+this.toDay);
                 const param = {};
                 param.start = this.fromDay;
                 param.end = this.toDay;
@@ -86,8 +84,6 @@
             onFromDateChange(args) {
                 const changedDate = this.$moment(args.value).format('YYYY-MM-DD');
                 this.toDay = changedDate;
-                console.log("From22 = "+this.fromDay);
-                console.log("TO22 = "+this.toDay);
                 const param = {};
                 param.start = this.fromDay;
                 param.end = this.toDay;

@@ -14,11 +14,11 @@
                         :date="todayDay" />
                 </StackLayout>
 
-                <!-- <StackLayout>
-                    <SearchBar class="searchBarStyle" hint="Search" :text="searchPhrase" @textChange="onTextChanged" @submit="onSubmit" /> 
-                </StackLayout> -->
+                <StackLayout>
+                    <SearchBar ref="searchBar" class="searchBarStyle" hint="이름" @textChange="onTextChanged" @submit="searchName" /> 
+                </StackLayout>
 
-                <ListView for="item in listOfItems" separatorColor="transparent" class="itemList">
+                <ListView for="item in this.$store.state.commuteList" separatorColor="transparent" class="itemList">
                     <v-template class="commuteTemplate">
                         <CommuteListComp :item="item" />
                     </v-template>
@@ -39,6 +39,10 @@
             const param = {};
             param.startDate = this.todayDay;
             this.searchData(param);
+            setTimeout(() => {
+                this.$refs.searchBar.nativeView.dismissSoftInput();
+            }, 300);
+            
             // param.startDate = "2019-08-16";
             /* this.$store.dispatch('getCommuteData', param).then((res) => {
                 this.listOfItems = this.$store.state.commuteList;
@@ -50,15 +54,14 @@
 
         data() {
             return {
-                listOfItems: [],
+                // listOfItems: this.$store.state.commuteList,
                 todayDay: this.$moment(new Date()).format('YYYY-MM-DD')
             }
         },
         methods: {
             searchData(param) {
-                this.$store.dispatch('getCommuteData', param).then((res) => {
-                    this.listOfItems = this.$store.state.commuteList;
-                })
+                this.$store.dispatch('getCommuteData', param);
+                //this.hideKeyboard();
             },
 
             onDrawerButtonTap() {
@@ -72,12 +75,16 @@
                 this.searchData(param);
             },
 
-            onTextChanged() {
-                console.log("TEXT Changed");
+            onTextChanged(args) {
+                if (args.value == '') {
+                    this.$store.commit("searchInitCommuteData");
+                }
             },
 
-            onSubmit() {
-                console.log("Search Submit");
+            searchName(args) {
+                const param = args.object.text;
+                this.$store.commit("searchCommuteData", param);
+                //this.hideKeyboard();
             }
         }
     };
