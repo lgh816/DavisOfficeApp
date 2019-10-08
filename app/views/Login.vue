@@ -85,7 +85,7 @@
 <style scoped>
     .page {
         align-items: center;
-        background: linear-gradient(to bottom, #2d91cd, #4751bb);
+        background: linear-gradient(to bottom, #4751bb, #2d91cd);
     }
 
     .form {

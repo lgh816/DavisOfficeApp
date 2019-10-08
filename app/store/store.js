@@ -21,6 +21,10 @@ export default new Vuex.Store({
         orgCommuteList : [],
         // ======================= 결재 현황 =========================
         approvalAllList : [],
+        approvalGubunList : [],
+        selectedGubunData : {},
+        approvalVacationList : {},
+        approvalManager: '',
         //approvalUserList : [],
         // ======================= 출입 기록 =========================
         inOutList : []
@@ -171,6 +175,7 @@ export default new Vuex.Store({
             state.commuteList = [];
             state.commuteList = state.orgCommuteList
         },
+
         // ======================= 결재 현황 =========================
         setApprovalData: (state, payload) => {
             state.approvalAllList = [];
@@ -232,6 +237,52 @@ export default new Vuex.Store({
         initApprovalData: (state) => {
             state.approvalAllList = [];
             //state.approvalUserList = [];
+        },
+
+        setApprovalGubunList: (state, payload) => {
+            state.approvalGubunList = [];
+            var userAffiliated = state.userInfo.affiliated;
+            var arrGubunData = _.sortBy(payload, function(obj) {
+                return obj.code.slice(0, 2) + obj.name;
+            });
+            for (var i = 0;  i < arrGubunData.length; i++) {
+                var code = arrGubunData[i].code;
+                if (code.length == 3 && code != "O01") {
+                    if (userAffiliated != 0 && code != "B01") {
+                        state.approvalGubunList.push(arrGubunData[i]);
+                    }
+                    if (userAffiliated == 0) {
+                        state.approvalGubunList.push(arrGubunData[i]);
+                    }
+                    if (code == "V01") {
+                        state.selectedGubunData = arrGubunData[i];
+                    }
+                }
+            }
+        },
+
+        initApprovalGubunList: (state) => {
+            state.approvalGubunList = [];
+        },
+
+        setApprovalVacationList: (state, payload) => {
+            state.approvalVacationList = {};
+            state.approvalVacationList = payload[0];
+            var usableVacation = payload[0].total_day - payload[0].used_holiday - payload[0].approval_count;
+            state.approvalVacationList.usable_count = usableVacation;
+        },
+
+        initApprovalVacationList: (state) => {
+            state.approvalVacationList = {};
+        },
+
+        setApprovalManager: (state, payload) => {
+            state.approvalManager = '';
+            state.approvalManager = payload[0].approval_name;
+        },
+
+        initApprovalManager: (state) => {
+            state.approvalManager = '';
         },
 
         // ======================= 출입 기록 =========================
@@ -318,6 +369,87 @@ export default new Vuex.Store({
                 }
             }).catch((res) => {
                 commit('initApprovalData');
+            });
+        },
+
+        getGubunData: ({ state, commit }) => {
+            return axios.get(state.mobileUrl + '/mobile/approval/vacation/gubunList').then((res) => {
+                var result = res.data.length;
+                if (result > 0) {
+                    commit('setApprovalGubunList', res.data);
+                } else {
+                    commit('initApprovalGubunList');
+                }
+                return true;
+            }).catch((res) => {
+                commit('initApprovalGubunList');
+            });
+        },
+
+        getApprovalVacationList: ({ state, commit }, payload) => {
+            payload.id = state.userInfo.id;
+            return axios.get(state.mobileUrl + '/mobile/approval/vacation/list', { params : payload }).then((res) => {
+                var result = res.data.length;
+                if (result > 0) {
+                    commit('setApprovalVacationList', res.data);
+                } else {
+                    commit('initApprovalVacationList');
+                }
+                return true;
+            }).catch((res) => {
+                commit('initApprovalVacationList');
+            });
+        },
+
+        getApprovalManager: ({ state, commit }) => {
+            var param = {};
+            param.id = state.userInfo.id;
+            return axios.get(state.mobileUrl + '/mobile/approval/manager', { params : param }).then((res) => {
+                var result = res.data.length;
+                if (result > 0) {
+                    commit('setApprovalManager', res.data);
+                } else {
+                    commit('initApprovalManager');
+                }
+                return true;
+            }).catch((res) => {
+                commit('initApprovalManager');
+            });
+        },
+
+        getApprovalPopupData: ({ state, commit }, payload) => {
+            return axios.get(state.mobileUrl + '/mobile/approval/vacation/gubunList').then((res) => {
+                var result = res.data.length;
+                if (result > 0) {
+                    commit('setApprovalGubunList', res.data);
+                } else {
+                    commit('initApprovalGubunList');
+                }
+                payload.id = state.userInfo.id;
+                axios.get(state.mobileUrl + '/mobile/approval/vacation/list', { params : payload }).then((res) => {
+                    var result = res.data.length;
+                    if (result > 0) {
+                        commit('setApprovalVacationList', res.data);
+                    } else {
+                        commit('initApprovalVacationList');
+                    }
+                    var param = {};
+                    param.id = state.userInfo.id;
+                    axios.get(state.mobileUrl + '/mobile/approval/manager', { params : param }).then((res) => {
+                        var result = res.data.length;
+                        if (result > 0) {
+                            commit('setApprovalManager', res.data);
+                        } else {
+                            commit('initApprovalManager');
+                        }
+                    }).catch((res) => {
+                        commit('initApprovalManager');
+                    });
+                }).catch((res) => {
+                    commit('initApprovalVacationList');
+                });
+            }).catch((res) => {
+                commit('initApprovalGubunList');
             });
         },
 

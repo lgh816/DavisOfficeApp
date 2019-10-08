@@ -19,6 +19,7 @@
                         :date="this.toDay" />
                 </StackLayout>
 
+                <Button text="상신" @tap="showApprovalPopup"/>
                 <ListView for="item in listOfItems" @itemTap="onItemTap"  separatorColor="transparent" class="itemList">
                     <v-template>
                         <ApprovalListComp :item="item"/>
@@ -33,6 +34,7 @@
     import * as utils from "~/service/utils/utils"
     import SelectedPageService from "~/service/utils/selected-page-service";
     import ApprovalListComp from "../components/approval/Approval-List-Comp";
+    import ApprovalPopup from "../components/approval/ApprovalPopup";
 
     export default {
         mounted(){
@@ -53,7 +55,8 @@
         },
 
         components : {
-            ApprovalListComp    
+            ApprovalListComp,
+            ApprovalPopup
         },
 
         data (){
@@ -95,6 +98,10 @@
                 param.endDate = this.toDay;
                 this.searchData(param);
             },
+
+            showApprovalPopup() {
+                this.$showModal(ApprovalPopup);
+            }
         }
     }
 </script>

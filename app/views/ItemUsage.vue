@@ -6,17 +6,14 @@
             </StackLayout>
 
             <TabView v-show="this.$store.state.userInfo.admin == 9" :selectedIndex="selectedIndex">
-                <TabViewItem title="할당 현황">
-                    <GridLayout class="page-content">
-                        <Button class="btn btn-primary scanBtn" @tap="onScan">Scan</Button>
-                        <StackLayout>
-                            <Label :text="format"></Label>
-                            <Label :text="text"></Label>
-                            <Label :text="result"></Label>
-                        </StackLayout>
-                    </GridLayout>
+                <TabViewItem title="자산 현황">
+                    <ListView for="item in ItemUsageComp" separatorColor="transparent" class="itemList">
+                        <v-template>
+                            <DashboardSummaryComp :item="item" />
+                        </v-template>
+                    </ListView>
                 </TabViewItem>
-                <TabViewItem title="조회">
+                <TabViewItem title="자산 조회">
                     <GridLayout class="page-content">
                         <Button class="btn btn-primary scanBtn" @tap="onGenerate">onGenerate</Button>
                         <StackLayout>
@@ -27,6 +24,12 @@
                     </GridLayout>
                 </TabViewItem>
             </TabView>
+
+            <ListView v-show="this.$store.state.userInfo.admin != 9" for="item in ItemUsageComp" separatorColor="transparent" class="itemList">
+                <v-template>
+                    <DashboardSummaryComp :item="item" />
+                </v-template>
+            </ListView>
         </StackLayout>
     </Page>
 </template>
@@ -44,7 +47,7 @@
         },
         components : {
             "BarcodeScanner": require("nativescript-barcodescanner").BarcodeScannerView,
-            "ItemUsageComp" : ItemUsageComp
+            ItemUsageComp : ItemUsageComp
         },
         computed: {
             

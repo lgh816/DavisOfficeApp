@@ -44,12 +44,12 @@
 
                 <StackLayout class="hr-light"></StackLayout>
 
-                <GridLayout v-show="this.$store.state.userInfo.admin == 9" columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'ItemUsage' ? ' selected': '')" @tap="onNavigationItemTap(ItemUsage)">
-                    <Image class="logo" src="~/images/menu/approval.png"></Image>
+                <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'ItemUsage' ? ' selected': '')" @tap="onNavigationItemTap(ItemUsage)">
+                    <Image class="logo" src="~/images/menu/asset.png"></Image>
                     <Label col="1" text="자산 조회" class="sideMenu"></Label>
                 </GridLayout>
 
-                <StackLayout v-show="this.$store.state.userInfo.admin == 9" class="hr-light"></StackLayout>
+                <StackLayout class="hr-light"></StackLayout>
 
                 <!-- <GridLayout v-show="this.$store.state.userInfo.admin == 9" columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'DateDemo' ? ' selected': '')" @tap="onNavigationItemTap(DateDemo)">
                     <Image class="logo" src="~/images/menu/approval.png"></Image>
