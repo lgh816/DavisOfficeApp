@@ -61,6 +61,7 @@
                 var userPwd = this.user.userPassword;
                 var userId = this.user.userId;
                 var hashPassword = CryptoJS(userPwd).toString();
+                var year = this.$moment(new Date()).format('YYYY');
 
                 param.id = userId,
                 param.password = hashPassword,
@@ -68,6 +69,7 @@
 
                 this.$store.dispatch("loginAction", {user: param, initPassword : false}).then((res) => {
                     if (res) {
+                        this.$store.dispatch("getHolidayList", { year : year });
                         this.$navigateTo(
                             this.$routes.Dashboard, {clearHistory: true}
                         );

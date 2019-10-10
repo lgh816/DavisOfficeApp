@@ -3,7 +3,7 @@
         <ScrollView class="mainContents">
             <StackLayout height="100%" width="100%">
                 <StackLayout orientation="horizontal" class="titleArea">
-                    <Label text="결재 현황" class="menuName" @tap="onDrawerButtonTap"></Label>
+                    <Label text="결재 관리" class="menuName" @tap="onDrawerButtonTap"></Label>
                     <Label :text="this.$store.state.userInfo.dept_name" class="deptName"></Label>
                 </StackLayout>
 

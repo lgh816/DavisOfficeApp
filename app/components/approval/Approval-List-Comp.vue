@@ -2,7 +2,7 @@
     <ScrollView ref="scrollView">
         <StackLayout orientation="horizontal" class="borderContents">
             <StackLayout @tap="onHeaderTap" :id="item.submit_id" orientation="horizontal" class="contents" >
-                <GridLayout columns="auto, auto, *" rows="auto, auto, auto, auto, auto, auto, auto" marginLeft="10" class="eachGrid">
+                <GridLayout columns="auto, auto, *" rows="auto, auto, auto, auto, auto, auto, auto, auto" marginLeft="10" class="eachGrid">
                     <Image row="0" col="0" rowSpan="2" :src="item.img" class="iconStyle"></Image>
                     <Label row="0" col="1" :text="item.text" class="title"></Label>
                     
@@ -23,6 +23,9 @@
 
                     <Label row="6" col="0" class="detailTitle" text="외근시간" :visibility="detailDataVisability"></Label>
                     <Label row="6" col="1" colSpan="2" class="detailContent" :text="item.outOfficeTime" horizontalAlignment="right" :visibility="detailDataVisability"></Label>
+
+                    <Label row="7" col="0" class="detailTitle" text="메모" :visibility="detailDataVisability"></Label>
+                    <Label row="7" col="1" colSpan="2" class="detailContent" :text="item.submit_comment" horizontalAlignment="right" :visibility="detailDataVisability"></Label>
 
                     <!-- <Label row="6" col="0" class="detailTitle" text="비고" :visibility="detailDataVisability"></Label>
                     <Label row="6" col="1" class="detailContent" :text="item.submit_comment" horizontalAlignment="right" :visibility="detailDataVisability"></Label> -->

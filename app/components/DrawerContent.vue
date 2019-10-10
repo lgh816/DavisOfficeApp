@@ -39,7 +39,7 @@
 
                 <GridLayout columns="auto, *" :class="'sidedrawer-list-item' + (selectedPage === 'Approval' ? ' selected': '')" @tap="onNavigationItemTap(Approval)">
                     <Image class="logo" src="~/images/menu/approval.png"></Image>
-                    <Label col="1" text="결재 현황" class="sideMenu"></Label>
+                    <Label col="1" text="결재 관리" class="sideMenu"></Label>
                 </GridLayout>
 
                 <StackLayout class="hr-light"></StackLayout>

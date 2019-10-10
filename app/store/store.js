@@ -1,7 +1,7 @@
 import Vue from "nativescript-vue";
 import Vuex from "vuex";
 import axios from 'axios';
-import { ChartAxisPlotMode } from "nativescript-ui-chart";
+import * as utils from "~/service/utils/utils";
 
 Vue.use(Vuex);
 
@@ -10,6 +10,7 @@ export default new Vuex.Store({
         // =================== Login, Logout =========================
         mobileUrl : 'http://200.100.1.140:8081',
         userInfo : {},
+        holidayList : [],
         isLogin : false,
         failMsg : '',
         failMsgFlag : false,
@@ -26,6 +27,25 @@ export default new Vuex.Store({
         approvalVacationList : {},
         approvalManager: '',
         //approvalUserList : [],
+        // ======================= 결재 상신 팝업 ====================
+        towDatePicker : true,
+        oneDatePicker : false,
+        leftDateArea : true,
+        requestDateArea : true,
+        approvalData : {
+            day_count : 1,
+            decide_comment : '',
+            doc_num : '',
+            start_date : '',
+            end_date : '',
+            start_time : '',
+            end_time : '',
+            submit_id : '',
+            submit_comment : '',
+            manager_id : '',
+            office_code : '',
+            date_validate : true
+        },
         // ======================= 출입 기록 =========================
         inOutList : []
     },
@@ -57,6 +77,15 @@ export default new Vuex.Store({
             state.isLogin = payload.isLogin;
         },
         
+        setHolidayList: (state, payload) => {
+            state.holidayList = [];
+            state.holidayList = payload;
+        },
+
+        initHolidayList: (state) => {
+            state.holidayList = [];
+        },
+
         // ======================= Dashboard =========================
         setDashboardSummary: (state, payload) => {
             state.dashboardSummary = {};
@@ -209,6 +238,9 @@ export default new Vuex.Store({
                 if (payload[i].office_code_name == "경조휴가") {
                     payload[i].img = "~/images/icon/c_vacation.png"
                 }
+                if (payload[i].office_code_name == "교육") {
+                    payload[i].img = "~/images/icon/education.png"
+                }
                 if (payload[i].office_code_name == "외근") {
                     payload[i].img = "~/images/icon/outdoor_service.png"
                     var outOfficeTime = '';
@@ -259,6 +291,51 @@ export default new Vuex.Store({
                     }
                 }
             }
+        },
+
+        getRequestDateCount: (state) => {
+            var sStart = state.approvalData.start_date;
+            var sEnd = state.approvalData.end_date;
+
+            var start = new Date(sStart.substr(0, 4), sStart.substr(5, 2) - 1, sStart.substr(8, 2));
+            var end = new Date(sEnd.substr(0, 4), sEnd.substr(5, 2) - 1, sEnd.substr(8, 2));
+            var day = 1000 * 60 * 60 * 24;
+
+            var compareVal = parseInt((end - start) / day);
+            var arrInsertDate = [];
+            var holidayInfos = state.holidayList;
+            if (compareVal >= 0) {
+                // 차이
+                for (var i = 0; i <= compareVal; i++) {
+                    var dt = start.valueOf() + (i * day);
+                    var resDate = new Date(dt);
+                    if (resDate.getDay() != 0 && resDate.getDay() != 6) {
+                        // 주말이 아닌 날짜
+                        var isPush = true;
+                        for (var j = 0; j < holidayInfos.length; j++) {
+                            var sDate = utils.getDateFormat(resDate);
+                            if (holidayInfos[j].date == sDate) {
+                                isPush = false;
+                                break;
+                            }
+                        }
+                        if (isPush) {
+                            arrInsertDate.push(sDate);
+                        }
+                    }
+                }
+            } else {
+                if (start.getDay() != 0 && start.getDay() != 6) {
+                // 주말이 아닌 날짜
+                    for (var k = 0; k < holidayInfos.length; k++) {
+                        if (holidayInfos[k].date != sStart) {
+                            arrInsertDate.push(sStart);
+                            break;
+                        }
+                    }
+                }   
+            }
+            state.approvalData.day_count = arrInsertDate.length;
         },
 
         initApprovalGubunList: (state) => {
@@ -317,6 +394,19 @@ export default new Vuex.Store({
                 commit('loginFail', res.data);
                 return false;
             })
+        },
+
+        getHolidayList: ({ state, commit }, payload) => {
+            return axios.get(state.mobileUrl + '/mobile/holiday', { params : payload }).then((res) => {
+                var result = res.data.length;
+                if (result > 0) {
+                    commit('setHolidayList', res.data);
+                } else {
+                    commit('initHolidayList');
+                }
+            }).catch(() => {
+                commit('initHolidayList');
+            });
         },
 
         logoutAction: ({ state, commit }) => {
@@ -451,6 +541,34 @@ export default new Vuex.Store({
             }).catch((res) => {
                 commit('initApprovalGubunList');
             });
+        },
+
+        saveApprovalProcess: ({ state, commit }, payload) => {
+            return axios.get(state.mobileUrl + '/mobile/approval/appIndex', { params : payload }).then((res) => {
+                var result = res.data;
+                if (result.length > 0) {
+                    var newParam = {};
+                    newParam.seq = result[0].maxSeq;
+                    newParam.yearmonth = payload.yearmonth;
+
+                    return axios.post(state.mobileUrl + '/mobile/approval/appIndex/add', newParam).then((res) => {
+                        if (res.data.success) {
+                            var paramData = JSON.parse(res.config.data);
+                            var seqData = paramData.seq;
+                            var yearMonthData = paramData.yearmonth;
+                            seqData = (seqData == null) ? 1 : seqData + 1;
+                            var doc_num = yearMonthData + "-" + utils.getzFormat(seqData, 3);
+                            state.approvalData.doc_num = doc_num;
+                            state.approvalData.manager_id = state.userInfo.approval_id;
+                            state.approvalData.office_code = state.selectedGubunData.code;
+                            state.approvalData.submit_id = state.userInfo.id;
+                            return axios.post(state.mobileUrl + '/mobile/approval', state.approvalData).then((res) => {
+                                return res.data;
+                            });
+                        }
+                    });
+                }
+            })
         },
 
         // ======================= 출입 기록 =========================
