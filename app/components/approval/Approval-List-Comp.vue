@@ -106,11 +106,13 @@
                 var state = selectedData.state; // 처리 상태
                 var stateVal = '';
                 var resultMsg = '';
-                if (state == "결재완료") {
+                var loginId = this.$store.state.userInfo.id;
+
+                if (state == "결재완료" && loginId == selectedData.submit_id) {
                     messageObj.message = "상신된 결재를 취소 요청 하시겠습니까?";
                     stateVal = "취소요청";
                     resultMsg = "결재상신이 취소되었습니다.";
-                } else if (state == "상신") { // 상신
+                } else if (state == "상신" && loginId == selectedData.submit_id) { // 상신
                     messageObj.message = "해당 결재를 취소하시겠습니까?";
                     stateVal = "상신취소";
                     resultMsg = "취소 요청이 완료되었습니다."
