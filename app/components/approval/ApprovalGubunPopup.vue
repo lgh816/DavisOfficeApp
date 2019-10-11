@@ -27,6 +27,12 @@
                     this.$store.state.oneDatePicker = true;
                 }
 
+                if (code == 'W01') {
+                    this.$store.state.outOfficePicker = true;
+                } else {
+                    this.$store.state.outOfficePicker = false;
+                }
+
                 if (code == 'V01' || code == 'V02' || code == 'V03' || code == 'E01') {
                     // Show 'Left days' and 'Request days' Area
                     this.$store.state.leftDateArea = true;
@@ -43,6 +49,8 @@
 
                 if (code == 'V02' || code == 'V03' || code == 'V07' || code == 'V08') {
                     this.$store.state.approvalData.day_count = 0.5;
+                } else if (code == 'W01') { // 외근
+                    this.$store.state.approvalData.day_count = 0;
                 } else {
                     this.$store.commit('getRequestDateCount');
                 }

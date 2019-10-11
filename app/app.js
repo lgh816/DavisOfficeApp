@@ -5,6 +5,7 @@ import VueDevtools from 'nativescript-vue-devtools';
 import moment from "moment";
 import VueMomentJS from "vue-momentjs";
 import DateTimePicker from "nativescript-datetimepicker/vue";
+import Store from '~/store/store'
 // import QRCodeGeneratore from "nativescript-zxing/";
 
 import * as _ from 'lodash';
@@ -24,6 +25,7 @@ Vue.config.silent = (TNS_ENV === 'production');
 // Vue.prototype.$hostInfo = 'https://office.yescnc.co.kr';
 Vue.prototype.$hostInfo = 'http://200.100.1.140:8081';
 Vue.prototype.$routes = routes;
+Vue.prototype.$store = Store;
 
 new Vue({
   render (h) {
@@ -34,6 +36,6 @@ new Vue({
         h(routes.Login, { slot: 'mainContent' })
       ]
     )
-  },
-  store : routes.Store
+  }
+  // store : Store
 }).$start();

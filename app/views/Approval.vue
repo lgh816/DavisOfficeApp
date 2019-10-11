@@ -20,11 +20,13 @@
                 </StackLayout>
 
                 <Button text="상신" @tap="showApprovalPopup"/>
-                <ListView for="item in listOfItems" @itemTap="onItemTap"  separatorColor="transparent" class="itemList">
-                    <v-template>
-                        <ApprovalListComp :item="item"/>
-                    </v-template>
-                </ListView>
+                <!-- <PullToRefresh @refresh="refreshList"> -->
+                    <ListView for="item in listOfItems" separatorColor="transparent" class="itemList">
+                        <v-template>
+                            <ApprovalListComp :item="item"/>
+                        </v-template>
+                    </ListView>
+                <!-- </PullToRefresh> -->
             </StackLayout>
         </ScrollView>
     </Page>
@@ -76,9 +78,6 @@
 
              onDrawerButtonTap() {
                 utils.showDrawer();
-            },
-            onItemTap() {
-                console.log("TAP");
             },
 
             onToDateChange(args) {

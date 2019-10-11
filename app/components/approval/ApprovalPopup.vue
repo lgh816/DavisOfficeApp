@@ -5,11 +5,15 @@
 
             <StackLayout class="hr-light popupLine"></StackLayout>
 
+            <Label class="subTitle" text="구분" />
             <TextView editable="false" class="decisionGubun gubunStyle" @tap="showGubunPopup">
                 <Span :text="$store.state.selectedGubunData.name"/>
                 <!-- <Span class="fa icon arrowIcon" horizontalAlignment="right" text.decode="&#xf0d7;"/> -->
             </TextView>
 
+            <StackLayout class="hr-light popupLine"></StackLayout>
+
+            <Label class="subTitle" text="기간" style="margin-bottom: 0;"/>
             <StackLayout v-show="$store.state.towDatePicker" orientation="horizontal">
                 <DatePickerField
                     class="popupTwoDateStyle"
@@ -27,6 +31,19 @@
                     class="popupOneDateStyle"
                     @dateChange="onFromDateChange"
                     :date="$store.state.approvalData.start_date" />
+            </StackLayout>
+
+            <Label v-show="$store.state.outOfficePicker" class="subTitle" text="외근시간" style="margin-bottom: 0;margin-top: 10;"/>
+            <StackLayout v-show="$store.state.outOfficePicker" orientation="horizontal">
+                <TimePickerField
+                    class="popupTwoDateStyle"
+                    @timeChange="onOfficeFromTimeChange"
+                    :time="$store.state.approvalData.start_time" />
+                <Label class="devideDate" text="~"></Label>
+                <TimePickerField
+                    class="popupTwoDateStyle"
+                    @timeChange="onOfficeToTimeChange"
+                    :time="$store.state.approvalData.end_time" />
             </StackLayout>
 
             <StackLayout class="hr-light popupLine"></StackLayout>
@@ -71,11 +88,14 @@
 
     export default {
         mounted() {
+            this.$store.commit('initApprovalPopup');
             var param = {};
             param.year = this.year;
             this.$store.dispatch('getApprovalPopupData', param)
             this.$store.state.approvalData.start_date = this.$moment(new Date()).format('YYYY-MM-DD');
             this.$store.state.approvalData.end_date = this.$moment(new Date()).format('YYYY-MM-DD');
+            this.$store.state.approvalData.start_time = this.$moment(new Date()).format('HH:mm');
+            this.$store.state.approvalData.end_time = this.$moment(new Date()).format('HH:mm');
         },
 
         components : {
@@ -180,6 +200,20 @@
                 this.cnvtReqDate();
             },
 
+            onOfficeFromTimeChange(args) {
+                var fromTime = this.$moment(args.value).format('HH:mm');
+                var toTime = this.$store.state.approvalData.end_time;
+                if (fromTime > toTime) {
+                    this.$store.state.approvalData.end_time = fromTime;    
+                }
+                this.$store.state.approvalData.start_time = fromTime;
+            },
+
+            onOfficeToTimeChange(args) {
+                var toTime = this.$moment(args.value).format('HH:mm');
+                this.$store.state.approvalData.end_time = toTime;
+            },
+
             cnvtReqDate() {
                 var code = this.$store.state.selectedGubunData.code;
                 if (code == 'V02' || code == 'V03' || code == 'V07' || code == 'V08') {
@@ -259,7 +293,7 @@
     }
 
     .subTitle {
-        font-size: 20;	
+        font-size: 19;	
         font-weight: bold;
         margin-bottom: 5;
         color: #425582;

@@ -32,6 +32,7 @@ export default new Vuex.Store({
         oneDatePicker : false,
         leftDateArea : true,
         requestDateArea : true,
+        outOfficePicker : false,
         approvalData : {
             day_count : 1,
             decide_comment : '',
@@ -211,37 +212,71 @@ export default new Vuex.Store({
             //state.approvalUserList = [];
             for (var i = 0; i < payload.length; i++) {
                 var text = '';
+                var blackMarkText = '';
+                if (payload[i].office_code != 'O01') {
+                    switch (payload[i].black_mark) {
+                        case '1':
+                            payload[i].black_mark_text = "정상";
+                            break;
+                        case '2':
+                            payload[i].black_mark_text = "당일결재";
+                            break;
+                        case '3':
+                            payload[i].black_mark_text = "익일결재";
+                            break;
+                        case '4':
+                            payload[i].black_mark_text = "당일상신";
+                            break;
+                        case '5':
+                            payload[i].black_mark_text = "익일상신";
+                            break;
+                        default:
+                            payload[i].black_mark_text = "";
+                    }
+                }
                 var periodCnvt = '';
                 text = payload[i].submit_dept_name;
                 text += ' ' + payload[i].submit_name;
-                if (payload[i].office_code_name == "연차휴가") {
+                if (payload[i].office_code == "V01") { // 연차휴가
                     payload[i].img = "~/images/icon/holiday.png"
                 }
-                if (payload[i].office_code_name == "오전반차") {
+                if (payload[i].office_code == "V02") { // 오전반차
                     payload[i].img = "~/images/icon/holiday_morning.png"
                 }
-                if (payload[i].office_code_name == "오후반차") {
+                if (payload[i].office_code == "V03") { // 오후반차
                     payload[i].img = "~/images/icon/holiday_afternoon.png"
                 }
-                if (payload[i].office_code_name == "파견") {
+                if (payload[i].office_code == "W04") { // 파견
                     payload[i].img = "~/images/icon/dispatch.png"
                 }
-                if (payload[i].office_code_name == "휴일근무") {
+                if (payload[i].office_code == "B01") { // 휴일근무
                     payload[i].img = "~/images/icon/holiday_work.png"
                 }
-                if (payload[i].office_code_name == "장기외근") {
+                if (payload[i].office_code == "W03") { // 장기외근
                     payload[i].img = "~/images/icon/working_away.png"
                 }
-                if (payload[i].office_code_name == "특별휴가") {
+                if (payload[i].office_code == "V06") { // 특별휴가
                     payload[i].img = "~/images/icon/special_holiday.png"
                 }
-                if (payload[i].office_code_name == "경조휴가") {
+                if (payload[i].office_code == "V04") { // 경조휴가
                     payload[i].img = "~/images/icon/c_vacation.png"
                 }
-                if (payload[i].office_code_name == "교육") {
+                if (payload[i].office_code == "E01") { // 교육
                     payload[i].img = "~/images/icon/education.png"
                 }
-                if (payload[i].office_code_name == "외근") {
+                if (payload[i].office_code == "W02") { // 출장
+                    payload[i].img = "~/images/icon/business_trip.png"
+                }
+                if (payload[i].office_code == "V07") { // 공적휴가(오전)
+                    payload[i].img = "~/images/icon/p_vacation_morning.png"
+                }
+                if (payload[i].office_code == "V05") { // 공적휴가(종일)
+                    payload[i].img = "~/images/icon/p_vacation_day.png"
+                }
+                if (payload[i].office_code == "V08") { // 공적휴가(오후)
+                    payload[i].img = "~/images/icon/p_vacation_afternoon.png"
+                }
+                if (payload[i].office_code == "W01") { // 외근
                     payload[i].img = "~/images/icon/outdoor_service.png"
                     var outOfficeTime = '';
                     if (!_.isEmpty(payload[i].start_time)) {
@@ -269,6 +304,28 @@ export default new Vuex.Store({
         initApprovalData: (state) => {
             state.approvalAllList = [];
             //state.approvalUserList = [];
+        },
+
+        initApprovalPopup: (state) => {
+            state.towDatePicker = true;
+            state.oneDatePicker = false;
+            state.leftDateArea = true;
+            state.requestDateArea = true;
+            state.outOfficePicker = false;
+            state.approvalData = {
+                day_count : 1,
+                decide_comment : '',
+                doc_num : '',
+                start_date : '',
+                end_date : '',
+                start_time : '',
+                end_time : '',
+                submit_id : '',
+                submit_comment : '',
+                manager_id : '',
+                office_code : '',
+                date_validate : true
+            }
         },
 
         setApprovalGubunList: (state, payload) => {
@@ -569,6 +626,23 @@ export default new Vuex.Store({
                     });
                 }
             })
+        },
+
+        cancelApprovalProcess: ({ state, commit }, payload) => {
+            var param = {doc_num : payload.doc_num};
+            return axios.get(state.mobileUrl + '/approval/info', { params : param }).then((res) => {
+                var result = res.data;
+                if (result.length > 0) {
+                    result[0]._id = payload.doc_num;
+                    result[0].state = payload.stateVal;
+                    var newParam = {};
+                    newParam.data = result;
+                    newParam._id = payload.doc_num;
+                    return axios.put(state.mobileUrl + '/approval/bulk', newParam).then((res) => {
+                        return res.data;
+                    });
+                }
+            });
         },
 
         // ======================= 출입 기록 =========================

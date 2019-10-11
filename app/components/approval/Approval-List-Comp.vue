@@ -2,10 +2,11 @@
     <ScrollView ref="scrollView">
         <StackLayout orientation="horizontal" class="borderContents">
             <StackLayout @tap="onHeaderTap" :id="item.submit_id" orientation="horizontal" class="contents" >
-                <GridLayout columns="auto, auto, *" rows="auto, auto, auto, auto, auto, auto, auto, auto" marginLeft="10" class="eachGrid">
+                <GridLayout @longPress="onLongPress" columns="auto, auto, *" rows="auto, auto, auto, auto, auto, auto, auto, auto, auto" marginLeft="10" class="eachGrid">
                     <Image row="0" col="0" rowSpan="2" :src="item.img" class="iconStyle"></Image>
                     <Label row="0" col="1" :text="item.text" class="title"></Label>
-                    
+                    <Label row="0" col="2" :text="item.state" horizontalAlignment="right" class="approvalState"></Label>
+
                     <Label row="1" col="1" class="officeType" horizontalAlignment="left" :text="item.office_code_name"></Label>
                     <Label row="1" col="2" text="상세보기" horizontalAlignment="right" class="detailInfo"></Label>
 
@@ -27,6 +28,9 @@
                     <Label row="7" col="0" class="detailTitle" text="메모" :visibility="detailDataVisability"></Label>
                     <Label row="7" col="1" colSpan="2" class="detailContent" :text="item.submit_comment" horizontalAlignment="right" :visibility="detailDataVisability"></Label>
 
+                    <Label row="8" col="0" class="detailTitle" text="비고" :visibility="detailDataVisability"></Label>
+                    <Label row="8" col="1" colSpan="2" class="detailContent" :text="item.black_mark_text" horizontalAlignment="right" :visibility="detailDataVisability"></Label>
+
                     <!-- <Label row="6" col="0" class="detailTitle" text="비고" :visibility="detailDataVisability"></Label>
                     <Label row="6" col="1" class="detailContent" :text="item.submit_comment" horizontalAlignment="right" :visibility="detailDataVisability"></Label> -->
                 </GridLayout>
@@ -38,7 +42,7 @@
 <script>
     export default {
         props : ["item"],
-        mounted () {
+        mounted (){
 
         },
         data() {
@@ -88,6 +92,46 @@
             expandCollapse: function(expandId) {
                 this.detailDataVisability = expandId === this.selectedBtn ? 'visible' : 'collapse';
                 this._expandedId = expandId;
+            },
+
+            onLongPress(args) {
+                var messageObj = {
+                    message : '', 
+                    title : "알림", 
+                    okButtonText : '확인',
+                    cancelButtonText : '닫기'
+                };
+                var argObj = args.object;
+                var selectedData = argObj.bindingContext;
+                var state = selectedData.state; // 처리 상태
+                var stateVal = '';
+                var resultMsg = '';
+                if (state == "결재완료") {
+                    messageObj.message = "상신된 결재를 취소 요청 하시겠습니까?";
+                    stateVal = "취소요청";
+                    resultMsg = "결재상신이 취소되었습니다.";
+                } else if (state == "상신") { // 상신
+                    messageObj.message = "해당 결재를 취소하시겠습니까?";
+                    stateVal = "상신취소";
+                    resultMsg = "취소 요청이 완료되었습니다."
+                } else {
+                    return;
+                }
+                var docNum = selectedData.doc_num;
+                // title, 
+                confirm(messageObj).then((res) => {
+                    if (res) { // 확인 버튼 클릭
+                        this.$store.dispatch('cancelApprovalProcess', {doc_num : docNum, stateVal : stateVal}).then((res) => {
+                            if (res.success) {
+                                alert( {message : resultMsg, title : "알림", cancelable : true, okButtonText : '닫기'} ).then(() => {
+                                    this.$modal.close();
+                                })
+                            }
+                        });
+                    } else { // 닫기 버튼 클릭
+                        this.$modal.close();
+                    }
+                });
             }
         }
     }
