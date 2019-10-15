@@ -6,6 +6,8 @@ import moment from "moment";
 import VueMomentJS from "vue-momentjs";
 import DateTimePicker from "nativescript-datetimepicker/vue";
 import Store from '~/store/store'
+// import application from 'tns-core-modules/application';
+
 // import QRCodeGeneratore from "nativescript-zxing/";
 
 import * as _ from 'lodash';
@@ -39,3 +41,7 @@ new Vue({
   }
   // store : Store
 }).$start();
+
+/* application.on(application.exitEvent, (args) => {
+  console.log(args);
+}) */

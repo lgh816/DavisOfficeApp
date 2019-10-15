@@ -156,8 +156,23 @@ export default new Vuex.Store({
                 if (payload[i].out_office_name == "파견") {
                     payload[i].img = "~/images/icon/dispatch.png"
                 }
+                if (payload[i].out_office_name == "경조휴가") {
+                    payload[i].img = "~/images/icon/c_vacation.png"
+                }
+                if (payload[i].out_office_name == "교육") {
+                    payload[i].img = "~/images/icon/education.png"
+                }
+                if (payload[i].out_office_name == "출장") {
+                    payload[i].img = "~/images/icon/business_trip.png"
+                }
                 if (payload[i].out_office_name == "공적휴가(종일)") {
                     payload[i].img = "~/images/icon/p_vacation_day.png"
+                }
+                if (payload[i].out_office_name == "공적휴가(오전)") {
+                    payload[i].img = "~/images/icon/p_vacation_morning.png"
+                }
+                if (payload[i].out_office_name == "공적휴가(오후)") {
+                    payload[i].img = "~/images/icon/p_vacation_afternoon.png"
                 }
                 if (payload[i].out_office_name == "휴일근무") {
                     payload[i].img = "~/images/icon/holiday_work.png"
@@ -433,7 +448,7 @@ export default new Vuex.Store({
 
         initInOutData: (state) => {
             state.inOutList = [];
-            state.inOutList =[{name : 'No Data'}]
+            state.inOutList =[{text : 'No Data'}]
         }
     },
     actions : { // axios를 사용하여 서버 통신

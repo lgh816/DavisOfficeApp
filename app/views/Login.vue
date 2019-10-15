@@ -2,38 +2,39 @@
     <Page actionBarHidden="true">
         <FlexboxLayout class="page">
             <StackLayout class="form">
-                
-                <Label class="logoTitle" text="YES Office Plus"/>
-                <Image class="logo" src="~/images/login/login_img.png"></Image>
-                
-                <StackLayout row="0" class="input-field inputArea">
-                    <StackLayout orientation="horizontal">
-                        <Image class="loginIcon" src="~/images/login/loginId.png"></Image>
-                        <TextField class="input" keyboardType="number" hint="ID" v-model="user.userId" @tap="initErrorMsg"></TextField>
-                    </StackLayout>
-                    <StackLayout class="hr-light"></StackLayout>
-                </StackLayout>
 
-                <StackLayout row="1" class="input-field inputArea">
-                    <StackLayout orientation="horizontal">
-                        <Image class="loginIcon" src="~/images/login/loginPw.png"></Image>
-                        <TextField class="input" secure="true" hint="PASSWORD" v-model="user.userPassword" @tap="initErrorMsg"></TextField>
+                <GridLayout rows="auto, auto, auto, auto, auto, auto">
+                    <Label row="0" class="logoTitle" text="YES Office Plus"/>
+                    <Image row="1" class="logo" src="~/images/login/login_img.png"></Image>
+                    
+                    <StackLayout row="2" class="input-field inputArea">
+                        <StackLayout orientation="horizontal">
+                            <Image class="loginIcon" src="~/images/login/loginId.png"></Image>
+                            <TextField class="input" keyboardType="number" hint="ID" v-model="user.userId" @tap="initErrorMsg"></TextField>
+                        </StackLayout>
+                        <StackLayout class="hr-light"></StackLayout>
                     </StackLayout>
-                    <StackLayout class="hr-light"></StackLayout>
-                </StackLayout>
-                
-                <!-- <Label :v-show="this.$store.state.failMsgFlag" class="fa icon" text.decode="&#xf071;"></Label> -->
-                <Label :v-show="this.$store.state.failMsgFlag" :text="this.$store.state.failMsg" class="errorMsgTxt"></Label>
 
-                <StackLayout row="2" class="input-field loginBtnMargintTop">
-                    <StackLayout orientation="horizontal" class="loginBtnCenter">
-                        <Button text="Login" @tap="submit()" class="btn btn-primary loginBtn"></Button>
+                    <StackLayout row="3" class="input-field inputArea">
+                        <StackLayout orientation="horizontal">
+                            <Image class="loginIcon" src="~/images/login/loginPw.png"></Image>
+                            <TextField class="input" secure="true" hint="PASSWORD" v-model="user.userPassword" @tap="initErrorMsg"></TextField>
+                        </StackLayout>
+                        <StackLayout class="hr-light"></StackLayout>
                     </StackLayout>
-                </StackLayout>
+                    
+                    <!-- <Label :v-show="this.$store.state.failMsgFlag" class="fa icon" text.decode="&#xf071;"></Label> -->
+                    <Label row="4" :v-show="this.$store.state.failMsgFlag" :text="this.$store.state.failMsg" class="errorMsgTxt"></Label>
 
+                    <StackLayout row="5" class="input-field loginBtnMargintTop">
+                        <StackLayout orientation="horizontal" class="loginBtnCenter">
+                            <Button text="Login" @tap="submit()" class="btn btn-primary loginBtn"></Button>
+                        </StackLayout>
+                    </StackLayout>
+                    <ActivityIndicator rowSpan="6" class="loadingStyle" :busy="processing"></ActivityIndicator>
+                </GridLayout>
 
             </StackLayout>
-
         </FlexboxLayout>
     </Page>
 </template>
@@ -46,8 +47,9 @@
             return {
                 user: {
                     userId: '',
-                    userPassword: ''
-                }
+                    userPassword: '',
+                },
+                processing: false
             };
         },
         methods: {
@@ -66,8 +68,9 @@
                 param.id = userId,
                 param.password = hashPassword,
                 param.isAttend = false
-
+                this.processing = true;
                 this.$store.dispatch("loginAction", {user: param, initPassword : false}).then((res) => {
+                    this.processing = false;
                     if (res) {
                         this.$store.dispatch("getHolidayList", { year : year });
                         this.$navigateTo(

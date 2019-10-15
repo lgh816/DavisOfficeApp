@@ -59,7 +59,7 @@
 .detailContent {
     font-size: 14;
     padding-right: 15;
-    padding-top: 3;
+    /* padding-top: 3; */
 }
 
 .borderContents{
@@ -157,6 +157,26 @@
 .firstDetailInfo {
     margin-top: 10;
 }
+
+/*=============== No Data Style =============*/
+.nodataMsg {
+    vertical-align: center;
+    text-align: center;
+    margin-top: 45%;
+    font-size: 20;
+    color: #333333;
+}
+
+.loadingStyle {
+    color: rgba(255, 255, 255, 0.719);
+    margin: 100;
+}
+
+.pageLoadingStyle {
+    color: rgba(87, 144, 230, 0.61);
+    margin: 100;
+}
+
 /* Action bar*/
 ActionBar .action-bar-title {
     horizontal-align: center;
