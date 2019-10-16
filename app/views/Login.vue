@@ -43,6 +43,10 @@
     import CryptoJS from 'crypto-js/sha256';
     
     export default {
+        mounted() {
+            console.log("Application Version = "+this.$AppVersion);
+        },
+
         data() {
             return {
                 user: {
@@ -68,9 +72,9 @@
                 param.id = userId,
                 param.password = hashPassword,
                 param.isAttend = false
-                this.processing = true;
+                // this.processing = true;
                 this.$store.dispatch("loginAction", {user: param, initPassword : false}).then((res) => {
-                    this.processing = false;
+                    // this.processing = false;
                     if (res) {
                         this.$store.dispatch("getHolidayList", { year : year });
                         this.$navigateTo(
