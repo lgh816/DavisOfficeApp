@@ -75,8 +75,8 @@
             <StackLayout class="hr-light popupLine"></StackLayout>
 
             <StackLayout orientation="horizontal" class="buttonArea">
-                <Button class="btn btn-outline" text="상신" @tap="approvalSubmit" />
-                <Button class="btn btn-outline" text="취소" @tap="$modal.close()" />
+                <Button class="btn btn-outline approvalBottomBtn" text="상신" @tap="approvalSubmit" />
+                <Button class="btn btn-outline approvalBottomCancel" text="취소" @tap="$modal.close()" />
             </StackLayout>
         </StackLayout>
     </ScrollView>
@@ -91,11 +91,12 @@
             this.$store.commit('initApprovalPopup');
             var param = {};
             param.year = this.year;
-            this.$store.dispatch('getApprovalPopupData', param)
-            this.$store.state.approvalData.start_date = this.$moment(new Date()).format('YYYY-MM-DD');
-            this.$store.state.approvalData.end_date = this.$moment(new Date()).format('YYYY-MM-DD');
-            this.$store.state.approvalData.start_time = this.$moment(new Date()).format('HH:mm');
-            this.$store.state.approvalData.end_time = this.$moment(new Date()).format('HH:mm');
+            this.$store.dispatch('getApprovalPopupData', param).then((res) => {
+                this.$store.state.approvalData.start_date = this.$moment(new Date()).format('YYYY-MM-DD');
+                this.$store.state.approvalData.end_date = this.$moment(new Date()).format('YYYY-MM-DD');
+                this.$store.state.approvalData.start_time = this.$moment(new Date()).format('HH:mm');
+                this.$store.state.approvalData.end_time = this.$moment(new Date()).format('HH:mm');
+            })
         },
 
         components : {
@@ -360,5 +361,19 @@
 
     .arrowIcon {
         color: yellow;
+    }
+
+    .approvalBottomBtn {
+        /* background-color: #425582;
+        color: #ffffff; */
+        width: 46%;
+        margin-left: 0;
+        margin-right: 5;
+    }
+
+    .approvalBottomCancel {
+        width: 46%;
+        margin-left: 14;
+        margin-right: 0;
     }
 </style>

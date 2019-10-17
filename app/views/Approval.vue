@@ -19,7 +19,7 @@
                         :date="this.toDay" />
                 </StackLayout>
 
-                <Button text="상신" @tap="showApprovalPopup"/>
+                <Button class="approvalBtn" text="상신" @tap="showApprovalPopup"/>
                 <!-- <PullToRefresh @refresh="refreshList"> -->
                     <ListView for="item in listOfItems" separatorColor="transparent" class="itemList">
                         <v-template>
@@ -106,5 +106,8 @@
 </script>
 
 <style scoped>
-
+    .approvalBtn {
+        background-color: #425582;
+        color: white;
+    }
 </style>
