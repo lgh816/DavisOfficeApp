@@ -126,6 +126,7 @@
                         this.$store.dispatch('cancelApprovalProcess', {doc_num : docNum, stateVal : stateVal}).then((res) => {
                             if (res.success) {
                                 alert( {message : resultMsg, title : "알림", cancelable : true, okButtonText : '닫기'} ).then(() => {
+                                    this.$store.dispatch('getApprovalData');
                                     this.$modal.close();
                                 })
                             }

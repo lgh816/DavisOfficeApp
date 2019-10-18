@@ -33,6 +33,8 @@ export default new Vuex.Store({
         leftDateArea : true,
         requestDateArea : true,
         outOfficePicker : false,
+        approvalFromDay : '',
+        approvalToDay : '',
         approvalData : {
             day_count : 1,
             decide_comment : '',
@@ -521,8 +523,11 @@ export default new Vuex.Store({
         },
 
         // ======================= 결재 현황 =========================
-        getApprovalData: ({ state, commit }, payload) => {
-            return axios.get(state.mobileUrl + '/mobile/approval/list', { params : payload }).then((res) => {
+        getApprovalData: ({ state, commit }) => {
+            var param = {};
+            param.startDate = state.approvalFromDay;
+            param.endDate = state.approvalToDay;
+            return axios.get(state.mobileUrl + '/mobile/approval/list', { params : param }).then((res) => {
                 var result = res.data.length;
                 if (result > 0) {
                     commit('setApprovalData', res.data);

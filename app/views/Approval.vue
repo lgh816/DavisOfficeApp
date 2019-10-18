@@ -21,7 +21,7 @@
 
                 <Button class="approvalBtn" text="상신" @tap="showApprovalPopup"/>
                 <!-- <PullToRefresh @refresh="refreshList"> -->
-                    <ListView for="item in listOfItems" separatorColor="transparent" class="itemList">
+                    <ListView for="item in this.$store.state.approvalAllList" separatorColor="transparent" class="itemList">
                         <v-template>
                             <ApprovalListComp :item="item"/>
                         </v-template>
@@ -41,20 +41,14 @@
     export default {
         mounted(){
             SelectedPageService.getInstance().updateSelectedPage("Approval");
-            var param = {};
-            /* param.startDate = "2019-08-01";
-            param.endDate = "2020-07-30"; */
+            /* var param = {};
             param.startDate = this.fromDay;
-            param.endDate = this.toDay;
-            this.searchData(param);
-            /* this.$store.dispatch('getApprovalData', param).then((res) => {
-                this.listOfItems = this.$store.state.approvalAllList;
-            }) */
+            param.endDate = this.toDay; */
+            this.$store.state.approvalFromDay = this.fromDay;
+            this.$store.state.approvalToDay = this.toDay;
+            this.searchData();
         },
 
-        computed : {
-        
-        },
 
         components : {
             ApprovalListComp,
@@ -65,14 +59,16 @@
             return {
                 listOfItems: [],
                 toDay: this.$moment(new Date()).add(+1, 'year').format('YYYY-MM-DD'),
-                fromDay : this.$moment(new Date()).add(-1, 'month').startOf('month').format("YYYY-MM-DD"),
+                fromDay : this.$moment(new Date()).add(-1, 'month').startOf('month').format("YYYY-MM-DD")
+                /* toDay: this.$moment(new Date()).add(+1, 'year').format('YYYY-MM-DD'),
+                fromDay : this.$moment(new Date()).add(-1, 'month').startOf('month').format("YYYY-MM-DD") */
             }
         },
 
         methods : {
-            searchData(param) {
-                this.$store.dispatch('getApprovalData', param).then((res) => {
-                    this.listOfItems = this.$store.state.approvalAllList;
+            searchData() {
+                this.$store.dispatch('getApprovalData').then((res) => {
+                    // this.listOfItems = this.$store.state.approvalAllList;
                 })
             },
 
@@ -83,19 +79,23 @@
             onToDateChange(args) {
                 const changedDate = this.$moment(args.value).format('YYYY-MM-DD');
                 this.fromDay = changedDate;
-                const param = {};
+                /* const param = {};
                 param.startDate = this.fromDay;
-                param.endDate = this.toDay;
-                this.searchData(param);
+                param.endDate = this.toDay; */
+                this.$store.state.approvalFromDay = this.fromDay;
+                this.$store.state.approvalToDay = this.toDay;
+                this.searchData();
             },
 
             onFromDateChange(args) {
                 const changedDate = this.$moment(args.value).format('YYYY-MM-DD');
                 this.toDay = changedDate;
-                const param = {};
+                /* const param = {};
                 param.startDate = this.fromDay;
-                param.endDate = this.toDay;
-                this.searchData(param);
+                param.endDate = this.toDay; */
+                this.$store.state.approvalFromDay = this.fromDay;
+                this.$store.state.approvalToDay = this.toDay;
+                this.searchData();
             },
 
             showApprovalPopup() {

@@ -176,6 +176,8 @@
                         msg = res.msg;
                     }
                     alert( {message : msg, title : "알림", cancelable : true, okButtonText : '닫기'} ).then(() => {
+                        // this.$EventBus.$emit('ApprovalSuccess');
+                        this.$store.dispatch("getApprovalData");
                         this.$modal.close();
                     })
                 });
