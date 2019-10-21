@@ -68,9 +68,7 @@
             <StackLayout class="hr-light popupLine"></StackLayout>
 
             <Label class="subTitle" text="결재자" />
-            <TextView class="decisionGubun" editable="false">
-                <Span :text="$store.state.approvalManager" />
-            </TextView>
+            <Label class="decisionGubun decisinStyle" :text="$store.state.approvalManager"/>
 
             <StackLayout class="hr-light popupLine"></StackLayout>
 
@@ -323,7 +321,12 @@
     .decisionGubun {
         background-color: #425582;
         color: white;
-        padding-left: 10;
+        
+    }
+
+    .decisinStyle {
+        font-size: 18;
+        padding: 10;
     }
 
     .gubunStyle {

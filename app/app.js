@@ -7,7 +7,6 @@ import VueMomentJS from "vue-momentjs";
 import DateTimePicker from "nativescript-datetimepicker/vue";
 import Store from '~/store/store'
 // import application from 'tns-core-modules/application';
-import * as appversion from "nativescript-appversion";
 
 // import QRCodeGeneratore from "nativescript-zxing/";
 
@@ -26,13 +25,9 @@ Vue.config.silent = (TNS_ENV === 'production');
 // Set up routes as a prototype to use throuhout the app.
 
 // Vue.prototype.$hostInfo = 'https://office.yescnc.co.kr';
-Vue.prototype.$hostInfo = 'http://200.100.1.140:8081';
+// Vue.prototype.$hostInfo = 'http://200.100.1.140:8081';
 Vue.prototype.$routes = routes;
 Vue.prototype.$store = Store;
-
-appversion.getVersionName().then((version) => {
-  Vue.prototype.$AppVersion = version;
-});
 
 new Vue({
   render (h) {
@@ -44,9 +39,4 @@ new Vue({
       ]
     )
   }
-  // store : Store
 }).$start();
-
-/* application.on(application.exitEvent, (args) => {
-  console.log(args);
-}) */

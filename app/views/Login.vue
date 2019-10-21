@@ -24,7 +24,7 @@
                     </StackLayout>
                     
                     <!-- <Label :v-show="this.$store.state.failMsgFlag" class="fa icon" text.decode="&#xf071;"></Label> -->
-                    <Label row="4" :v-show="this.$store.state.failMsgFlag" :text="this.$store.state.failMsg" class="errorMsgTxt"></Label>
+                    <!-- <Label row="4" :v-show="this.$store.state.failMsgFlag" :text="this.$store.state.failMsg" class="errorMsgTxt"></Label> -->
 
                     <StackLayout row="5" class="input-field loginBtnMargintTop">
                         <StackLayout orientation="horizontal" class="loginBtnCenter">
@@ -41,10 +41,28 @@
 
 <script>
     import CryptoJS from 'crypto-js/sha256';
-    
+    import * as appversion from "nativescript-appversion";
+
     export default {
-        mounted() {
+        /* mounted() {
             console.log("Application Version = "+this.$AppVersion);
+        }, */
+
+        created() {
+            // ===== 최신 버전 체크 =====
+            // 어플 배포 시 AndroidManifest.xml 파일의
+            // android:versionName="x.x.x" 과 DB의 버전이 일치해야함
+            appversion.getVersionName().then((version) => {
+                console.log("Application Version = "+version);
+                this.$store.dispatch("getApplicationVersion").then((res) => {
+                    if (version != res) {
+                        this.checkVersion = true;
+                        this.updateApp();
+                    } else {
+                        this.checkVersion = false;
+                    }
+                });
+            });
         },
 
         data() {
@@ -53,6 +71,7 @@
                     userId: '',
                     userPassword: '',
                 },
+                checkVersion: false,
                 processing: false
             };
         },
@@ -62,7 +81,20 @@
             // this.$store.getters.xxx = Store - getters의 xxx 호출.
             // this.$store.dispatch("xxx", payload) = Store - actions의 xxx 호출. payload는 파라미터값.
 
+            updateApp() {
+                var messageObj = {
+                    message : "최신버전으로 업데이트 하세요.", 
+                    title : "경고", 
+                    okButtonText : '닫기'
+                };
+                alert(messageObj);
+            },
+
             submit() {
+                if (this.checkVersion) {
+                    this.updateApp();
+                    return;
+                }
                 var param = {};
                 var userPwd = this.user.userPassword;
                 var userId = this.user.userId;
@@ -80,6 +112,21 @@
                         this.$navigateTo(
                             this.$routes.Dashboard, {clearHistory: true}
                         );
+                    } else {
+                        var msg = null;
+                        // DO_NOT_FOUND_USER - 로그인 정보를 입력해주세요.
+                        // NOT_EQULES_PASSWORD - 유효하지 않은 비밀번호 입니다.
+                        if ('DO_NOT_FOUND_USER' == this.$store.state.failMsg) {
+                            msg = '로그인 정보를 입력해주세요.';
+                        } else if ('NOT_EQULES_PASSWORD' == this.$store.state.failMsg) {
+                            msg = '유효하지 않은 비밀번호 입니다.';
+                        }
+                        var messageObj = {
+                            message : msg, 
+                            title : "경고", 
+                            okButtonText : '닫기'
+                        };
+                        alert(messageObj);
                     }
                 });
             },

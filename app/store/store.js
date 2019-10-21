@@ -9,6 +9,7 @@ export default new Vuex.Store({
     state : { // 데이터
         // =================== Login, Logout =========================
         mobileUrl : 'http://200.100.1.140:8081',
+        // mobileUrl : 'https://office.yescnc.co.kr',
         userInfo : {},
         holidayList : [],
         isLogin : false,
@@ -445,6 +446,11 @@ export default new Vuex.Store({
                 text += ' ' + payload[i].name;
                 payload[i].text = text;
             }
+            /* payload.sort(function(a, b) {
+                a = new Date(a.char_date);
+                b = new Date(a.char_date);
+                return a > b ? 1 : a < b ? -1 : 0;
+            }); */
             state.inOutList = payload;
         },
 
@@ -454,6 +460,16 @@ export default new Vuex.Store({
         }
     },
     actions : { // axios를 사용하여 서버 통신
+        // =================== 최신 App 버전 조회 =====================
+        getApplicationVersion: ({ state, commit }) => {
+            return axios.get(state.mobileUrl + '/mobile/mobileVersion').then((res) => {
+                var result = res.data.version;
+                return result;
+            }).catch((res) => {
+                return '';
+            })
+        },
+
         // =================== Login, Logout =========================
         loginAction: ({ state, commit }, payload) => {
             return axios.put(state.mobileUrl + '/mobile', payload).then((res) => {
