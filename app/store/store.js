@@ -9,7 +9,7 @@ export default new Vuex.Store({
     state : { // 데이터
         // =================== Login, Logout =========================
         // mobileUrl : 'http://200.100.1.140:8081',
-        mobileUrl : 'https://office.yescnc.co.kr',
+        mobileUrl : 'http://office.yescnc.co.kr',
         userInfo : {},
         holidayList : [],
         isLogin : false,
