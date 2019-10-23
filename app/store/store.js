@@ -1,6 +1,7 @@
 import Vue from "nativescript-vue";
 import Vuex from "vuex";
 import axios from 'axios';
+import * as Https from 'nativescript-https';
 import * as utils from "~/service/utils/utils";
 
 Vue.use(Vuex);
@@ -8,8 +9,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state : { // 데이터
         // =================== Login, Logout =========================
-        // mobileUrl : 'http://200.100.1.140:8081',
-        mobileUrl : 'http://office.yescnc.co.kr',
+        mobileUrl : 'http://200.100.1.140:8081',
+        // mobileUrl : 'https://office.yescnc.co.kr',
+        // mobileUrl : 'https://1.234.23.69:443',
         userInfo : {},
         holidayList : [],
         isLogin : false,
@@ -211,7 +213,7 @@ export default new Vuex.Store({
             if (state.commuteList.text == 'No Data') {
                 return;
             }
-            const searchResult = _.filter(state.orgCommuteList, { submit_id : payload} );
+            const searchResult = _.filter(state.orgCommuteList, { name : payload} );
             state.commuteList = [];
             if (searchResult.length == 0) {
                 state.commuteList = [{text : 'No Data'}];
@@ -464,10 +466,29 @@ export default new Vuex.Store({
         getApplicationVersion: ({ state, commit }) => {
             return axios.get(state.mobileUrl + '/mobile/mobileVersion').then((res) => {
                 var result = res.data.version;
+                console.log("GET VERSION = "+result);
                 return result;
             }).catch((res) => {
+                console.log("GET VERSION ERROR= "+res);
                 return '';
             })
+
+            /* return Https.request({
+                url : state.mobileUrl + '/mobile/mobileVersion',
+                method : 'GET'
+            }).then(function(response) {
+                console.log("GET VERSION = "+response);
+            }).catch((res) => {
+                console.log("GET VERSION Error = "+res);
+            }) */
+
+            /* HttpModule.getJSON(state.mobileUrl + '/mobile/mobileVersion').then((result) => {
+                // var result = res.data.version;
+                console.log(result)
+                // return result;
+            }, (e) => {
+                return '';
+            }); */
         },
 
         // =================== Login, Logout =========================

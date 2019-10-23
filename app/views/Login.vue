@@ -42,7 +42,9 @@
 <script>
     import CryptoJS from 'crypto-js/sha256';
     import * as appversion from "nativescript-appversion";
-
+    /* import * as Https from 'nativescript-https';
+    import axios from 'axios'; */
+    
     export default {
         /* mounted() {
             console.log("Application Version = "+this.$AppVersion);
@@ -91,6 +93,21 @@
             },
 
             submit() {
+                /* Https.request({
+                    url : 'http://office.yescnc.co.kr/mobile/mobileVersion',
+                    method : 'GET'
+                }).then(function(response) {
+                    console.log("GET VERSION = "+response);
+                }).catch((res) => {
+                    console.log("GET VERSION Error = "+res);
+                })  */
+                /* axios.get('https://office.yescnc.co.kr:80/mobile/mobileVersion').then((res) => {
+                    var result = res.data.version;
+                    console.log("GET VERSION = "+result);
+                }).catch((res) => {
+                    console.log("GET VERSION ERROR= "+res);
+                }) */
+
                 if (this.checkVersion) {
                     this.updateApp();
                     return;
@@ -101,9 +118,9 @@
                 var hashPassword = CryptoJS(userPwd).toString();
                 var year = this.$moment(new Date()).format('YYYY');
 
-                param.id = userId,
-                param.password = hashPassword,
-                param.isAttend = false
+                param.id = userId;
+                param.password = hashPassword;
+                param.isAttend = false;
                 // this.processing = true;
                 this.$store.dispatch("loginAction", {user: param, initPassword : false}).then((res) => {
                     // this.processing = false;
