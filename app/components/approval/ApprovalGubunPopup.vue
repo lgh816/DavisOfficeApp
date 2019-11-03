@@ -65,7 +65,7 @@
         height: 70%;
     } */
     .gubunPopupStyle {
-        width: 70%;
+        width: 80%;
         height: 70%;
     }
     .listItem {

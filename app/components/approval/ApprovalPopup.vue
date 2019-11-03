@@ -279,10 +279,10 @@
 <style lang="css">
     .modalPopup {
         height: 100%;
-        width: 100%;
     }
 
     .popupStyle {
+        width: 100%;
         padding-left: 20;
         padding-right: 20;
     }

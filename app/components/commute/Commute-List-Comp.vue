@@ -8,9 +8,21 @@
 
                     <Label row="1" col="1" v-show="item.text != 'No Data'" class="officeType" horizontalAlignment="left" :text="item.out_office_name"></Label>
                     <Label row="1" col="2" class="detailContent" :text="item.outOfficeTime" horizontalAlignment="right"></Label>
-
+                    
                     <Label row="2" col="1" colSpan="2" class="detailContent" :text="item.memo" horizontalAlignment="left"></Label>
+                    <Label row="2" col="2" text="상세보기" horizontalAlignment="right" class="detailInfo"></Label>
 
+                    <Label row="3" col="0" class="detailTitle firstDetailInfo" text="날짜" :visibility="detailDataVisability"></Label>
+                    <Label row="3" col="1" class="detailContent firstDetailInfo" colSpan="2" horizontalAlignment="right" :text="item.date" :visibility="detailDataVisability"></Label>
+
+                    <Label row="4" col="0" class="detailTitle" text="시작시간" :visibility="detailDataVisability"></Label>
+                    <Label row="4" col="1" class="detailContent" colSpan="2" horizontalAlignment="right" :text="item.start_time" :visibility="detailDataVisability"></Label>
+
+                    <Label row="5" col="0" class="detailTitle" text="종료시간" :visibility="detailDataVisability"></Label>
+                    <Label row="5" col="1" class="detailContent" colSpan="2" horizontalAlignment="right" :text="item.end_time" :visibility="detailDataVisability"></Label>
+
+                    <Label row="6" col="0" class="detailTitle" text="비고" :visibility="detailDataVisability"></Label>
+                    <Label row="6" col="1" class="detailContent" colSpan="2" horizontalAlignment="right" :text="item.memo" :visibility="detailDataVisability"></Label>
                     <!-- 부서 -->
                     <!-- 이름 -->
                     <!-- 근무타입 -->
@@ -46,23 +58,27 @@
 
         data (){
             return {
-                detailDataVisability: 'collapse'
+                detailDataVisability: 'collapse',
+                selectedBtn: null,
+                _expandedId: null
             }
         },
 
         methods : {
-            onHeaderTap: function() { // param : args
-                // const buttonId = args.object.id;
-                if (this.item.text == 'No Data') {
-                    return;
-                }
-                if (this.detailDataVisability == 'visible') {
-                    this.detailDataVisability = 'collapse';
+            onHeaderTap: function(args) {
+                this.selectedBtn = args.object.id;
+                const isCurrentlyExpanded = this.selectedBtn === this._expandedId;
+                if (isCurrentlyExpanded) {
+                    this.expandCollapse(null);
                 } else {
-                    this.detailDataVisability = 'visible'
+                    this.expandCollapse(this.selectedBtn);
                 }
                 this.$refs.scrollView.nativeView.scrollToVerticalOffset(0, false);
-            }
+            },
+            expandCollapse: function(expandId) {
+                this.detailDataVisability = expandId === this.selectedBtn ? 'visible' : 'collapse';
+                this._expandedId = expandId;
+            },
         }
     }
 </script>

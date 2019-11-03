@@ -9,9 +9,10 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state : { // 데이터
         // =================== Login, Logout =========================
-        mobileUrl : 'http://200.100.1.140:8081',
+        // mobileUrl : 'http://200.100.1.140:8081',
         // mobileUrl : 'https://office.yescnc.co.kr',
         // mobileUrl : 'https://1.234.23.69:443',
+        mobileUrl : 'http://200.100.1.209:18443',
         userInfo : {},
         holidayList : [],
         isLogin : false,

@@ -59,6 +59,7 @@
                 this.$store.dispatch("getApplicationVersion").then((res) => {
                     if (version != res) {
                         this.checkVersion = true;
+                        
                         this.updateApp();
                     } else {
                         this.checkVersion = false;
